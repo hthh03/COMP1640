@@ -3,20 +3,25 @@ using WebApplication2.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Lấy connection string từ appsettings.json
-var connectionString = builder.Configuration.GetConnectionString("WebApiDatabase");
-
+// Add DbContext
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(connectionString));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("WebApiDatabase")));
 
 builder.Services.AddControllers();
-builder.Services.AddAuthentication();
-builder.Services.AddAuthorization();
+builder.Services.AddEndpointsApiExplorer();
+//builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-app.UseAuthentication();
+/*if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}*/
+
+app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
