@@ -1,4 +1,6 @@
-﻿namespace WebApplication2.Models
+﻿using LoginDemo.Models;
+
+namespace WebApplication2.Models
 {
     public class Blogs
     {
