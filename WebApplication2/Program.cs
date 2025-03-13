@@ -1,6 +1,6 @@
-﻿using LoginDemo.Data;
+﻿using WebApplication2.Data;
 using Microsoft.EntityFrameworkCore;
-using LoginDemo.Models;
+using WebApplication2.Models;
 using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);

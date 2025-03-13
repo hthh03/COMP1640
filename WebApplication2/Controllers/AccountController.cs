@@ -1,5 +1,5 @@
-﻿using LoginDemo.Models;
-using LoginDemo.ViewModels;
+﻿using WebApplication2.Models;
+using WebApplication2.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

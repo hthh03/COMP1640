@@ -1,0 +1,33 @@
+﻿@model IEnumerable<WebApplication2.ViewModels.BlogViewModel>
+
+@{
+    ViewData["Title"] = "Danh sách Blog";
+}
+
+<div class="container mt-4">
+    <h2>Danh sách Blog</h2>
+
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Tạo Blog mới</a>
+    </p>
+
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Title</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">
+                            @item.UserName (@item.UserRole)
+                        </h6>
+                        <p class="card-text">@item.Description</p>
+                    </div>
+                    <div class="card-footer">
+                        <a asp-action="Details" asp-route-id="@item.BlogId" class="btn btn-info">Xem chi tiết</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,69 @@
+﻿@model WebApplication2.ViewModels.BlogViewModel
+@using System.Security.Claims
+
+@{
+    ViewData["Title"] = Model.Title;
+    var posts = ViewBag.Posts as List<WebApplication2.ViewModels.PostViewModel>;
+    var blogId = ViewBag.BlogId;
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    var isOwner = Model.UserName == User.FindFirstValue(ClaimTypes.Name);
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>@Model.Title</h2>
+            <h6 class="text-muted">Blog của @Model.UserName (@Model.UserRole)</h6>
+            <hr />
+            <p>@Model.Description</p>
+        </div>
+        <div class="col-md-4 text-right">
+            @if (User.Identity.IsAuthenticated && User.Identity.Name == Model.UserName)
+            {
+                <a asp-action="Edit" asp-route-id="@Model.BlogId" class="btn btn-warning mr-2">Chỉnh sửa Blog</a>
+                <a asp-action="Delete" asp-route-id="@Model.BlogId" class="btn btn-danger">Xóa Blog</a>
+            }
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <h3>Bài viết</h3>
+            @if (User.Identity.IsAuthenticated && User.Identity.Name == Model.UserName)
+            {
+                <p>
+                    <a asp-controller="Post" asp-action="Create" asp-route-blogId="@blogId" class="btn btn-primary">Tạo bài viết mới</a>
+                </p>
+            }
+
+            @if (posts != null && posts.Any())
+            {
+                <div class="list-group">
+                    @foreach (var post in posts)
+                    {
+                        <a asp-controller="Post" asp-action="Details" asp-route-id="@post.PostId" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">@post.Title</h5>
+                                <small>
+                                    @post.CreatedAt.ToString("dd/MM/yyyy HH:mm")
+                                    @if (post.UpdatedAt.HasValue)
+                                    {
+                                        <span>(Cập nhật lúc: @post.UpdatedAt.Value.ToString("dd/MM/yyyy HH:mm"))</span>
+                                    }
+                                </small>
+                            </div>
+                        </a>
+                    }
+                </div>
+            }
+            else
+            {
+                <p class="alert alert-info">Chưa có bài viết nào trong blog này.</p>
+            }
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a asp-action="Index" class="btn btn-secondary">Quay lại danh sách</a>
+    </div>
+</div>
