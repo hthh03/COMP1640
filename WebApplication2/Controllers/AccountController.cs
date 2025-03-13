@@ -1,5 +1,6 @@
 ﻿using LoginDemo.Models;
 using LoginDemo.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -21,6 +22,7 @@ namespace LoginDemo.Controllers
         }
 
         // Hiển thị trang đăng nhập
+     
         public IActionResult Login()
         {
             return View();
