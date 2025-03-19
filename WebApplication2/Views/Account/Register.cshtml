@@ -6,53 +6,72 @@
     Layout = "~/Views/Shared/_AccountLayout.cshtml";
 }
 
-<div class="account-container d-flex justify-content-center align-items-center min-vh-100">
-    <div class="account-box shadow-lg p-5 rounded-4 bg-white" style="max-width: 400px; width: 100%;">
-        <h2 class="text-center mb-4 fw-bold text-primary">Register</h2>
+<div class="d-flex justify-content-center align-items-center min-vh-100" 
+style="background: linear-gradient(to right, #f6d365, #fda085); position: relative;">
+
+    <!-- Icon left -->
+    <img src="~/image/saly3.png" asp-append-version="true" class="position-absolute start-0 top-50 translate-middle-y d-none d-md-block d-lg-block"
+         style="width: 300px; height: 300px;" alt="Left Icon">
+
+    <!-- Icon right -->
+    <img src="~/image/saly2.png" asp-append-version="true"
+         class="position-absolute end-0 top-50 translate-middle-y d-none d-md-block"
+         style="width: 350px; height: 350px; z-index: 0;" alt="Right Icon">
+
+    <div class="account-box shadow-lg p-4 rounded-4 bg-white text-center"
+         style="max-width: 400px; width: 100%; z-index: 1;">
+        <h2 class="fw-bold text-dark fs-4">Welcome to Educatory</h2>
+        <h3 class="fw-bold fs-5 mb-3" style="color: #ff8c00;">Register</h3>
+
         <form asp-action="Register" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger mb-3 text-center"></div>
 
             <!-- Name Field -->
-            <div class="mb-4">
-                <label asp-for="Name" class="form-label fw-medium text-dark">Full Name</label>
-                <div class="input-group">
-                    <span class="input-group-text bg-light"><i class="bi bi-person-fill"></i></span>
-                    <input asp-for="Name" class="form-control shadow-sm" placeholder="Enter your full name" />
+            <div class="mb-3 text-start">
+                <div class="position-relative">
+                    <input asp-for="Name" class="form-control rounded-pill shadow-ssm"
+                           style="font-size: 14px; border: 1px solid #ccc;" placeholder="Full Name" required />
+                    <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
-                <span asp-validation-for="Name" class="text-danger"></span>
             </div>
 
             <!-- Email Field -->
-            <div class="mb-4">
-                <label asp-for="Email" class="form-label fw-medium text-dark">Email</label>
-                <div class="input-group">
-                    <span class="input-group-text bg-light"><i class="bi bi-envelope-fill"></i></span>
-                    <input asp-for="Email" class="form-control shadow-sm" placeholder="Enter your email" />
+            <div class="mb-3 text-start">
+                <div class="position-relative">
+                    <input asp-for="Email" type="email" class="form-control rounded-pill shadow-sm"
+                           style="font-size: 14px; border: 1px solid #ccc;" placeholder="Email address" required />
+                    <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
-                <span asp-validation-for="Email" class="text-danger"></span>
             </div>
 
             <!-- Password Field -->
-            <div class="mb-4">
-                <label asp-for="Password" class="form-label fw-medium text-dark">Password</label>
-                <div class="input-group">
-                    <span class="input-group-text bg-light"><i class="bi bi-lock-fill"></i></span>
-                    <input asp-for="Password" class="form-control shadow-sm" placeholder="Enter your password" />
+            <div class="mb-3 text-start">
+                <div class="position-relative">
+                    <input asp-for="Password" type="password" id="password" class="form-control rounded-pill shadow-sm"
+                           placeholder="Password" style="font-size: 14px; border: 1px solid #ccc;" required/>
+                    <span class="position-absolute end-0 top-50 translate-middle-y me-3" 
+                    onclick="togglePassword('password', 'toggleIcon1')" style="cursor: pointer;">
+                        <i id="toggleIcon1" class="bi bi-eye-slash"></i>
+                    </span>
                 </div>
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
 
             <!-- Confirm Password Field -->
-            <div class="mb-4">
-                <label asp-for="ConfirmPassword" class="form-label fw-medium text-dark">Confirm Password</label>
-                <div class="input-group">
-                    <span class="input-group-text bg-light"><i class="bi bi-lock-fill"></i></span>
-                    <input asp-for="ConfirmPassword" class="form-control shadow-sm" placeholder="Confirm your password" />
+            <div class="mb-3 text-start">
+                <div class="position-relative">
+                    <input asp-for="ConfirmPassword" type="password" id="confirmPassword" class="form-control rounded-pill shadow-sm"
+                           placeholder="Confirm Password" style="font-size: 14px; border: 1px solid #ccc;" required />
+                    <span class="position-absolute end-0 top-50 translate-middle-y me-3" 
+                    onclick="togglePassword('confirmPassword', 'toggleIcon2')" style="cursor: pointer;">
+                        <i id="toggleIcon2" class="bi bi-eye-slash"></i>
+                    </span>
                 </div>
                 <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
             </div>
+
             <!-- Role Selection -->
-            <div class="mb-4">
+            <div class="mb-3 text-start">
                 <label asp-for="Role" class="form-label fw-medium text-dark">Select Role</label>
                 <div class="input-group">
                     <span class="input-group-text bg-light"><i class="bi bi-people-fill"></i></span>
@@ -67,18 +86,20 @@
 
 
             <!-- Submit Button -->
-            <button type="submit" class="btn btn-primary w-100 p-3 fw-bold rounded-pill shadow-sm">Register</button>
+            <button type="submit" class="btn w-100 p-2 fw-bold rounded-pill shadow-sm" style="background-color: #ff8c00; color: white;">
+                Sign Up
+            </button>
 
             <!-- Login Link -->
-            <p class="text-center mt-4 text-dark">
-                Already have an account?
-                <a asp-controller="Account" asp-action="Login" class="text-decoration-none fw-medium text-primary">Login now</a>
+            <p class="mt-3 text-dark"> Have an account?
+                <a asp-controller="Account" asp-action="Login" class="text-decoration-none fw-medium" style="color: #ff8c00;"> Sign In</a>
             </p>
 
-            <!-- Back Link -->
+            <!-- Return Home -->
             <div class="text-center mt-3">
-                <a asp-controller="Home" asp-action="Index" class="text-decoration-none text-muted">Back to Home</a>
+                <a href="/" class="btn btn-light btn-sm rounded-pill px-4 py-2 shadow-sm border">Back to Home</a>
             </div>
+
         </form>
     </div>
 </div>
@@ -87,4 +108,17 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial.cshtml");
     }
+    <script>
+        function togglePassword(inputId, iconId) {
+            var input = document.getElementById(inputId);
+            var icon = document.getElementById(iconId);
+             if (input.type === "password") {
+                input.type = "text";
+                icon.classList.replace("bi-eye-slash", "bi-eye");
+            } else {
+                input.type = "password";
+                icon.classList.replace("bi-eye", "bi-eye-slash");
+            }
+        }
+    </script>
 }

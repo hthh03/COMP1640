@@ -6,31 +6,44 @@
     Layout = "~/Views/Shared/_AccountLayout.cshtml";
 }
 
-<div class="account-container d-flex justify-content-center align-items-center min-vh-100">
-    <div class="account-box shadow-lg p-5 rounded-4 bg-white" style="max-width: 400px; width: 100%;">
-        <h2 class="text-center mb-4 fw-bold text-primary">Verify Email</h2>
+<div class="d-flex justify-content-center align-items-center min-vh-100" style="background: linear-gradient(to right, #f6d365, #fda085); position: relative;">
+
+    <!-- Icon left -->
+    <img src="~/image/saly3.png" asp-append-version="true" class="position-absolute start-0 top-50 translate-middle-y d-none d-md-block d-lg-block"
+         style="width: 300px; height: 300px;" alt="Left Icon">
+
+    <!-- Icon right -->
+    <img src="~/image/saly2.png" asp-append-version="true"
+         class="position-absolute end-0 top-50 translate-middle-y d-none d-md-block"
+         style="width: 350px; height: 350px; z-index: 0;" alt="Right Icon">
+
+    <div class="account-box shadow-lg p-4 rounded-4 bg-white text-center"
+         style="max-width: 400px; width: 100%; z-index: 1;">
+        <h2 class="fw-bold text-dark fs-4">Welcome to Educatory</h2>
+        <h3 class="fw-bold fs-5 mb-3" style="color: #ff8c00;">Verify Email</h3>
+
         <form asp-action="VerifyEmail" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger mb-3 text-center"></div>
 
             <!-- Email Field -->
-            <div class="mb-4">
-                <label asp-for="Email" class="form-label fw-medium text-dark">Email</label>
-                <div class="input-group">
-                    <span class="input-group-text bg-light"><i class="bi bi-envelope-fill"></i></span>
-                    <input asp-for="Email" class="form-control shadow-sm" placeholder="Enter your email" />
+            <div class="mb-3 text-start">
+                <div class="position-relative">
+                    <input asp-for="Email" type="email" class="form-control rounded-pill shadow-sm"
+                           style="font-size: 14px; border: 1px solid #ccc;" placeholder="Enter your email" required />
                 </div>
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
 
             <!-- Submit Button -->
-            <button type="submit" class="btn btn-primary w-100 p-3 fw-bold rounded-pill shadow-sm" id="verifyButton">
-                <span class="button-text">Verify Email</span>
+            <button type="submit" class="btn w-100 p-2 fw-bold rounded-pill shadow-sm d-flex align-items-center justify-content-center"
+                    style="background-color: #ff8c00; color: white;" id="verifyButton">
+                <span class="button-text me-2">Verify Email</span>
                 <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
             </button>
 
             <!-- Back Link -->
-            <div class="text-center mt-4">
-                <a asp-controller="Home" asp-action="Index" class="text-decoration-none text-muted">Back to Home</a>
+            <div class="text-center mt-3">
+                <a href="/Account/Login" class="btn btn-light btn-sm rounded-pill px-4 py-2 shadow-sm border">Back to Home</a>
             </div>
         </form>
     </div>
