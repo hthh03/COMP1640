@@ -15,9 +15,10 @@ namespace WebApplication2.Models
         public string Content { get; set; }
 
         [Required]
-        public DateTime CreatedAt { get; set; }
 
-        public DateTime? UpdatedAt { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;  // Mặc định là UTC NOW
+
+        public DateTime? UpdatedAt { get; set; } = DateTime.UtcNow;  // Mặc định là UTC NOW
 
         [Required]
         public int BlogId { get; set; }
