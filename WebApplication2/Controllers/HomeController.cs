@@ -1,4 +1,4 @@
-using LoginDemo.Models;
+﻿using LoginDemo.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -16,9 +16,13 @@ namespace LoginDemo.Controllers
 
         public IActionResult Index()
         {
-            return View();
-        }
 
+            if (User.Identity.IsAuthenticated)
+            {
+                return View("IndexLogged"); // Trang cho người đã đăng nhập
+            }
+            return View("Index"); // Trang cho khách
+        }
         [Authorize]
 
         public IActionResult Privacy()
