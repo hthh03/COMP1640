@@ -5,11 +5,9 @@ using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 // Cấu hình DbContext
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("WebApiDatabase")));
-
 
 // Cấu hình Identity
 builder.Services.AddIdentity<Users, IdentityRole>(options =>
@@ -92,8 +90,11 @@ using (var scope = app.Services.CreateScope())
 }
 
 // Cấu hình định tuyến
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=GetStarted}/{id?}");
+});
 
 app.Run();

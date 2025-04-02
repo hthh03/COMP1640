@@ -1,49 +1,82 @@
 ﻿@model WebApplication2.Models.Blog
-
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Chỉnh Sửa Bài Viết";
 }
 
-<h1>Edit</h1>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg border-0" style="border-top: 4px solid #FF7F50;">
+                <div class="card-header bg-soft-orange text-center py-4">
+                    <h1 class="card-title text-dark mb-0" style="color: #FF7F50;">Chỉnh Sửa Bài Viết</h1>
+                </div>
+                <div class="card-body p-4">
+                    <form asp-action="Edit">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="BlogId" />
 
-<h4>Blog</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="BlogId" />
-            <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
+                        <div class="form-group mb-3">
+                            <label asp-for="Title" class="form-label text-dark"></label>
+                            <input asp-for="Title" class="form-control form-control-lg"
+                                   style="border-color: #FF7F50; focus-border-color: #FF7F50;"
+                                   placeholder="Nhập tiêu đề bài viết" />
+                            <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Description" class="form-label text-dark"></label>
+                            <textarea asp-for="Description" class="form-control form-control-lg"
+                                      style="border-color: #FF7F50; focus-border-color: #FF7F50;"
+                                      rows="4"
+                                      placeholder="Mô tả ngắn về bài viết"></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="CreatedAt" class="form-label text-dark"></label>
+                            <input asp-for="CreatedAt" class="form-control form-control-lg"
+                                   style="border-color: #FF7F50; focus-border-color: #FF7F50;"
+                                   type="datetime-local" />
+                            <span asp-validation-for="CreatedAt" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label asp-for="UserId" class="form-label text-dark"></label>
+                            <select asp-for="UserId" class="form-select form-select-lg"
+                                    style="border-color: #FF7F50; focus-border-color: #FF7F50;"
+                                    asp-items="ViewBag.UserId">
+                                <option value="">Chọn người dùng</option>
+                            </select>
+                            <span asp-validation-for="UserId" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a asp-action="Index" class="btn btn-outline-secondary">
+                                <i class="fas fa-arrow-left me-2"></i>Quay lại
+                            </a>
+                            <button type="submit" class="btn btn-primary" style="background-color: #FF7F50; border-color: #FF7F50;">
+                                <i class="fas fa-save me-2"></i>Lưu Thay Đổi
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CreatedAt" class="control-label"></label>
-                <input asp-for="CreatedAt" class="form-control" />
-                <span asp-validation-for="CreatedAt" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
-                <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId"></select>
-                <span asp-validation-for="UserId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <style>
+        .bg-soft-orange {
+            background-color: rgba(255, 127, 80, 0.1);
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: #FF7F50;
+            box-shadow: 0 0 0 0.2rem rgba(255, 127, 80, 0.25);
+        }
+    </style>
 }

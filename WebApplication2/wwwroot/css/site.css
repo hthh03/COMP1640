@@ -17,3 +17,7 @@ body {
 footer {
     margin-top: auto;
 }
+
+.navbar-brand{
+    color: orangered;
+}

@@ -1,53 +1,90 @@
 ﻿@model IEnumerable<WebApplication2.Models.Blog>
-
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Blog Posts";
 }
 
-<h1>Index</h1>
+<div class="container-fluid px-4 py-5">
+    <div class="row mb-4 align-items-center">
+        <div class="col">
+            <h1 class="display-6 mb-0" style="color: #FF7F50;">Blog Posts</h1>
+        </div>
+        <div class="col-auto">
+            <a asp-action="Create" class="btn btn-primary" style="background-color: #FF7F50; border-color: #FF7F50;">
+                <i class="fas fa-plus-circle me-2"></i>Create New Post
+            </a>
+        </div>
+    </div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedAt)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.User)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedAt)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.Id)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.BlogId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.BlogId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.BlogId">Delete</a>
-            </td>
-        </tr>
+    <div class="card shadow-lg border-0" style="border-top: 4px solid #FF7F50;">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead class="table-light" style="background-color: rgba(255, 127, 80, 0.1);">
+                        <tr>
+                            <th class="text-dark">Title</th>
+                            <th class="text-dark">Description</th>
+                            <th class="text-dark">Created At</th>
+                            <th class="text-dark">User</th>
+                            <th class="text-end text-dark">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Title</td>
+                                <td>
+                                    @(item.Description.Length > 50
+                                        ? item.Description.Substring(0, 50) + "..."
+                                        : item.Description)
+                                </td>
+                                <td>@item.CreatedAt.ToString("dd/MM/yyyy HH:mm")</td>
+                                <td>@item.User.Id</td>
+                                <td class="text-end">
+                                    <div class="btn-group" role="group">
+                                        <a asp-action="Edit" asp-route-id="@item.BlogId"
+                                           class="btn btn-sm btn-outline-primary me-1">
+                                            <i class="fas fa-edit me-1"></i>Edit
+                                        </a>
+                                        <a asp-action="Details" asp-route-id="@item.BlogId"
+                                           class="btn btn-sm btn-outline-info me-1">
+                                            <i class="fas fa-eye me-1"></i>Details
+                                        </a>
+                                        <a asp-action="Delete" asp-route-id="@item.BlogId"
+                                           class="btn btn-sm btn-outline-danger">
+                                            <i class="fas fa-trash me-1"></i>Delete
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            @if (!Model.Any())
+            {
+                <div class="text-center py-4">
+                    <p class="text-muted">No blog posts available. Create your first post!</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <style>
+        .table-hover tbody tr:hover {
+            background-color: rgba(255, 127, 80, 0.05);
+        }
+
+        .btn-group .btn {
+            transition: all 0.3s ease;
+        }
+
+            .btn-group .btn:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            }
+    </style>
 }
-    </tbody>
-</table>

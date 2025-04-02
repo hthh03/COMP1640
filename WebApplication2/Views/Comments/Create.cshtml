@@ -1,49 +1,186 @@
 ﻿@model WebApplication2.Models.Comment
-
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create Comment";
 }
 
-<h1>Create</h1>
+<style>
+    /* Main color variables */
+    :root {
+        --primary-orange: #FF7F24;
+        --secondary-orange: #FFA07A;
+        --light-orange: #FFE4C4;
+        --dark-orange: #D2691E;
+        --text-dark: #333333;
+        --text-light: #ffffff;
+        --light-gray: #f5f5f5;
+    }
 
-<h4>Comment</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Content" class="control-label"></label>
-                <input asp-for="Content" class="form-control" />
-                <span asp-validation-for="Content" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CreatedAt" class="control-label"></label>
-                <input asp-for="CreatedAt" class="form-control" />
-                <span asp-validation-for="CreatedAt" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UpdatedAt" class="control-label"></label>
-                <input asp-for="UpdatedAt" class="form-control" />
-                <span asp-validation-for="UpdatedAt" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PostId" class="control-label"></label>
-                <select asp-for="PostId" class ="form-control" asp-items="ViewBag.PostId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
-                <select asp-for="UserId" class ="form-control" asp-items="ViewBag.UserId"></select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+    .comment-container {
+        max-width: 800px;
+        margin: 30px auto;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+    }
+
+    .comment-header {
+        border-bottom: 3px solid var(--primary-orange);
+        padding-bottom: 15px;
+        margin-bottom: 25px;
+    }
+
+    .comment-title {
+        font-size: 2rem;
+        color: var(--primary-orange);
+        font-weight: 700;
+        margin-bottom: 5px;
+    }
+
+    .comment-subtitle {
+        font-size: 1.2rem;
+        color: var(--dark-orange);
+        font-weight: 500;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .control-label {
+        display: block;
+        font-weight: 600;
+        color: var(--dark-orange);
+        margin-bottom: 8px;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 16px;
+        transition: border-color 0.3s;
+    }
+
+    .form-control:focus {
+        border-color: var(--primary-orange);
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(255, 127, 36, 0.25);
+    }
+
+    textarea.form-control {
+        min-height: 120px;
+        resize: vertical;
+    }
+
+    .text-danger {
+        color: #dc3545;
+        font-size: 0.9rem;
+        margin-top: 5px;
+        display: block;
+    }
+
+    /* Button styles */
+    .btn {
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+    }
+
+    .btn-primary {
+        background-color: var(--primary-orange);
+        color: var(--text-light);
+    }
+
+    .btn-primary:hover {
+        background-color: var(--dark-orange);
+    }
+
+    .btn-secondary {
+        background-color: var(--light-gray);
+        color: var(--text-dark);
+    }
+
+    .btn-secondary:hover {
+        background-color: #e0e0e0;
+    }
+
+    .action-links {
+        margin-top: 25px;
+    }
+
+    .action-links a {
+        color: var(--primary-orange);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s;
+    }
+
+    .action-links a:hover {
+        color: var(--dark-orange);
+        text-decoration: underline;
+    }
+
+
+</style>
+
+<div class="comment-container">
+    <div class="comment-header">
+        <h1 class="comment-title">Create</h1>
+        <p class="comment-subtitle">Comment</p>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+    <div class="row">
+        <div class="col-md-12">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                
+                <div class="form-group">
+                    <label asp-for="Content" class="control-label"></label>
+                    <textarea asp-for="Content" class="form-control"></textarea>
+                    <span asp-validation-for="Content" class="text-danger"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label asp-for="CreatedAt" class="control-label"></label>
+                    <input asp-for="CreatedAt" class="form-control" />
+                    <span asp-validation-for="CreatedAt" class="text-danger"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label asp-for="UpdatedAt" class="control-label"></label>
+                    <input asp-for="UpdatedAt" class="form-control" />
+                    <span asp-validation-for="UpdatedAt" class="text-danger"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label asp-for="PostId" class="control-label"></label>
+                    <select asp-for="PostId" class="form-control" asp-items="ViewBag.PostId"></select>
+                </div>
+                
+                <div class="form-group">
+                    <label asp-for="UserId" class="control-label"></label>
+                    <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId"></select>
+                </div>
+                
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <div class="action-links">
+        <a asp-action="Index">Back to List</a>
+    </div>
 </div>
 
 @section Scripts {

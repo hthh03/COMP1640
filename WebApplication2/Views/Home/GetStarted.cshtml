@@ -1,0 +1,112 @@
+﻿@{
+    ViewData["Title"] = "E-Tutor";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title >E-Tutor</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+        }
+
+      
+
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 50px 5%;
+            background: white;
+        }
+
+            .hero .text {
+                max-width: 50%;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+                margin-bottom: 20px;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+                color: #555;
+                margin-bottom: 20px;
+            }
+
+            .hero .btn {
+                display: inline-block;
+                background: #ff6f00;
+                color: white;
+                padding: 15px 30px;
+                text-decoration: none;
+                border-radius: 5px;
+                font-weight: bold;
+            }
+
+        .categories {
+            padding: 50px 5%;
+            text-align: center;
+        }
+
+            .categories h2 {
+                font-size: 2rem;
+                margin-bottom: 30px;
+            }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .category {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+  
+
+    <section class="hero">
+        <div class="text">
+            <h1>Learn with expert anytime anywhere</h1>
+            <p>Our mission is to help people to find the best course online and learn with expert anytime, anywhere.</p>
+            <a href="Account/Login" class="btn">Create Account</a>
+        </div>
+        <div class="image">
+            <img src="./image/Peer-tutoring.webp" alt="Learning Illustration" width="550" height="auto">
+        </div>
+    </section>
+
+    <section class="categories">
+        <h2>Browse top category</h2>
+        <div class="category-grid">
+            <div class="category" style="background:#e3f2fd">Business</div>
+            <div class="category" style="background:#fbe9e7">Finance & Accounting</div>
+            <div class="category" style="background:#f3e5f5">IT & Software</div>
+            <div class="category" style="background:#e8f5e9">Marketing</div>
+            <div class="category" style="background:#fff3e0">Health & Fitness</div>
+            <div class="category" style="background:#ede7f6">Design</div>
+            <div class="category" style="background:#ede7f6">Python</div>
+            <div class="category" style="background:#ede7f6">C#</div>
+            <div class="category" style="background:#ede7f6">NetWorking</div>
+            <div class="category" style="background:#ede7f6">Asp.net</div>
+        </div>
+    </section>
+</body>
+</html>
