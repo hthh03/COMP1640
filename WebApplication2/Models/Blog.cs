@@ -24,5 +24,7 @@ namespace WebApplication2.Models
         public virtual Users User { get; set; }
 
         public virtual ICollection<Post> Posts { get; set; }
+
+
     }
 }

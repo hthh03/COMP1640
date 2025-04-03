@@ -118,28 +118,34 @@ namespace WebApplication2.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            var existingBlog = await _context.Blogs.FindAsync(id);
+            if (existingBlog == null)
             {
-                try
-                {
-                    _context.Update(blog);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!BlogExists(blog.BlogId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                return NotFound();
             }
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", blog.UserId);
-            return View(blog);
+
+            try
+            {
+                existingBlog.Title = blog.Title;
+                existingBlog.Description = blog.Description;
+                existingBlog.UserId = blog.UserId;
+                existingBlog.CreatedAt = blog.CreatedAt;
+
+                _context.Update(existingBlog);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!BlogExists(blog.BlogId))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Blogs/Delete/5
