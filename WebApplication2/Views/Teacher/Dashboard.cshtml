@@ -1,0 +1,359 @@
+﻿@{
+    ViewData["Title"] = "Teacher Dashboard";
+}
+
+<div class="container-fluid p-0">
+    <div class="row g-0">
+        <!-- Sidebar -->
+        <div class="col-md-2 sidebar" style="background-color: #ffffff; min-height: 100vh; border-right: 1px solid #e0e0e0;">
+            <div class="d-flex align-items-center p-3">
+                <div class="bg-warning rounded p-2 me-2">
+                    <i class="bi bi-mortarboard-fill text-white"></i>
+                </div>
+                <h5 class="mb-0 fw-bold">Teacher Dashboard</h5>
+            </div>
+
+            <div class="list-group list-group-flush">
+                <a href="#" class="list-group-item list-group-item-action active" style="background-color: #f8a01c; border: none;">
+                    <i class="bi bi-grid me-2"></i> Dashboard
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">
+                    <i class="bi bi-plus-circle me-2"></i> Create New Course
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">
+                    <i class="bi bi-book me-2"></i> My Courses
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">
+                    <i class="bi bi-chat-left-text me-2"></i> Messages
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">
+                    <i class="bi bi-cash-coin me-2"></i> Earnings
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">
+                    <i class="bi bi-gear me-2"></i> Settings
+                </a>
+            </div>
+
+            <div class="mt-auto p-3">
+                <a href="#" class="btn btn-outline-secondary btn-sm w-100">
+                    <i class="bi bi-box-arrow-left me-2"></i> Log Out
+                </a>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-md-10">
+            <div class="p-4">
+                <!-- Header -->
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div>
+                        <h4 class="mb-0">Hi, Teacher</h4>
+                        <h2 class="fw-bold">Welcome to Educatory!</h2>
+                    </div>
+                    <div class="input-group" style="max-width: 300px;">
+                        <input type="text" class="form-control" placeholder="Search">
+                        <button class="btn btn-outline-secondary" type="button">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body d-flex align-items-center">
+                                <div class="rounded-circle p-3 me-3" style="background-color: rgba(255, 159, 67, 0.1);">
+                                    <i class="bi bi-journal-text text-warning"></i>
+                                </div>
+                                <div>
+                                    <h3 class="mb-0 fw-bold">957</h3>
+                                    <p class="text-muted mb-0">Enrolled Courses</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body d-flex align-items-center">
+                                <div class="rounded-circle p-3 me-3" style="background-color: rgba(92, 128, 246, 0.1);">
+                                    <i class="bi bi-play-circle text-primary"></i>
+                                </div>
+                                <div>
+                                    <h3 class="mb-0 fw-bold">19</h3>
+                                    <p class="text-muted mb-0">Active Courses</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body d-flex align-items-center">
+                                <div class="rounded-circle p-3 me-3" style="background-color: rgba(255, 105, 0, 0.1);">
+                                    <i class="bi bi-people text-danger"></i>
+                                </div>
+                                <div>
+                                    <h3 class="mb-0 fw-bold">241</h3>
+                                    <p class="text-muted mb-0">Course Instructors</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body d-flex align-items-center">
+                                <div class="rounded-circle p-3 me-3" style="background-color: rgba(0, 200, 83, 0.1);">
+                                    <i class="bi bi-check-circle text-success"></i>
+                                </div>
+                                <div>
+                                    <h3 class="mb-0 fw-bold">951</h3>
+                                    <p class="text-muted mb-0">Completed Courses</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Course Rating and Overview -->
+                <div class="row mb-4">
+                    <!-- Rating Section -->
+                    <div class="col-md-6">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-header bg-white border-0">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0">Overall Course Rating</h5>
+                                    <span class="text-muted small">This week <i class="bi bi-chevron-down"></i></span>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-4 text-center">
+                                        <h1 class="display-4 fw-bold">4.6</h1>
+                                        <div class="mb-2">
+                                            <i class="bi bi-star-fill text-warning"></i>
+                                            <i class="bi bi-star-fill text-warning"></i>
+                                            <i class="bi bi-star-fill text-warning"></i>
+                                            <i class="bi bi-star-fill text-warning"></i>
+                                            <i class="bi bi-star-half text-warning"></i>
+                                        </div>
+                                        <p class="text-muted small">Overall Rating</p>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="mb-1">
+                                            <div class="d-flex align-items-center mb-1">
+                                                <div class="me-2">
+                                                    <i class="bi bi-star-fill text-warning"></i>
+                                                    <i class="bi bi-star-fill text-warning"></i>
+                                                    <i class="bi bi-star-fill text-warning"></i>
+                                                    <i class="bi bi-star-fill text-warning"></i>
+                                                    <i class="bi bi-star-fill text-warning"></i>
+                                                </div>
+                                                <div class="progress flex-grow-1" style="height: 5px;">
+                                                    <div class="progress-bar bg-warning" style="width: 55%;"></div>
+                                                </div>
+                                                <span class="ms-2">55%</span>
+                                            </div>
+                                            <div class="d-flex align-items-center mb-1">
+                                                <div class="me-2">
+                                                    <i class="bi bi-star-fill text-warning"></i>
+                                                    <i class="bi bi-star-fill text-warning"></i>
+                                                    <i class="bi bi-star-fill text-warning"></i>
+                                                    <i class="bi bi-star-fill text-warning"></i>
+                                                    <i class="bi bi-star text-warning"></i>
+                                                </div>
+                                                <div class="progress flex-grow-1" style="height: 5px;">
+                                                    <div class="progress-bar bg-warning" style="width: 37%;"></div>
+                                                </div>
+                                                <span class="ms-2">37%</span>
+                                            </div>
+                                            <div class="d-flex align-items-center mb-1">
+                                                <div class="me-2">
+                                                    <i class="bi bi-star-fill text-warning"></i>
+                                                    <i class="bi bi-star-fill text-warning"></i>
+                                                    <i class="bi bi-star-fill text-warning"></i>
+                                                    <i class="bi bi-star text-warning"></i>
+                                                    <i class="bi bi-star text-warning"></i>
+                                                </div>
+                                                <div class="progress flex-grow-1" style="height: 5px;">
+                                                    <div class="progress-bar bg-warning" style="width: 8%;"></div>
+                                                </div>
+                                                <span class="ms-2">8%</span>
+                                            </div>
+                                            <div class="d-flex align-items-center mb-1">
+                                                <div class="me-2">
+                                                    <i class="bi bi-star-fill text-warning"></i>
+                                                    <i class="bi bi-star-fill text-warning"></i>
+                                                    <i class="bi bi-star text-warning"></i>
+                                                    <i class="bi bi-star text-warning"></i>
+                                                    <i class="bi bi-star text-warning"></i>
+                                                </div>
+                                                <div class="progress flex-grow-1" style="height: 5px;">
+                                                    <div class="progress-bar bg-warning" style="width: 1%;"></div>
+                                                </div>
+                                                <span class="ms-2">1%</span>
+                                            </div>
+                                            <div class="d-flex align-items-center">
+                                                <div class="me-2">
+                                                    <i class="bi bi-star-fill text-warning"></i>
+                                                    <i class="bi bi-star text-warning"></i>
+                                                    <i class="bi bi-star text-warning"></i>
+                                                    <i class="bi bi-star text-warning"></i>
+                                                    <i class="bi bi-star text-warning"></i>
+                                                </div>
+                                                <div class="progress flex-grow-1" style="height: 5px;">
+                                                    <div class="progress-bar bg-warning" style="width: 0.5%;"></div>
+                                                </div>
+                                                <span class="ms-2"><1%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Course Overview -->
+                    <div class="col-md-6">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-header bg-white border-0">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0">Course Overview</h5>
+                                    <span class="text-muted small">This week <i class="bi bi-chevron-down"></i></span>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div style="height: 200px; width: 100%;">
+                                    <!-- Placeholder for chart -->
+                                    <div class="text-center pt-5">
+                                        <p class="text-muted">Graph showing course performance data over time</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity and Revenue -->
+                <div class="row">
+                    <!-- Recent Activity -->
+                    <div class="col-md-6">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-header bg-white border-0">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0">Recent Activity</h5>
+                                    <div class="dropdown">
+                                        <button class="btn btn-sm btn-light dropdown-toggle" type="button" id="activityDropdown" data-bs-toggle="dropdown">
+                                            Today <i class="bi bi-chevron-down"></i>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="#">Today</a></li>
+                                            <li><a class="dropdown-item" href="#">Yesterday</a></li>
+                                            <li><a class="dropdown-item" href="#">Last Week</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="activity-item d-flex mb-3">
+                                    <div class="bg-danger rounded-circle p-2 me-3" style="height: 40px; width: 40px;">
+                                        <i class="bi bi-chat-left-text text-white"></i>
+                                    </div>
+                                    <div>
+                                        <p class="mb-1"><strong>Kevin</strong> comments on your lecture "What is UI" in "2021 UX/UI design with Figma"</p>
+                                        <small class="text-muted">Just now</small>
+                                    </div>
+                                </div>
+                                <div class="activity-item d-flex mb-3">
+                                    <div class="bg-primary rounded-circle p-2 me-3" style="height: 40px; width: 40px;">
+                                        <i class="bi bi-star-fill text-white"></i>
+                                    </div>
+                                    <div>
+                                        <p class="mb-1"><strong>John</strong> gave a 5 star rating on your course "2021 UX/UI design with Figma"</p>
+                                        <small class="text-muted">2 hours ago</small>
+                                    </div>
+                                </div>
+                                <div class="activity-item d-flex mb-3">
+                                    <div class="bg-success rounded-circle p-2 me-3" style="height: 40px; width: 40px;">
+                                        <i class="bi bi-cart-check text-white"></i>
+                                    </div>
+                                    <div>
+                                        <p class="mb-1"><strong>Student</strong> purchased your course "2021 UX/UI design with Figma"</p>
+                                        <small class="text-muted">5 hours ago</small>
+                                    </div>
+                                </div>
+                                <div class="activity-item d-flex">
+                                    <div class="bg-warning rounded-circle p-2 me-3" style="height: 40px; width: 40px;">
+                                        <i class="bi bi-cart-check text-white"></i>
+                                    </div>
+                                    <div>
+                                        <p class="mb-1"><strong>AJ</strong> purchased your course "2021 UX/UI design with Figma"</p>
+                                        <small class="text-muted">Yesterday</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Revenue -->
+                    <div class="col-md-6">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-header bg-white border-0">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0">Revenue</h5>
+                                    <div class="dropdown">
+                                        <button class="btn btn-sm btn-light dropdown-toggle" type="button" id="revenueDropdown" data-bs-toggle="dropdown">
+                                            This month <i class="bi bi-chevron-down"></i>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="#">This Month</a></li>
+                                            <li><a class="dropdown-item" href="#">Last Month</a></li>
+                                            <li><a class="dropdown-item" href="#">Last 3 Months</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div style="height: 200px; width: 100%;">
+                                            <!-- Placeholder for revenue line chart -->
+                                            <div class="text-center pt-5">
+                                                <p class="text-muted">Revenue trend line graph</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div style="height: 200px; width: 100%;">
+                                            <!-- Placeholder for bar chart -->
+                                            <div class="text-center pt-5">
+                                                <p class="text-muted">Revenue bar chart</p>
+                                            </div>
+                                        </div>
+                                        <div class="text-center mt-3">
+                                            <h4 class="fw-bold">$7,443</h4>
+                                            <p class="text-muted small">1,161 today you earned</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <!-- Include Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+
+    <!-- Bootstrap JS (Optional) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Add any additional JavaScript or chart libraries here -->
+    <script>
+        // You can add JavaScript for your charts here
+        // For example, using Chart.js or other libraries
+    </script>
+}
