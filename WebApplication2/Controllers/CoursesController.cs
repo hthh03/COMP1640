@@ -19,14 +19,12 @@ public class CoursesController : Controller
         _userManager = userManager;
     }
 
-    // Danh sách tất cả khóa học
     public async Task<IActionResult> Index()
     {
         var courses = await _context.Courses.Include(c => c.Teacher).ToListAsync();
         return View(courses);
     }
 
-    // Tạo khóa học (chỉ dành cho giáo viên)
     [Authorize(Roles = "Teacher")]
     public IActionResult Create()
     {
@@ -46,7 +44,6 @@ public class CoursesController : Controller
         return RedirectToAction(nameof(Index));
     }
 
-    // Học sinh tham gia khóa học
     [Authorize(Roles = "Student")]
     public async Task<IActionResult> Join(int id)
     {
@@ -56,16 +53,29 @@ public class CoursesController : Controller
         var course = await _context.Courses.FindAsync(id);
         if (course == null) return NotFound();
 
-        var studentCourse = new StudentCourse
-        {
-            StudentId = student.Id,
-            CourseId = course.Id
-        };
+        // Kiểm tra xem sinh viên đã tham gia khóa học chưa
+        var existingEnrollment = await _context.StudentCourses
+            .FirstOrDefaultAsync(sc => sc.StudentId == student.Id && sc.CourseId == id);
 
-        _context.StudentCourses.Add(studentCourse);
-        await _context.SaveChangesAsync();
+        if (existingEnrollment == null)
+        {
+            var studentCourse = new StudentCourse
+            {
+                StudentId = student.Id,
+                CourseId = course.Id
+            };
+
+            _context.StudentCourses.Add(studentCourse);
+            await _context.SaveChangesAsync();
+        }
+        else
+        {
+            TempData["Message"] = "You have already joined this course.";
+        }
+
         return RedirectToAction(nameof(Index));
     }
+
     public async Task<IActionResult> Details(int id)
     {
         var course = await _context.Courses
@@ -74,12 +84,57 @@ public class CoursesController : Controller
             .ThenInclude(sc => sc.Student)
             .FirstOrDefaultAsync(c => c.Id == id);
 
-        if (course == null)
-        {
-            return NotFound();
-        }
+        if (course == null) return NotFound();
 
         return View(course);
     }
 
+    [Authorize(Roles = "Teacher")]
+    public async Task<IActionResult> Edit(int id)
+    {
+        var course = await _context.Courses.FindAsync(id);
+        if (course == null) return NotFound();
+
+        return View(course);
+    }
+
+    [Authorize(Roles = "Teacher")]
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit(int id, Course updatedCourse)
+    {
+        if (id != updatedCourse.Id) return BadRequest();
+
+        var course = await _context.Courses.FindAsync(id);
+        if (course == null) return NotFound();
+
+        course.Name = updatedCourse.Name;
+        course.Description = updatedCourse.Description;
+
+        try
+        {
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            return StatusCode(500, "Lỗi khi cập nhật khóa học.");
+        }
+    }
+
+    [Authorize(Roles = "Teacher")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var course = await _context.Courses
+            .Include(c => c.StudentCourses)
+            .FirstOrDefaultAsync(c => c.Id == id);
+
+        if (course == null) return NotFound();
+
+        _context.StudentCourses.RemoveRange(course.StudentCourses);
+        _context.Courses.Remove(course);
+
+        await _context.SaveChangesAsync();
+        return RedirectToAction(nameof(Index));
+    }
 }
