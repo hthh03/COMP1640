@@ -1,48 +1,470 @@
 ﻿@model WebApplication2.Models.Comment
-
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Chi tiết Bình luận";
 }
 
-<h1>Details</h1>
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-<div>
-    <h4>Comment</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Content)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Content)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreatedAt)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreatedAt)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UpdatedAt)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UpdatedAt)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Post)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Post.Content)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.User)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.User.Id)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.CommentId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<style>
+    /* Main color variables */
+    :root {
+        --primary-orange: #FF7F24;
+        --secondary-orange: #FFA07A;
+        --light-orange: #FFE4C4;
+        --dark-orange: #D2691E;
+        --text-dark: #333333;
+        --text-light: #ffffff;
+        --light-gray: #f5f5f5;
+        --accent-color: #45B8AC;
+        --gradient-bg: linear-gradient(135deg, var(--light-orange) 0%, #ffffff 100%);
+    }
+
+    body {
+        background-color: var(--light-gray);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    .comment-container {
+        max-width: 900px;
+        margin: 30px auto;
+        background-color: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(210, 105, 30, 0.2);
+        padding: 25px;
+        position: relative;
+        overflow: hidden;
+    }
+
+        .comment-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, var(--primary-orange), var(--secondary-orange));
+        }
+
+        .comment-container::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 150px;
+            height: 150px;
+            background: var(--light-orange);
+            opacity: 0.2;
+            border-radius: 50% 0 0 0;
+            z-index: 0;
+        }
+
+    .page-title {
+        font-size: 2.2rem;
+        color: var(--dark-orange);
+        font-weight: 700;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+    }
+
+        .page-title i {
+            margin-right: 12px;
+            color: var(--primary-orange);
+        }
+
+    .content-title {
+        font-size: 1.5rem;
+        color: var(--dark-orange);
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        position: relative;
+        padding-bottom: 10px;
+    }
+
+        .content-title i {
+            margin-right: 10px;
+            color: var(--primary-orange);
+        }
+
+        .content-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background: var(--secondary-orange);
+            border-radius: 3px;
+        }
+
+    .comment-details {
+        background: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        margin-bottom: 30px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .detail-row {
+        display: flex;
+        border-bottom: 1px solid #f0f0f0;
+        transition: all 0.3s ease;
+    }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .detail-row:hover {
+            background-color: rgba(255, 245, 238, 0.5);
+        }
+
+    .detail-label {
+        width: 180px;
+        padding: 16px 20px;
+        background-color: rgba(255, 245, 238, 0.7);
+        font-weight: 600;
+        color: var(--dark-orange);
+        display: flex;
+        align-items: center;
+        border-right: 2px solid #f0f0f0;
+    }
+
+        .detail-label i {
+            margin-right: 10px;
+            color: var(--primary-orange);
+            font-size: 1.1rem;
+            width: 24px;
+            text-align: center;
+        }
+
+    .detail-value {
+        flex-grow: 1;
+        padding: 16px 20px;
+        color: var(--text-dark);
+    }
+
+    .comment-content {
+        background-color: var(--gradient-bg);
+        border-radius: 12px;
+        padding: 20px;
+        margin-top: 10px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        position: relative;
+        border-left: 4px solid var(--secondary-orange);
+        line-height: 1.6;
+        font-size: 1.05rem;
+    }
+
+        .comment-content::before {
+            content: '\f10d';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 1rem;
+            color: var(--primary-orange);
+            opacity: 0.2;
+        }
+
+        .comment-content::after {
+            content: '\f10e';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 1rem;
+            color: var(--primary-orange);
+            opacity: 0.2;
+        }
+
+    .actions {
+        display: flex;
+        gap: 12px;
+        margin-top: 25px;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        position: relative;
+        z-index: 1;
+    }
+
+    .btn {
+        padding: 12px 24px;
+        border-radius: 30px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        font-size: 1rem;
+    }
+
+        .btn i {
+            margin-right: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .btn:hover i {
+            transform: translateX(-3px);
+        }
+
+    .btn-primary {
+        background-color: var(--primary-orange);
+        color: var(--text-light);
+        min-width: 120px;
+    }
+
+        .btn-primary:hover {
+            background-color: var(--dark-orange);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(210, 105, 30, 0.3);
+        }
+
+    .btn-secondary {
+        background-color: var(--light-gray);
+        color: var(--text-dark);
+        border: 1px solid #ddd;
+        min-width: 120px;
+    }
+
+        .btn-secondary:hover {
+            background-color: #e6e6e6;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+
+    .btn-danger {
+        background-color: #e74c3c;
+        color: var(--text-light);
+        min-width: 120px;
+    }
+
+        .btn-danger:hover {
+            background-color: #c0392b;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(231, 76, 60, 0.3);
+        }
+
+    .user-badge {
+        display: inline-flex;
+        align-items: center;
+        background-color: var(--light-orange);
+        padding: 8px 15px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--dark-orange);
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        transition: all 0.3s ease;
+    }
+
+        .user-badge i {
+            margin-right: 8px;
+            color: var(--primary-orange);
+        }
+
+        .user-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background-color: var(--secondary-orange);
+            color: white;
+        }
+
+            .user-badge:hover i {
+                color: white;
+            }
+
+    .timestamp {
+        display: inline-flex;
+        align-items: center;
+        color: #777;
+        font-size: 0.9rem;
+        margin-top: 5px;
+    }
+
+        .timestamp i {
+            margin-right: 5px;
+            color: var(--secondary-orange);
+        }
+
+    .linked-item {
+        display: inline-flex;
+        align-items: center;
+        background-color: rgba(255, 245, 238, 0.7);
+        padding: 8px 15px;
+        border-radius: 6px;
+        margin-top: 5px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        transition: all 0.3s ease;
+        text-decoration: none;
+        color: var(--dark-orange);
+    }
+
+        .linked-item i {
+            margin-right: 8px;
+            color: var(--primary-orange);
+        }
+
+        .linked-item:hover {
+            background-color: var(--light-orange);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+    /* Responsive styles */
+    @media (max-width: 768px) {
+        .comment-container
+
+    {
+        margin: 20px 15px;
+        padding: 20px;
+    }
+
+    .page-title {
+        font-size: 1.8rem;
+    }
+
+    .content-title {
+        font-size: 1.3rem;
+    }
+
+    .detail-row {
+        flex-direction: column;
+    }
+
+    .detail-label {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #f0f0f0;
+        padding: 12px 15px;
+    }
+
+    .detail-value {
+        padding: 12px 15px;
+    }
+
+    }
+
+    @media (max-width: 480px) {
+        .comment-container
+
+    {
+        padding: 15px;
+        margin: 15px 10px;
+    }
+
+    .page-title {
+        font-size: 1.6rem;
+    }
+
+    .content-title {
+        font-size: 1.2rem;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        font-size: 0.95rem;
+    }
+
+    }
+</style>
+
+<div class="comment-container">
+    <h1 class="page-title">
+        <i class="far fa-comment-dots"></i> Chi tiết Bình luận
+    </h1>
+
+    <h4 class="content-title">
+        <i class="fas fa-info-circle"></i> Thông tin bình luận
+    </h4>
+
+    <div class="comment-details">
+        <div class="detail-row">
+            <div class="detail-label">
+                <i class="fas fa-comment-alt"></i>
+                Nội dung
+            </div>
+            <div class="detail-value">
+                <div class="comment-content">
+                    @Html.DisplayFor(model => model.Content)
+                </div>
+            </div>
+        </div>
+
+        <div class="detail-row">
+            <div class="detail-label">
+                <i class="far fa-calendar-plus"></i>
+                Ngày tạo
+            </div>
+            <div class="detail-value">
+                <span class="timestamp">
+                    <i class="far fa-clock"></i>
+                    @Html.DisplayFor(model => model.CreatedAt)
+                </span>
+            </div>
+        </div>
+
+        <div class="detail-row">
+            <div class="detail-label">
+                <i class="far fa-calendar-check"></i>
+                Cập nhật lần cuối
+            </div>
+            <div class="detail-value">
+                <span class="timestamp">
+                    <i class="fas fa-history"></i>
+                    @Html.DisplayFor(model => model.UpdatedAt)
+                </span>
+            </div>
+        </div>
+
+        <div class="detail-row">
+            <div class="detail-label">
+                <i class="fas fa-feather-alt"></i>
+                Người bình luận
+            </div>
+            <div class="detail-value">
+                <div class="user-badge">
+                    <i class="fas fa-user-circle"></i>
+                    @Html.DisplayFor(model => model.User.Id)
+                </div>
+            </div>
+        </div>
+
+        <div class="detail-row">
+            <div class="detail-label">
+                <i class="fas fa-file-alt"></i>
+                Bài viết
+            </div>
+            <div class="detail-value">
+                <a href="#" class="linked-item">
+                    <i class="fas fa-link"></i>
+                    @Html.DisplayFor(model => model.Post.Content)
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="actions">
+        <a asp-action="Edit" asp-route-id="@Model?.CommentId" class="btn btn-primary">
+            <i class="fas fa-edit"></i> Chỉnh sửa
+        </a>
+        <a asp-action="Index" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Quay lại
+        </a>
+        <a asp-action="Delete" asp-route-id="@Model?.CommentId" class="btn btn-danger">
+            <i class="fas fa-trash-alt"></i> Xóa
+        </a>
+    </div>
 </div>

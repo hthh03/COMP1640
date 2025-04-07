@@ -1,6 +1,6 @@
 ﻿@model WebApplication2.Models.Blog
 @{
-    ViewData["Title"] = "Blog Details";
+    ViewData["Title"] = "Chi tiết Blog";
 }
 
 <!-- Font Awesome -->
@@ -16,6 +16,7 @@
         --text-dark: #333333;
         --text-light: #ffffff;
         --light-gray: #f5f5f5;
+        --accent-color: #45B8AC;
         --gradient-bg: linear-gradient(135deg, var(--light-orange) 0%, #ffffff 100%);
     }
 
@@ -28,19 +29,35 @@
 
     .blog-container {
         max-width: 900px;
-        margin: 20px auto;
+        margin: 30px auto;
         background-color: #ffffff;
-        border-radius: 12px;
-        box-shadow: 0 8px 20px rgba(210, 105, 30, 0.15);
-        padding: 15px;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(210, 105, 30, 0.2);
+        padding: 25px;
         border-top: 5px solid var(--primary-orange);
+        position: relative;
+        overflow: hidden;
     }
+
+        .blog-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 150px;
+            height: 150px;
+            background: var(--light-orange);
+            opacity: 0.3;
+            border-radius: 0 0 0 100%;
+            z-index: 0;
+        }
 
     .blog-header {
         border-bottom: 2px solid var(--light-orange);
-        padding-bottom: 15px;
-        margin-bottom: 20px;
+        padding-bottom: 20px;
+        margin-bottom: 25px;
         position: relative;
+        z-index: 1;
     }
 
         .blog-header:after {
@@ -48,76 +65,110 @@
             position: absolute;
             bottom: -2px;
             left: 0;
-            width: 80px;
-            height: 2px;
+            width: 100px;
+            height: 3px;
             background-color: var(--primary-orange);
+            border-radius: 3px;
+            transition: width 0.3s ease;
         }
 
+    .blog-container:hover .blog-header:after {
+        width: 150px;
+    }
+
     .blog-title {
-        font-size: 1.8rem;
+        font-size: 2.2rem;
         color: var(--dark-orange);
         font-weight: 700;
-        margin-bottom: 10px;
+        margin-bottom: 15px;
         display: flex;
         align-items: center;
         flex-wrap: wrap;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+        line-height: 1.3;
     }
 
         .blog-title i {
-            margin-right: 10px;
+            margin-right: 12px;
             color: var(--primary-orange);
+            transform: rotate(-5deg);
+            transition: transform 0.3s ease;
         }
+
+    .blog-container:hover .blog-title i {
+        transform: rotate(0deg) scale(1.1);
+    }
+
+    .blog-meta {
+        background-color: rgba(255, 245, 238, 0.7);
+        border-radius: 12px;
+        padding: 15px;
+        margin-bottom: 20px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.03);
+        border-left: 4px solid var(--secondary-orange);
+    }
 
     .blog-info {
         display: flex;
         flex-wrap: wrap;
-        gap: 10px;
-        margin-bottom: 20px;
+        gap: 12px;
+        margin-bottom: 0;
     }
 
     .info-item {
         display: flex;
         align-items: center;
         background-color: var(--light-orange);
-        padding: 8px 12px;
-        border-radius: 20px;
+        padding: 10px 16px;
+        border-radius: 25px;
         transition: all 0.3s ease;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        font-size: 0.9rem;
+        box-shadow: 0 3px 8px rgba(0,0,0,0.07);
+        font-size: 0.95rem;
     }
 
         .info-item:hover {
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            transform: translateY(-2px);
+            box-shadow: 0 5px 12px rgba(0,0,0,0.12);
+            transform: translateY(-3px);
+            background-color: var(--secondary-orange);
+            color: white;
         }
+
+            .info-item:hover .info-label,
+            .info-item:hover .info-value {
+                color: white;
+            }
 
     .info-label {
         font-weight: 600;
         color: var(--dark-orange);
-        margin-right: 6px;
+        margin-right: 8px;
         display: flex;
         align-items: center;
+        transition: all 0.3s ease;
     }
 
         .info-label i {
-            margin-right: 6px;
+            margin-right: 8px;
+            font-size: 1rem;
         }
 
     .info-value {
         color: var(--text-dark);
+        transition: all 0.3s ease;
     }
 
     .blog-description {
-        font-size: 1rem;
+        font-size: 1.1rem;
         font-style: italic;
         color: #555;
-        padding: 15px;
+        padding: 20px;
         background: var(--gradient-bg);
-        border-radius: 8px;
-        margin-bottom: 20px;
-        box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        border-radius: 12px;
+        margin-bottom: 25px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.07);
         position: relative;
-        border-left: 3px solid var(--primary-orange);
+        border-left: 4px solid var(--primary-orange);
+        line-height: 1.7;
     }
 
         .blog-description:before {
@@ -125,45 +176,143 @@
             font-family: 'Font Awesome 6 Free';
             font-weight: 900;
             position: absolute;
-            top: 8px;
-            left: 10px;
-            font-size: 0.7rem;
+            top: 12px;
+            left: 15px;
+            font-size: 1rem;
             color: var(--primary-orange);
             opacity: 0.3;
         }
 
+        .blog-description:after {
+            content: '\f10e';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            bottom: 12px;
+            right: 15px;
+            font-size: 1rem;
+            color: var(--primary-orange);
+            opacity: 0.3;
+        }
+
+    /* Tags styling */
+    .tags-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin: 20px 0;
+    }
+
+    .tag {
+        background-color: var(--light-orange);
+        color: var(--dark-orange);
+        padding: 8px 15px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        display: inline-flex;
+        align-items: center;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+        .tag i {
+            margin-right: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .tag:hover {
+            background-color: var(--secondary-orange);
+            color: var(--text-light);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 10px rgba(210, 105, 30, 0.2);
+        }
+
+            .tag:hover i {
+                transform: rotate(15deg);
+            }
+
     .blog-content {
-        line-height: 1.7;
-        font-size: 1rem;
+        line-height: 1.8;
+        font-size: 1.05rem;
         color: var(--text-dark);
-        margin-bottom: 20px;
+        margin-bottom: 30px;
         padding: 5px;
+        position: relative;
+        z-index: 1;
     }
 
     .content-placeholder {
-        padding: 15px;
+        padding: 25px;
         background-color: var(--light-gray);
-        border-radius: 6px;
+        border-radius: 12px;
         text-align: center;
-        color: #777;
+        color: #666;
         font-style: italic;
-        border: 1px dashed #ddd;
-        font-size: 0.9rem;
+        border: 2px dashed #ddd;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
     }
+
+        .content-placeholder:hover {
+            border-color: var(--secondary-orange);
+            background-color: rgba(255, 245, 238, 0.8);
+        }
+
+        .content-placeholder i {
+            color: var(--primary-orange);
+            margin-bottom: 15px;
+            transition: transform 0.5s ease;
+            display: block;
+        }
+
+        .content-placeholder:hover i {
+            transform: scale(1.2) rotate(10deg);
+        }
+
+        .content-placeholder::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            width: 60px;
+            height: 60px;
+            background-color: var(--light-orange);
+            border-radius: 50%;
+            opacity: 0.2;
+            z-index: -1;
+        }
+
+        .content-placeholder::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            width: 80px;
+            height: 80px;
+            background-color: var(--light-orange);
+            border-radius: 50%;
+            opacity: 0.2;
+            z-index: -1;
+        }
 
     /* Actions container */
     .actions-container {
         display: flex;
-        gap: 10px;
-        margin-top: 20px;
+        gap: 15px;
+        margin-top: 30px;
         flex-wrap: wrap;
         justify-content: center;
+        position: relative;
+        z-index: 1;
     }
 
     /* Button styles */
     .btn {
-        padding: 10px 20px;
-        border-radius: 25px;
+        padding: 12px 24px;
+        border-radius: 30px;
         cursor: pointer;
         font-weight: 600;
         transition: all 0.3s ease;
@@ -172,9 +321,19 @@
         align-items: center;
         justify-content: center;
         border: none;
-        box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-        font-size: 0.9rem;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        font-size: 1rem;
+        min-width: 140px;
     }
+
+        .btn i {
+            margin-right: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .btn:hover i {
+            transform: translateX(-3px);
+        }
 
     .btn-primary {
         background-color: var(--primary-orange);
@@ -183,173 +342,233 @@
 
         .btn-primary:hover {
             background-color: var(--dark-orange);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(210, 105, 30, 0.3);
         }
 
     .btn-secondary {
         background-color: var(--light-gray);
         color: var(--text-dark);
+        border: 1px solid #ddd;
     }
 
         .btn-secondary:hover {
-            background-color: #e0e0e0;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            background-color: #e6e6e6;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
         }
 
-    /* Tags */
-    .tags-container {
+    .btn-accent {
+        background-color: var(--accent-color);
+        color: var(--text-light);
+    }
+
+        .btn-accent:hover {
+            background-color: #3AA99E;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(69, 184, 172, 0.3);
+        }
+
+    /* Author info */
+    .author-info {
         display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        margin: 15px 0;
+        align-items: center;
+        margin-top: 20px;
+        padding: 15px;
+        background-color: rgba(255, 245, 238, 0.7);
+        border-radius: 12px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+    }
+
+    .author-avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: var(--secondary-orange);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        margin-right: 15px;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    }
+
+    .author-details {
+        flex: 1;
+    }
+
+    .author-name {
+        font-weight: 600;
+        color: var(--dark-orange);
+        margin-bottom: 3px;
+    }
+
+    .author-role {
+        font-size: 0.85rem;
+        color: #777;
+    }
+
+    /* Social sharing */
+    .social-sharing {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        margin-top: 20px;
+    }
+
+    .social-btn {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.2rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    }
+
+        .social-btn.facebook {
+            background-color: #3b5998;
+        }
+
+        .social-btn.twitter {
+            background-color: #1da1f2;
+        }
+
+        .social-btn.linkedin {
+            background-color: #0077b5;
+        }
+
+        .social-btn:hover {
+            transform: translateY(-3px) scale(1.1);
+            box-shadow: 0 5px 12px rgba(0,0,0,0.15);
+        }
+
+    /* Reading time indicator */
+    .reading-time {
+        display: inline-flex;
+        align-items: center;
+        padding: 8px 15px;
+        background-color: var(--light-orange);
+        border-radius: 20px;
+        font-size: 0.9rem;
+        color: var(--dark-orange);
+        margin-bottom: 15px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+        .reading-time i {
+            margin-right: 8px;
+        }
+
+    /* Responsive Design */
+    @@media (max-width: 768px) {
+        .blog-container
+
+    {
+        margin: 20px 15px;
+        padding: 20px;
+    }
+
+    .blog-title {
+        font-size: 1.8rem;
+    }
+
+    }
+
+    @@media (max-width: 576px) {
+        .blog-container
+
+    {
+        margin: 15px;
+        padding: 15px;
+        border-radius: 12px;
+    }
+
+    .blog-title {
+        font-size: 1.6rem;
+    }
+
+        .blog-title i {
+            margin-right: 10px;
+        }
+
+    .blog-header {
+        padding-bottom: 15px;
+        margin-bottom: 20px;
+    }
+
+    .info-item {
+        padding: 8px 12px;
+        font-size: 0.9rem;
+        flex: 1 1 auto;
+    }
+
+    .blog-description {
+        font-size: 1rem;
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+
+    .blog-content {
+        font-size: 1rem;
+    }
+
+    .content-placeholder {
+        padding: 20px 15px;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        font-size: 0.95rem;
+        min-width: 120px;
+    }
+
+    }
+
+    @@media (max-width: 400px) {
+        .blog-container
+
+    {
+        margin: 10px;
+        padding: 12px;
+    }
+
+    .blog-title {
+        font-size: 1.4rem;
+    }
+
+    .info-item {
+        padding: 6px 10px;
+        font-size: 0.85rem;
+        flex: 1 1 100%;
+    }
+
+    .blog-description {
+        font-size: 0.95rem;
+        padding: 12px;
     }
 
     .tag {
-        background-color: var(--light-orange);
-        color: var(--dark-orange);
-        padding: 5px 12px;
-        border-radius: 15px;
-        font-size: 0.8rem;
-        display: inline-flex;
-        align-items: center;
-        transition: all 0.3s ease;
+        padding: 6px 12px;
+        font-size: 0.85rem;
     }
 
-        .tag i {
-            margin-right: 5px;
-            font-size: 0.7rem;
-        }
-
-        .tag:hover {
-            background-color: var(--secondary-orange);
-            color: var(--text-light);
-            transform: translateY(-2px);
-        }
-
-    /* Responsive Design for iPhone 5 (320px) and up */
-    @@media (max-width: 576px) {
-        .blog-container {
-            margin: 10px;
-            padding: 10px;
-        }
-
-        .blog-title {
-            font-size: 1.5rem;
-        }
-
-        .blog-header {
-            padding-bottom: 10px;
-            margin-bottom: 15px;
-        }
-
-        .info-item {
-            padding: 6px 10px;
-            font-size: 0.85rem;
-        }
-
-        .blog-description {
-            font-size: 0.9rem;
-            padding: 10px;
-        }
-
-        .blog-content {
-            font-size: 0.9rem;
-        }
-
-        .btn {
-            padding: 8px 16px;
-            font-size: 0.85rem;
-        }
-
-        .tag {
-            padding: 4px 10px;
-            font-size: 0.75rem;
-        }
+    .btn {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+        min-width: 110px;
     }
 
-    @@media (max-width: 320px) {
-        .blog-container {
-            margin: 5px;
-            padding: 8px;
-            border-radius: 8px;
-        }
+    .social-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 1.1rem;
+    }
 
-        .blog-title {
-            font-size: 1.2rem;
-        }
-
-            .blog-title i {
-                margin-right: 8px;
-                font-size: 1rem;
-            }
-
-        .blog-header:after {
-            width: 60px;
-        }
-
-        .info-item {
-            padding: 5px 8px;
-            font-size: 0.75rem;
-            flex: 1 1 100%;
-        }
-
-        .info-label {
-            margin-right: 4px;
-        }
-
-            .info-label i {
-                margin-right: 4px;
-                font-size: 0.8rem;
-            }
-
-        .blog-description {
-            font-size: 0.85rem;
-            padding: 8px;
-            margin-bottom: 15px;
-        }
-
-        .blog-content {
-            font-size: 0.85rem;
-            padding: 0;
-        }
-
-        .content-placeholder {
-            padding: 10px;
-            font-size: 0.8rem;
-        }
-
-            .content-placeholder i {
-                font-size: 1.5rem;
-                margin-bottom: 10px;
-            }
-
-        .actions-container {
-            gap: 8px;
-            margin-top: 15px;
-        }
-
-        .btn {
-            padding: 6px 12px;
-            font-size: 0.8rem;
-            border-radius: 20px;
-        }
-
-        .tags-container {
-            gap: 6px;
-            margin: 10px 0;
-        }
-
-        .tag {
-            padding: 3px 8px;
-            font-size: 0.7rem;
-        }
-
-            .tag i {
-                margin-right: 4px;
-                font-size: 0.6rem;
-            }
     }
 </style>
 
@@ -359,53 +578,90 @@
             <i class="fas fa-book-open"></i>
             @Model.Title
         </h1>
+
+        <div class="reading-time">
+            <i class="fas fa-clock"></i>
+            <span>5 phút đọc</span>
+        </div>
+    </div>
+
+    <div class="blog-meta">
         <div class="blog-info">
             <div class="info-item">
                 <span class="info-label">
                     <i class="far fa-calendar-alt"></i>
-                    Created:
+                    Ngày đăng:
                 </span>
                 <span class="info-value">@Model.CreatedAt.ToString("MMM dd, yyyy HH:mm")</span>
             </div>
             <div class="info-item">
                 <span class="info-label">
-                    <i class="far fa-user"></i>
-                    Author:
+                    <i class="far fa-eye"></i>
+                    Lượt xem:
                 </span>
-                <span class="info-value">@Model.User.Id.Substring(0, 8)...</span>
+                <span class="info-value">1,234</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">
+                    <i class="far fa-comment"></i>
+                    Bình luận:
+                </span>
+                <span class="info-value">15</span>
             </div>
         </div>
     </div>
 
+    <div class="author-info">
+        <div class="author-avatar">
+            <i class="fas fa-user"></i>
+        </div>
+        <div class="author-details">
+            <div class="author-name">@Model.User.Id.Substring(0, 8)...</div>
+            <div class="author-role">Tác giả</div>
+        </div>
+    </div>
+
     <div class="blog-description">
-        <i class="fas fa-quote-left fa-sm" style="margin-right: 8px; opacity: 0.4;"></i>
         @Model.Description
-        <i class="fas fa-quote-right fa-sm" style="margin-left: 8px; opacity: 0.4;"></i>
     </div>
 
     <div class="tags-container">
         <div class="tag"><i class="fas fa-tag"></i> Blog</div>
-        <div class="tag"><i class="fas fa-tag"></i> Category</div>
-        <div class="tag"><i class="fas fa-tag"></i> News</div>
+        <div class="tag"><i class="fas fa-hashtag"></i> Tin tức</div>
+        <div class="tag"><i class="fas fa-bookmark"></i> Công nghệ</div>
+        <div class="tag"><i class="fas fa-fire"></i> Xu hướng</div>
     </div>
 
     <div class="blog-content">
         <!-- Blog content would go here -->
         <div class="content-placeholder">
-            <i class="fas fa-pen-fancy fa-2x" style="margin-bottom: 15px; color: var(--primary-orange);"></i>
-            <p>This is where the full blog content would be displayed. Currently, the model doesn't have a full content field.</p>
+            <i class="fas fa-pen-fancy fa-2x"></i>
+            <p>Đây là nơi hiển thị nội dung đầy đủ của bài viết. Hiện tại, mô hình không có trường nội dung đầy đủ.</p>
+            <p>Khi có nội dung, phần này sẽ hiển thị văn bản được định dạng đẹp mắt với hình ảnh và các yếu tố đa phương tiện khác.</p>
         </div>
+    </div>
+
+    <div class="social-sharing">
+        <a href="#" class="social-btn facebook">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="#" class="social-btn twitter">
+            <i class="fab fa-twitter"></i>
+        </a>
+        <a href="#" class="social-btn linkedin">
+            <i class="fab fa-linkedin-in"></i>
+        </a>
     </div>
 
     <div class="actions-container">
         <a asp-action="Edit" asp-route-id="@Model?.BlogId" class="btn btn-primary">
-            <i class="fas fa-edit"></i> Edit
+            <i class="fas fa-edit"></i> Chỉnh sửa
         </a>
         <a asp-action="Index" class="btn btn-secondary">
-            <i class="fas fa-arrow-left"></i> Back to List
+            <i class="fas fa-arrow-left"></i> Quay lại
         </a>
-        <a asp-controller="Comments" asp-action="Create" asp-route-blogId="@Model?.BlogId" class="btn btn-primary">
-            <i class="fas fa-comment"></i> Comment
+        <a asp-controller="Comments" asp-action="Create" asp-route-blogId="@Model?.BlogId" class="btn btn-accent">
+            <i class="far fa-comment-dots"></i> Bình luận
         </a>
     </div>
 </div>
