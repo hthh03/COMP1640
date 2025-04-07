@@ -1,46 +1,292 @@
 ﻿@model WebApplication2.Models.Blog
 @{
-    ViewData["Title"] = "Tạo Bài Viết Mới";
+    ViewData["Title"] = "Create New Post";
 }
 
-<div class="container mt-5">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+    :root {
+        --primary-color: #FF7F50;
+        --primary-light: rgba(255, 127, 80, 0.1);
+        --primary-dark: #E86C3A;
+        --primary-shadow: rgba(255, 127, 80, 0.25);
+        --text-dark: #333333;
+        --text-muted: #6c757d;
+        --white: #ffffff;
+        --light-gray: #f8f9fa;
+    }
+
+    body {
+        background-color: #f5f5f5;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .page-header {
+        position: relative;
+        text-align: center;
+        padding-bottom: 15px;
+        margin-bottom: 30px;
+    }
+
+        .page-header:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary-color);
+            border-radius: 3px;
+        }
+
+    .header-icon {
+        font-size: 2.5rem;
+        color: var(--primary-color);
+        margin-bottom: 15px;
+        display: block;
+    }
+
+    .form-card {
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 10px 30```html 30px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+
+        .form-card:hover {
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+            transform: translateY(-5px);
+        }
+
+    .card-decoration {
+        position: absolute;
+        top: -20px;
+        right: -20px;
+        width: 100px;
+        height: 100px;
+        background-color: var(--primary-light);
+        border-radius: 50%;
+        z-index: 0;
+    }
+
+    .card-decoration-2 {
+        position: absolute;
+        bottom: -30px;
+        left: -30px;
+        width: 150px;
+        height: 150px;
+        background-color: var(--primary-light);
+        border-radius: 50%;
+        z-index: 0;
+    }
+
+    .card-header {
+        position: relative;
+        z-index: 1;
+        border-bottom: none;
+        padding: 2rem 0;
+    }
+
+    .card-body {
+        position: relative;
+        z-index: 1;
+        padding: 2rem;
+    }
+
+    .form-control {
+        border: 2px solid #e9ecef;
+        border-radius: 10px;
+        padding: 12px 15px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+    }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem var(--primary-shadow);
+        }
+
+    .form-label {
+        margin-bottom: 0.7rem;
+        font-weight: 600;
+        color: var(--text-dark);
+        display: flex;
+        align-items: center;
+    }
+
+    .label-icon {
+        margin-right: 8px;
+        color: var(--primary-color);
+    }
+
+    .input-group-text {
+        background-color: var(--primary-light);
+        border-color: #e9ecef;
+        color: var(--primary-color);
+    }
+
+    .btn {
+        padding: 12px 24px;
+        border-radius: 10px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .btn-primary {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+    }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            border-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px var(--primary-shadow);
+        }
+
+    .btn-outline-secondary {
+        border-color: #ced4da;
+        color: var(--text-muted);
+    }
+
+        .btn-outline-secondary:hover {
+            background-color: var(--light-gray);
+            color: var(--text-dark);
+            transform: translateY(-2px);
+        }
+
+    .floating-labels .form-floating > label {
+        padding: 0.5rem 0.75rem;
+    }
+
+    .floating-labels .form-floating > .form-control {
+        padding: 1.5rem 0.75rem 0.5rem;
+    }
+
+    .field-hint {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        margin-top: 0.5rem;
+    }
+
+    .character-count {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        text-align: right;
+        margin-top: 5px;
+        display: block;
+    }
+
+    .form-footer {
+        border-top: 1px solid #e9ecef;
+        padding-top: 1.5rem;
+        margin-top: 2rem;
+    }
+
+    .form-check-input:checked {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+    }
+</style>
+
+<div class="container mt-5 mb-5">
     <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card shadow-lg border-0" style="border-top: 4px solid #FF7F50;">
+        <div class="col-lg-8 col-md-10">
+            <div class="page-header">
+                <i class="fas fa-pen-fancy header-icon"></i>
+                <h1 class="fw-bold" style="color: var(--text-dark);">Create New Post</h1>
+            </div>
+
+            <div class="form-card card shadow border-0 position-relative">
+                <div class="card-decoration"></div>
+                <div class="card-decoration-2"></div>
+
                 <div class="card-header bg-soft-orange text-center py-4">
-                    <h1 class="card-title text-dark mb-0" style="color: #FF7F50;">Tạo Bài Viết Mới</h1>
+                    <h2 class="card-title text-dark mb-0 fw-bold" style="color: var(--primary-color);">
+                        <i class="fas fa-file-alt me-2"></i>Post Information
+                    </h2>
                 </div>
+
                 <div class="card-body p-4">
                     <form asp-action="Create">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-4"></div>
 
-                        <div class="form-group mb-3">
-                            <label asp-for="Title" class="form-label text-dark"></label>
-                            <input asp-for="Title" class="form-control form-control-lg"
-                                   style="border-color: #FF7F50; focus-border-color: #FF7F50;"
-                                   placeholder="Nhập tiêu đề bài viết" />
+                        <div class="form-group mb-4">
+                            <label asp-for="Title" class="form-label">
+                                <i class="fas fa-heading label-icon"></i>Title
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="fas fa-pencil-alt"></i>
+                                </span>
+                                <input asp-for="Title" class="form-control form-control-lg"
+                                       placeholder="Enter post title..." maxlength="100" />
+                            </div>
+                            <div class="field-hint">
+                                <i class="fas fa-info-circle me-1"></i>The title should be concise and engaging
+                            </div>
+                            <div class="character-count">
+                                <span id="titleCount">0/100</span> characters
+                            </div>
                             <span asp-validation-for="Title" class="text-danger"></span>
                         </div>
 
                         <div class="form-group mb-4">
-                            <label asp-for="Description" class="form-label text-dark"></label>
-                            <textarea asp-for="Description" class="form-control form-control-lg"
-                                      style="border-color: #FF7F50; focus-border-color: #FF7F50;"
-                                      rows="4"
-                                      placeholder="Mô tả ngắn về bài viết"></textarea>
+                            <label asp-for="Description" class="form-label">
+                                <i class="fas fa-align-left label-icon"></i>Description
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="fas fa-quote-right"></i>
+                                </span>
+                                <textarea asp-for="Description" class="form-control form-control-lg"
+                                          rows="4" placeholder="Short description of the post..." maxlength="1000"></textarea>
+                            </div>
+                            <div class="field-hint">
+                                <i class="fas fa-lightbulb me-1"></i>Summarize the main content of the post
+                            </div>
+                            <div class="character-count">
+                                <span id="descCount">0/1000</span> characters
+                            </div>
                             <span asp-validation-for="Description" class="text-danger"></span>
                         </div>
 
-                        <div class="d-flex justify-content-between align-items-center">
+                        <div class="form-group mb-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="publishNow" checked>
+                                <label class="form-check-label" for="publishNow">
+                                    <i class="fas fa-globe me-2 text-primary"></i>Publish immediately
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-footer d-flex justify-content-between align-items-center">
                             <a asp-action="Index" class="btn btn-outline-secondary">
-                                <i class="fas fa-arrow-left me-2"></i>Quay lại
+                                <i class="fas fa-arrow-left"></i>
+                                <span>Back</span>
                             </a>
-                            <button type="submit" class="btn btn-primary" style="background-color: #FF7F50; border-color: #FF7F50;">
-                                <i class="fas fa-save me-2"></i>Tạo Bài Viết
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-paper-plane"></i>
+                                <span>Publish Post</span>
                             </button>
                         </div>
                     </form>
                 </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <p class="text-muted">
+                    <i class="fas fa-shield-alt me-1"></i>
+                    All posts are reviewed before publication
+                </p>
             </div>
         </div>
     </div>
@@ -50,6 +296,91 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let titleInput = document.querySelector('input[id="Title"]');
+            let descInput = document.querySelector('textarea[id="Description"]');
+            let titleCount = document.getElementById('titleCount');
+            let descCount = document.getElementById('descCount');
+
+            if (!titleInput) titleInput = document.querySelector('input[name="Title"]');
+            if (!descInput) descInput = document.querySelector('textarea[name="Description"]');
+
+            console.log('titleInput:', titleInput);
+            console.log('descInput:', descInput);
+            console.log('titleCount:', titleCount);
+            console.log('descCount:', descCount);
+
+            if (!titleInput || !descInput || !titleCount || !descCount) {
+                console.error('Could not find one or more required elements!');
+                const inputs = document.querySelectorAll('input');
+                const textareas = document.querySelectorAll('textarea');
+
+                console.log('All inputs:', inputs);
+                console.log('All textareas:', textareas);
+
+                if ((!titleInput && inputs.length === 0) || (!descInput && textareas.length === 0)) {
+                    return;
+                }
+
+                if (!titleInput && inputs.length > 0) {
+                    titleInput = inputs[0];
+                }
+
+                if (!descInput && textareas.length > 0) {
+                    descInput = textareas[0];
+                }
+            }
+
+            function updateCount(input, countElement, maxLength) {
+                if (!input || !countElement) return;
+
+                const currentLength = input.value.length;
+                countElement.textContent = `${currentLength}/${maxLength}`;
+
+                if (currentLength >= maxLength) {
+                    countElement.style.color = 'red';
+                } else if (currentLength >= maxLength * 0.8) {
+                    countElement.style.color = 'orange';
+                } else {
+                    countElement.style.color = 'var(--text-muted)';
+                }
+            }
+
+            if (titleInput && titleCount) {
+                titleInput.addEventListener('input', function() {
+                    updateCount(this, titleCount, 100);
+                });
+                updateCount(titleInput, titleCount, 100);
+            }
+
+            if (descInput && descCount) {
+                descInput.addEventListener('input', function() {
+                    updateCount(this, descCount, 1000);
+                });
+                updateCount(descInput, descCount, 1000);
+            }
+
+            const form = document.querySelector('form');
+            if (form) {
+                form.addEventListener('submit', function(event) {
+                    let isValid = true;
+
+                    if (titleInput && titleInput.value.trim() === '') {
+                        isValid = false;
+                    }
+
+                    if (descInput && descInput.value.trim() === '') {
+                        isValid = false;
+                    }
+
+                    if (!isValid) {
+                        event.preventDefault();
+                    }
+                });
+            }
+        });
+    </script>
     <style>
         .bg-soft-orange {
             background-color: rgba(255, 127, 80, 0.1);

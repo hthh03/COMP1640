@@ -3,56 +3,69 @@
     ViewData["Title"] = "Blog Posts";
 }
 
-<div class="container-fluid px-4 py-5">
-    <div class="row mb-4 align-items-center">
-        <div class="col">
-            <h1 class="display-6 mb-0" style="color: #FF7F50;">Blog Posts</h1>
-        </div>
-        <div class="col-auto">
-            <a asp-action="Create" class="btn btn-primary" style="background-color: #FF7F50; border-color: #FF7F50;">
-                <i class="fas fa-plus-circle me-2"></i>Create New Post
-            </a>
+<div class="container-fluid px-2 py-3">
+    <div class="blog-header">
+        <div class="row align-items-center">
+            <div class="col">
+                <h1 class="blog-title mb-0">Blog Posts</h1>
+            </div>
+            <div class="col-auto">
+                <a asp-action="Create" class="btn btn-create">
+                    <i class="fas fa-plus-circle me-1"></i>Create
+                </a>
+            </div>
         </div>
     </div>
 
-    <div class="card shadow-lg border-0" style="border-top: 4px solid #FF7F50;">
-        <div class="card-body p-0">
+    <div class="card">
+        <div class="card-header-bar"></div>
+        <div class="card-body p-0 position-relative">
+            <div class="loading-overlay" style="display: none;">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+
             <div class="table-responsive">
                 <table class="table table-hover mb-0">
-                    <thead class="table-light" style="background-color: rgba(255, 127, 80, 0.1);">
+                    <thead>
                         <tr>
-                            <th class="text-dark">Title</th>
-                            <th class="text-dark">Description</th>
-                            <th class="text-dark">Created At</th>
-                            <th class="text-dark">User</th>
-                            <th class="text-end text-dark">Actions</th>
+                            <th><i class="fas fa-heading me-1"></i> Title</th>
+                            <th><i class="fas fa-align-left me-1"></i> Desc</th>
+                            <th><i class="far fa-calendar-alt me-1"></i> Date</th>
+                            <th><i class="far fa-user me-1"></i> User</th>
+                            <th class="text-end"><i class="fas fa-cogs me-1"></i></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var item in Model)
                         {
                             <tr>
-                                <td>@item.Title</td>
-                                <td>
-                                    @(item.Description.Length > 50
-                                        ? item.Description.Substring(0, 50) + "..."
-                                        : item.Description)
+                                <td class="fw-medium">@item.Title</td>
+                                <td class="description-text">
+                                    @{
+                                        const int maxLength = 15;
+                                        string shortDesc = item.Description.Length > maxLength
+                                        ? item.Description.Substring(0, Math.Min(maxLength, item.Description.LastIndexOf(" ", maxLength) > 0 ? item.Description.LastIndexOf(" ", maxLength) : maxLength)) + "..."
+                                        : item.Description;
+                                    }
+                                    @shortDesc
                                 </td>
-                                <td>@item.CreatedAt.ToString("dd/MM/yyyy HH:mm")</td>
+                                <td><span class="badge-date">@item.CreatedAt.ToString("dd/MM/yy")</span></td>
                                 <td>@item.User.Id</td>
-                                <td class="text-end">
-                                    <div class="btn-group" role="group">
+                                <td class="text-end action-column">
+                                    <div class="btn-group action-buttons" role="group">
                                         <a asp-action="Edit" asp-route-id="@item.BlogId"
-                                           class="btn btn-sm btn-outline-primary me-1">
-                                            <i class="fas fa-edit me-1"></i>Edit
+                                           class="btn action-btn btn-edit me-1">
+                                            <i class="fas fa-edit"></i>
                                         </a>
                                         <a asp-action="Details" asp-route-id="@item.BlogId"
-                                           class="btn btn-sm btn-outline-info me-1">
-                                            <i class="fas fa-eye me-1"></i>Details
+                                           class="btn action-btn btn-details me-1">
+                                            <i class="fas fa-eye"></i>
                                         </a>
                                         <a asp-action="Delete" asp-route-id="@item.BlogId"
-                                           class="btn btn-sm btn-outline-danger">
-                                            <i class="fas fa-trash me-1"></i>Delete
+                                           class="btn action-btn btn-delete">
+                                            <i class="fas fa-trash"></i>
                                         </a>
                                     </div>
                                 </td>
@@ -64,8 +77,31 @@
 
             @if (!Model.Any())
             {
-                <div class="text-center py-4">
-                    <p class="text-muted">No blog posts available. Create your first post!</p>
+                <div class="empty-state">
+                    <i class="fas fa-file-alt mb-2"></i>
+                    <h4>No Posts</h4>
+                    <p class="text-muted">Add your first post!</p>
+                    <a asp-action="Create" class="btn btn-create mt-2">
+                        <i class="fas fa-plus-circle me-1"></i>Create
+                    </a>
+                </div>
+            }
+            else
+            {
+                <div class="pagination-container p-2">
+                    <nav aria-label="Blog posts pagination">
+                        <ul class="pagination justify-content-center mb-0">
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1">Prev</a>
+                            </li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
             }
         </div>
@@ -73,18 +109,301 @@
 </div>
 
 @section Scripts {
-    <style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style type="text/css">
+        :root {
+            --primary-color: #FF7F50;
+            --primary-light: rgba(255, 127, 80, 0.1);
+            --primary-dark: #e66a3e;
+            --text-dark: #2c3e50;
+            --edit-color: #4c75a5;
+            --details-color: #20b2aa;
+            --delete-color: #e74c3c;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            color: var(--text-dark);
+        }
+
+        .blog-header {
+            background-color: white;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.05);
+        }
+
+        .blog-title {
+            color: var(--primary-color);
+            font-weight: 700;
+            font-size: 1.5rem;
+            padding-bottom: 0.3rem;
+            position: relative;
+        }
+
+            .blog-title:after {
+                content: '';
+                position: absolute;
+                width: 50%;
+                height: 3px;
+                bottom: 0;
+                left: 0;
+                background-color: var(--primary-color);
+                border-radius: 2px;
+            }
+
+        .btn-create {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            border-radius: 6px;
+            padding: 0.4rem 0.8rem;
+            font-weight: 600;
+            font-size: 0.85rem;
+            box-shadow: 0 2px 4px rgba(255, 127, 80, 0.2);
+            transition: all 0.3s ease;
+            color: white;
+        }
+
+            .btn-create:hover {
+                background-color: var(--primary-dark);
+                border-color: var(--primary-dark);
+                transform: translateY(-1px);
+                box-shadow: 0 4px 8px rgba(255, 127, 80, 0.3);
+                color: white;
+                text-decoration: none;
+            }
+
+        .card {
+            border-radius: 8px;
+            overflow: hidden;
+            border: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .card-header-bar {
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+        }
+
+        .loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .table th {
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 0.3px;
+            border-top: none;
+            padding: 0.6rem 0.4rem;
+            background-color: var(--primary-light);
+        }
+
+        .table td {
+            padding: 0.6rem 0.4rem;
+            vertical-align: middle;
+            border-color: rgba(0, 0, 0, 0.05);
+            font-size: 0.75rem;
+        }
+
         .table-hover tbody tr:hover {
             background-color: rgba(255, 127, 80, 0.05);
         }
 
-        .btn-group .btn {
+        .action-btn {
+            border-radius: 6px;
+            padding: 0.2rem 0.4rem;
+            font-size: 0.7rem;
+            font-weight: 600;
             transition: all 0.3s ease;
+            border: 1px solid;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-            .btn-group .btn:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        .btn-edit {
+            color: var(--edit-color);
+            border-color: var(--edit-color);
+            background-color: rgba(76, 117, 165, 0.1);
+        }
+
+            .btn-edit:hover {
+                background-color: var(--edit-color);
+                color: white;
+                transform: translateY(-1px);
+                box-shadow: 0 4px 8px rgba(76, 117, 165, 0.3);
+                text-decoration: none;
             }
+
+        .btn-details {
+            color: var(--details-color);
+            border-color: var(--details-color);
+            background-color: rgba(32, 178, 170, 0.1);
+        }
+
+            .btn-details:hover {
+                background-color: var(--details-color);
+                color: white;
+                transform: translateY(-1px);
+                box-shadow: 0 4px 8px rgba(32, 178, 170, 0.3);
+                text-decoration: none;
+            }
+
+        .btn-delete {
+            color: var(--delete-color);
+            border-color: var(--delete-color);
+            background-color: rgba(231, 76, 60, 0.1);
+        }
+
+            .btn-delete:hover {
+                background-color: var(--delete-color);
+                color: white;
+                transform: translateY(-1px);
+                box-shadow: 0 4px 8px rgba(231, 76, 60, 0.3);
+                text-decoration: none;
+            }
+
+        .empty-state {
+            padding: 2rem;
+            text-align: center;
+        }
+
+            .empty-state i {
+                font-size: 2rem;
+                color: var(--primary-color);
+                opacity: 0.5;
+                margin-bottom: 0.5rem;
+            }
+
+        .pagination-container {
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .page-link {
+            color: var(--primary-color);
+            border-radius: 4px;
+            margin: 0 1px;
+            padding: 0.3rem 0.5rem;
+            font-size: 0.7rem;
+        }
+
+        .page-item.active .page-link {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .page-link:hover {
+            background-color: var(--primary-light);
+            border-color: var(--primary-color);
+        }
+
+        .badge-date {
+            background-color: rgba(255, 127, 80, 0.1);
+            color: var(--primary-color);
+            font-weight: 500;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.65rem;
+        }
+
+        .description-text {
+            color: #7f8c8d;
+            font-size: 0.75rem;
+        }
+
+        /* Media Queries */
+        @@media (max-width: 360px) {
+            .container-fluid {
+                padding-left: 0.5rem;
+                padding-right: 0.5rem;
+            }
+
+            .blog-title {
+                font-size: 1.2rem;
+            }
+
+            .btn-create {
+                padding: 0.3rem 0.6rem;
+                font-size: 0.75rem;
+            }
+
+            .table th {
+                font-size: 0.65rem;
+                padding: 0.5rem 0.3rem;
+            }
+
+            .table td {
+                padding: 0.5rem 0.3rem;
+                font-size: 0.7rem;
+            }
+
+            .action-buttons {
+                display: flex;
+                flex-direction: row;
+                gap: 0.2rem;
+            }
+
+            .action-btn {
+                padding: 0.15rem 0.3rem;
+                margin: 0;
+            }
+
+            .badge-date {
+                font-size: 0.6rem;
+            }
+
+            .empty-state {
+                padding: 1.5rem;
+            }
+
+                .empty-state h4 {
+                    font-size: 1rem;
+                }
+
+                .empty-state p {
+                    font-size: 0.8rem;
+                }
+        }
+
+        @@media (max-width: 320px) {
+            .table th, .table td {
+                padding: 0.4rem 0.2rem;
+            }
+
+            .description-text {
+                max-width: 60px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .action-buttons {
+                gap: 0.1rem;
+            }
+
+            .action-btn {
+                padding: 0.1rem 0.2rem;
+            }
+        }
     </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const loadingOverlay = document.querySelector('.loading-overlay');
+            loadingOverlay.style.display = 'flex';
+            setTimeout(() => {
+                loadingOverlay.style.display = 'none';
+            }, 1000);
+        });
+    </script>
 }
