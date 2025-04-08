@@ -32,55 +32,55 @@
 
     .edit-container {
         max-width: 900px;
-        margin: 30px auto;
+        margin: 20px auto;
         background-color: #ffffff;
         border-radius: var(--border-radius);
         box-shadow: var(--box-shadow);
-        padding: 30px;
+        padding: 20px 15px;
         position: relative;
         overflow: hidden;
-        border-top: 5px solid var(--primary-orange);
+        border-top: 4px solid var(--primary-orange);
     }
 
-        .edit-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 150px;
-            height: 150px;
-            background: var(--light-orange);
-            opacity: 0.3;
-            border-radius: 0 0 0 100%;
-            z-index: 0;
-        }
+    .edit-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 120px;
+        height: 120px;
+        background: var(--light-orange);
+        opacity: 0.3;
+        border-radius: 0 0 0 100%;
+        z-index: 0;
+    }
 
     .page-header {
         position: relative;
-        margin-bottom: 30px;
+        margin-bottom: 20px;
         padding-bottom: 15px;
         border-bottom: 2px solid var(--light-orange);
         z-index: 1;
     }
 
-        .page-header:after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 80px;
-            height: 3px;
-            background-color: var(--primary-orange);
-            border-radius: 3px;
-            transition: var(--transition);
-        }
+    .page-header:after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 80px;
+        height: 3px;
+        background-color: var(--primary-orange);
+        border-radius: 3px;
+        transition: var(--transition);
+    }
 
     .edit-container:hover .page-header:after {
         width: 120px;
     }
 
     .page-title {
-        font-size: 2rem;
+        font-size: 1.8rem;
         color: var(--dark-orange);
         font-weight: 700;
         margin-bottom: 5px;
@@ -88,43 +88,43 @@
         align-items: center;
     }
 
-        .page-title i {
-            margin-right: 15px;
-            color: var(--primary-orange);
-            font-size: 1.8rem;
-            transition: var(--transition);
-        }
+    .page-title i {
+        margin-right: 12px;
+        color: var(--primary-orange);
+        font-size: 1.6rem;
+        transition: var(--transition);
+    }
 
     .edit-container:hover .page-title i {
         transform: rotate(5deg) scale(1.1);
     }
 
     .page-subtitle {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
         color: var(--secondary-orange);
         margin-bottom: 0;
         display: flex;
         align-items: center;
     }
 
-        .page-subtitle i {
-            margin-right: 10px;
-            color: var(--secondary-orange);
-            opacity: 0.8;
-        }
+    .page-subtitle i {
+        margin-right: 10px;
+        color: var(--secondary-orange);
+        opacity: 0.8;
+    }
 
     /* Form styling */
     .form-container {
         background-color: white;
         border-radius: var(--border-radius);
-        padding: 25px;
+        padding: 20px 15px;
         box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
         position: relative;
         z-index: 1;
     }
 
     .form-group {
-        margin-bottom: 22px;
+        margin-bottom: 20px;
         position: relative;
     }
 
@@ -139,17 +139,17 @@
         align-items: center;
     }
 
-        .control-label i {
-            margin-right: 8px;
-            color: var(--primary-orange);
-            font-size: 1rem;
-            transition: var(--transition);
-        }
+    .control-label i {
+        margin-right: 8px;
+        color: var(--primary-orange);
+        font-size: 1rem;
+        transition: var(--transition);
+    }
 
     .form-control {
         display: block;
         width: 100%;
-        padding: 12px 15px;
+        padding: 10px 12px;
         font-size: 1rem;
         line-height: 1.5;
         color: var(--text-dark);
@@ -158,20 +158,21 @@
         border: 2px solid #e0e0e0;
         border-radius: var(--border-radius);
         transition: var(--transition);
+        box-sizing: border-box;
     }
 
-        .form-control:focus {
-            outline: none;
-            border-color: var(--secondary-orange);
-            box-shadow: 0 0 0 3px rgba(255, 160, 122, 0.25);
-        }
+    .form-control:focus {
+        outline: none;
+        border-color: var(--secondary-orange);
+        box-shadow: 0 0 0 3px rgba(255, 160, 122, 0.25);
+    }
 
-        .form-control:hover {
-            border-color: #ccc;
-        }
+    .form-control:hover {
+        border-color: #ccc;
+    }
 
     textarea.form-control {
-        min-height: 150px;
+        min-height: 120px;
         resize: vertical;
     }
 
@@ -204,7 +205,7 @@
     .btn-container {
         display: flex;
         gap: 15px;
-        margin-top: 30px;
+        margin-top: 25px;
         flex-wrap: wrap;
     }
 
@@ -213,7 +214,7 @@
         align-items: center;
         justify-content: center;
         font-weight: 600;
-        padding: 12px 24px;
+        padding: 12px 20px;
         font-size: 1rem;
         border-radius: 30px;
         cursor: pointer;
@@ -224,42 +225,42 @@
         min-width: 120px;
     }
 
-        .btn i {
-            margin-right: 8px;
-            transition: var(--transition);
-        }
+    .btn i {
+        margin-right: 8px;
+        transition: var(--transition);
+    }
 
     .btn-primary {
         background-color: var(--primary-orange);
         color: white;
     }
 
-        .btn-primary:hover {
-            background-color: var(--dark-orange);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(210, 105, 30, 0.25);
-        }
+    .btn-primary:hover {
+        background-color: var(--dark-orange);
+        transform: translateY(-3px);
+        box-shadow: 0 6px 12px rgba(210, 105, 30, 0.25);
+    }
 
-            .btn-primary:hover i {
-                transform: translateX(-3px);
-            }
+    .btn-primary:hover i {
+        transform: translateX(-3px);
+    }
 
     .btn-secondary {
         background-color: #e0e0e0;
         color: var(--text-dark);
     }
 
-        .btn-secondary:hover {
-            background-color: #d4d4d4;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-        }
+    .btn-secondary:hover {
+        background-color: #d4d4d4;
+        transform: translateY(-3px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    }
 
     /* Back link styling */
     .back-link {
         display: inline-flex;
         align-items: center;
-        margin-top: 25px;
+        margin-top: 20px;
         color: var(--dark-orange);
         text-decoration: none;
         font-weight: 600;
@@ -267,31 +268,31 @@
         font-size: 1rem;
     }
 
-        .back-link i {
-            margin-right: 8px;
-            transition: var(--transition);
-        }
+    .back-link i {
+        margin-right: 8px;
+        transition: var(--transition);
+    }
 
-        .back-link:hover {
-            color: var(--primary-orange);
-        }
+    .back-link:hover {
+        color: var(--primary-orange);
+    }
 
-            .back-link:hover i {
-                transform: translateX(-3px);
-            }
+    .back-link:hover i {
+        transform: translateX(-3px);
+    }
 
     /* Form sections */
     .form-section {
-        margin-bottom: 30px;
-        padding-bottom: 20px;
+        margin-bottom: 25px;
+        padding-bottom: 15px;
         border-bottom: 1px dashed #e0e0e0;
     }
 
-        .form-section:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
+    .form-section:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
 
     .section-title {
         font-size: 1.2rem;
@@ -301,10 +302,10 @@
         align-items: center;
     }
 
-        .section-title i {
-            margin-right: 10px;
-            color: var(--primary-orange);
-        }
+    .section-title i {
+        margin-right: 10px;
+        color: var(--primary-orange);
+    }
 
     /* Tooltip styling */
     .tooltip-icon {
@@ -315,53 +316,54 @@
         position: relative;
     }
 
-        .tooltip-icon:hover::after {
-            content: attr(data-tooltip);
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: var(--dark-orange);
-            color: white;
-            padding: 8px 12px;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            white-space: nowrap;
-            z-index: 10;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-        }
+    .tooltip-icon:hover::after {
+        content: attr(data-tooltip);
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: var(--dark-orange);
+        color: white;
+        padding: 8px 12px;
+        border-radius: 6px;
+        font-size: 0.85rem;
+        white-space: nowrap;
+        z-index: 10;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    }
 
-        .tooltip-icon:hover::before {
-            content: '';
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            border-width: 6px;
-            border-style: solid;
-            border-color: var(--dark-orange) transparent transparent transparent;
-            z-index: 10;
-        }
+    .tooltip-icon:hover::before {
+        content: '';
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        border-width: 6px;
+        border-style: solid;
+        border-color: var(--dark-orange) transparent transparent transparent;
+        z-index: 10;
+    }
 
     /* Status indicator */
     .status-indicator {
         position: absolute;
-        top: 20px;
-        right: 20px;
+        top: 15px;
+        right: 15px;
         background-color: var(--light-orange);
         color: var(--dark-orange);
-        padding: 8px 15px;
+        padding: 6px 12px;
         border-radius: 20px;
         font-size: 0.9rem;
         font-weight: 600;
         display: flex;
         align-items: center;
         box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
+        z-index: 2;
     }
 
-        .status-indicator i {
-            margin-right: 5px;
-        }
+    .status-indicator i {
+        margin-right: 5px;
+    }
 
     /* Helper text */
     .helper-text {
@@ -372,101 +374,168 @@
         align-items: center;
     }
 
-        .helper-text i {
-            margin-right: 5px;
-            color: var(--secondary-orange);
-        }
+    .helper-text i {
+        margin-right: 5px;
+        color: var(--secondary-orange);
+    }
 
     /* Responsive styling */
-    @@media (max-width: 991px) {
-        .edit-container
-
-    {
-        margin: 20px;
-    }
-
-    }
-
-    @@media (max-width: 767px) {
-        .edit-container
-
-    {
-        padding: 20px;
-    }
-
-    .page-title {
-        font-size: 1.8rem;
-    }
-
-    .page-subtitle {
-        font-size: 1.2rem;
-    }
-
-    .form-container {
-        padding: 20px;
-    }
-
-    .btn {
-        padding: 10px 20px;
-    }
-
-    }
-
-    @@media (max-width: 576px) {
-        .edit-container
-
-    {
-        padding: 15px;
-        margin: 15px;
-    }
-
-    .page-title {
-        font-size: 1.6rem;
-    }
-
-        .page-title i {
-            font-size: 1.5rem;
+    @media (max-width: 767px) {
+        .edit-container {
+            margin: 15px;
+            padding: 15px;
         }
 
-    .page-subtitle {
-        font-size: 1.1rem;
+        .page-title {
+            font-size: 1.6rem;
+        }
+
+        .page-title i {
+            font-size: 1.4rem;
+        }
+
+        .page-subtitle {
+            font-size: 1.1rem;
+        }
+
+        .form-container {
+            padding: 15px;
+        }
+
+        .btn {
+            padding: 10px 16px;
+            font-size: 0.95rem;
+        }
     }
 
-    .form-container {
-        padding: 15px;
+    @media (max-width: 576px) {
+        .edit-container {
+            padding: 12px;
+            margin: 10px;
+        }
+
+        .status-indicator {
+            position: static;
+            margin-bottom: 15px;
+            display: inline-flex;
+            justify-content: center;
+        }
+
+        .page-title {
+            font-size: 1.4rem;
+        }
+
+        .page-title i {
+            font-size: 1.3rem;
+        }
+
+        .page-subtitle {
+            font-size: 1rem;
+        }
+
+        .form-container {
+            padding: 12px;
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+        }
+
+        .btn-container {
+            flex-direction: column;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            min-width: auto;
+        }
+
+        .tooltip-icon:hover::after {
+            white-space: normal;
+            width: 200px;
+            left: auto;
+            right: 0;
+            transform: none;
+        }
     }
 
-    .section-title {
-        font-size: 1.1rem;
-    }
+    /* iPhone 5 specific optimizations */
+    @media (max-width: 320px) {
+        .edit-container {
+            margin: 8px;
+            padding: 10px;
+            border-radius: 8px;
+        }
 
-    .btn {
-        padding: 10px 16px;
-        font-size: 0.95rem;
-    }
+        .page-header {
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+        }
 
-    .btn-container {
-        flex-direction: column;
-    }
+        .page-title {
+            font-size: 1.3rem;
+        }
 
-    .btn {
-        width: 100%;
-    }
+        .page-title i {
+            font-size: 1.2rem;
+            margin-right: 8px;
+        }
 
+        .page-subtitle {
+            font-size: 0.95rem;
+        }
+
+        .section-title {
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .control-label {
+            font-size: 0.9rem;
+        }
+
+        .form-control {
+            padding: 8px 10px;
+            font-size: 0.9rem;
+        }
+
+        .helper-text {
+            font-size: 0.8rem;
+        }
+
+        .form-section {
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+        }
+
+        .btn {
+            padding: 8px 12px;
+            font-size: 0.85rem;
+        }
+
+        .back-link {
+            font-size: 0.9rem;
+        }
     }
 </style>
 
 <div class="edit-container">
     <div class="status-indicator">
-        <i class="fas fa-pen-to-square"></i> Chế độ chỉnh sửa
+        <i class="fas fa-pen-to-square"></i> Edit Mode
     </div>
 
     <div class="page-header">
         <h1 class="page-title">
-            <i class="fas fa-edit"></i> Chỉnh sửa
+            <i class="fas fa-edit"></i> Edit
         </h1>
         <h4 class="page-subtitle">
-            <i class="far fa-file-alt"></i> Bài đăng
+            <i class="far fa-file-alt"></i> Post
         </h4>
     </div>
 
@@ -477,38 +546,38 @@
 
             <div class="form-section">
                 <h3 class="section-title">
-                    <i class="fas fa-info-circle"></i> Thông tin cơ bản
+                    <i class="fas fa-info-circle"></i> Basic Information
                 </h3>
 
                 <div class="form-group">
                     <label asp-for="Title" class="control-label">
-                        <i class="fas fa-heading"></i> Tiêu đề
+                        <i class="fas fa-heading"></i> Title
                     </label>
-                    <input asp-for="Title" class="form-control" placeholder="Nhập tiêu đề bài đăng" />
+                    <input asp-for="Title" class="form-control" placeholder="Enter post title" />
                     <span asp-validation-for="Title" class="text-danger"></span>
                     <div class="helper-text">
-                        <i class="fas fa-lightbulb"></i> Tiêu đề nên súc tích và hấp dẫn
+                        <i class="fas fa-lightbulb"></i> Title should be concise and engaging
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label asp-for="Content" class="control-label">
-                        <i class="fas fa-align-left"></i> Nội dung
-                        <i class="fas fa-question-circle tooltip-icon" data-tooltip="Nhập nội dung chi tiết của bài đăng"></i>
+                        <i class="fas fa-align-left"></i> Content
+                        <i class="fas fa-question-circle tooltip-icon" data-tooltip="Enter detailed content for the post"></i>
                     </label>
-                    <textarea asp-for="Content" class="form-control" placeholder="Nhập nội dung chi tiết bài đăng"></textarea>
+                    <textarea asp-for="Content" class="form-control" placeholder="Enter detailed post content"></textarea>
                     <span asp-validation-for="Content" class="text-danger"></span>
                 </div>
             </div>
 
             <div class="form-section">
                 <h3 class="section-title">
-                    <i class="fas fa-clock"></i> Thông tin thời gian
+                    <i class="fas fa-clock"></i> Time Information
                 </h3>
 
                 <div class="form-group">
                     <label asp-for="CreatedAt" class="control-label">
-                        <i class="far fa-calendar-plus"></i> Ngày tạo
+                        <i class="far fa-calendar-plus"></i> Created Date
                     </label>
                     <input asp-for="CreatedAt" class="form-control" type="datetime-local" />
                     <span asp-validation-for="CreatedAt" class="text-danger"></span>
@@ -516,7 +585,7 @@
 
                 <div class="form-group">
                     <label asp-for="UpdatedAt" class="control-label">
-                        <i class="far fa-calendar-check"></i> Ngày cập nhật
+                        <i class="far fa-calendar-check"></i> Updated Date
                     </label>
                     <input asp-for="UpdatedAt" class="form-control" type="datetime-local" />
                     <span asp-validation-for="UpdatedAt" class="text-danger"></span>
@@ -525,7 +594,7 @@
 
             <div class="form-section">
                 <h3 class="section-title">
-                    <i class="fas fa-link"></i> Liên kết
+                    <i class="fas fa-link"></i> Connections
                 </h3>
 
                 <div class="form-group">
@@ -539,17 +608,17 @@
 
             <div class="btn-container">
                 <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-save"></i> Lưu thay đổi
+                    <i class="fas fa-save"></i> Save Changes
                 </button>
                 <a asp-action="Index" class="btn btn-secondary">
-                    <i class="fas fa-times"></i> Huỷ bỏ
+                    <i class="fas fa-times"></i> Cancel
                 </a>
             </div>
         </form>
     </div>
 
     <a asp-action="Index" class="back-link">
-        <i class="fas fa-arrow-left"></i> Quay lại danh sách
+        <i class="fas fa-arrow-left"></i> Back to List
     </a>
 </div>
 

@@ -24,7 +24,8 @@
         --danger-dark: #c0392b;
         --success: #27ae60;
         --success-dark: #2ecc71;
-        --warning-bg: #ffeaa7;
+        --warning-bg: #fff3e0;
+        --gradient-bg: linear-gradient(135deg, var(--light-orange) 0%, #ffffff 100%);
     }
 
     body {
@@ -36,59 +37,55 @@
 
     .delete-container {
         max-width: 800px;
-        margin: 30px auto;
+        margin: 20px auto;
         background-color: #ffffff;
         border-radius: 16px;
-        box-shadow: 0 10px 30px rgba(210, 105, 30, 0.15);
-        padding: 25px;
+        box-shadow: 0 15px 35px rgba(210, 105, 30, 0.18);
+        padding: 25px 20px;
         position: relative;
         overflow: hidden;
+        border-top: 5px solid var(--danger);
     }
 
     .delete-header {
         text-align: center;
-        margin-bottom: 30px;
+        margin-bottom: 25px;
         position: relative;
     }
 
     .page-title {
         color: var(--dark-orange);
-        font-size: 2.2rem;
+        font-size: 2.1rem;
         font-weight: 700;
-        margin-bottom: 10px;
+        margin-bottom: 12px;
         display: flex;
         align-items: center;
         justify-content: center;
     }
 
-        .page-title i {
-            margin-right: 12px;
-            color: var(--danger);
-            animation: pulse 2s infinite;
-        }
+    .page-title i {
+        margin-right: 15px;
+        color: var(--danger);
+        animation: pulse 2s infinite;
+    }
 
     @@keyframes pulse {
-        0%
-
-    {
-        transform: scale(1);
-    }
-
-    50% {
-        transform: scale(1.1);
-    }
-
-    100% {
-        transform: scale(1);
-    }
-
+        0% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.1);
+        }
+        100% {
+            transform: scale(1);
+        }
     }
 
     .page-subtitle {
         color: var(--text-dark);
-        font-size: 1.4rem;
-        font-weight: 600;
-        margin-bottom: 5px;
+        font-size: 1.3rem;
+        font-weight: 500;
+        margin-bottom: 10px;
         text-align: center;
     }
 
@@ -97,31 +94,74 @@
         border-left: 5px solid var(--danger);
         padding: 15px;
         margin: 20px 0;
-        border-radius: 8px;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        border-radius: 10px;
+        box-shadow: 0 6px 16px rgba(231, 76, 60, 0.1);
         display: flex;
         align-items: center;
+        position: relative;
     }
 
-        .warning-box i {
-            color: var(--danger);
-            font-size: 2rem;
-            margin-right: 15px;
-        }
+    .warning-box::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: radial-gradient(circle at top right, rgba(255, 226, 196, 0.4), transparent 70%);
+        border-radius: 10px;
+        pointer-events: none;
+    }
 
-        .warning-box p {
-            color: var(--text-dark);
-            margin: 0;
-            font-size: 1.05rem;
+    .warning-box i {
+        color: var(--danger);
+        font-size: 2rem;
+        margin-right: 15px;
+        animation: shake 5s infinite;
+    }
+
+    @@keyframes shake {
+        0%, 100% {
+            transform: rotate(0deg);
         }
+        1%, 5% {
+            transform: rotate(-5deg);
+        }
+        3%, 7% {
+            transform: rotate(5deg);
+        }
+        9% {
+            transform: rotate(0deg);
+        }
+    }
+
+    .warning-box p {
+        color: var(--text-dark);
+        margin: 0;
+        font-size: 1rem;
+        line-height: 1.5;
+    }
 
     .post-details {
         background-color: #ffffff;
         border-radius: 12px;
         padding: 20px;
         margin-top: 20px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        border: 1px solid #eee;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+        border: 1px solid #f0f0f0;
+        position: relative;
+    }
+
+    .post-details::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, transparent 50%, var(--light-orange) 50%);
+        border-radius: 0 12px 0 0;
+        opacity: 0.3;
     }
 
     .post-title {
@@ -129,16 +169,28 @@
         font-size: 1.5rem;
         font-weight: 600;
         margin-bottom: 15px;
-        padding-bottom: 10px;
+        padding-bottom: 12px;
         border-bottom: 2px solid var(--light-orange);
         display: flex;
         align-items: center;
+        position: relative;
     }
 
-        .post-title i {
-            margin-right: 10px;
-            color: var(--primary-orange);
-        }
+    .post-title::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 70px;
+        height: 2px;
+        background-color: var(--primary-orange);
+    }
+
+    .post-title i {
+        margin-right: 12px;
+        color: var(--primary-orange);
+        font-size: 1.2rem;
+    }
 
     .details-list {
         margin: 0;
@@ -149,15 +201,22 @@
         display: flex;
         margin-bottom: 15px;
         padding-bottom: 15px;
-        border-bottom: 1px solid #eee;
+        border-bottom: 1px solid #f0f0f0;
         align-items: flex-start;
+        transition: all 0.3s ease;
     }
 
-        .detail-item:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
+    .detail-item:hover {
+        background-color: rgba(255, 228, 196, 0.1);
+        padding-left: 8px;
+        border-radius: 8px;
+    }
+
+    .detail-item:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
 
     .detail-label {
         flex: 0 0 25%;
@@ -167,40 +226,90 @@
         align-items: center;
     }
 
-        .detail-label i {
-            margin-right: 8px;
-            color: var(--primary-orange);
-            width: 20px;
-            text-align: center;
-        }
+    .detail-label i {
+        margin-right: 10px;
+        color: var(--primary-orange);
+        width: 20px;
+        text-align: center;
+        font-size: 1.1rem;
+    }
 
     .detail-value {
         flex: 1;
         color: #555;
+        line-height: 1.6;
     }
 
     .content-preview {
-        background-color: var(--light-gray);
+        background: var(--gradient-bg);
         padding: 15px;
-        border-radius: 8px;
+        border-radius: 10px;
         font-style: italic;
-        margin-top: 5px;
-        max-height: 150px;
+        margin-top: 8px;
+        max-height: 120px;
         overflow-y: auto;
-        border: 1px solid #ddd;
+        border: 1px solid #eee;
+        box-shadow: inset 0 2px 8px rgba(0,0,0,0.04);
+        color: #444;
+        position: relative;
+    }
+
+    .content-preview::before {
+        content: '\f10d';
+        font-family: 'Font Awesome 6 Free';
+        font-weight: 900;
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        font-size: 0.9rem;
+        color: var(--primary-orange);
+        opacity: 0.3;
+    }
+
+    .content-preview::after {
+        content: '\f10e';
+        font-family: 'Font Awesome 6 Free';
+        font-weight: 900;
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        font-size: 0.9rem;
+        color: var(--primary-orange);
+        opacity: 0.3;
+    }
+
+    .divider {
+        height: 2px;
+        background: linear-gradient(to right, transparent, var(--light-orange), transparent);
+        margin: 25px 0;
+        position: relative;
+    }
+
+    .divider::before {
+        content: '\f057';
+        font-family: 'Font Awesome 6 Free';
+        font-weight: 900;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        padding: 0 15px;
+        color: var(--danger);
+        font-size: 1.2rem;
     }
 
     .actions-container {
         display: flex;
         gap: 15px;
-        margin-top: 30px;
+        margin-top: 25px;
         flex-wrap: wrap;
         justify-content: center;
     }
 
     .btn {
-        padding: 12px 24px;
-        border-radius: 30px;
+        padding: 12px 25px;
+        border-radius: 50px;
         cursor: pointer;
         font-weight: 600;
         transition: all 0.3s ease;
@@ -209,42 +318,72 @@
         align-items: center;
         justify-content: center;
         border: none;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        box-shadow: 0 8px 15px rgba(0,0,0,0.1);
         font-size: 1rem;
-        min-width: 140px;
+        min-width: 150px;
+        letter-spacing: 0.5px;
     }
 
-        .btn i {
-            margin-right: 10px;
-        }
+    .btn i {
+        margin-right: 10px;
+        font-size: 1.1rem;
+    }
 
     .btn-danger {
-        background-color: var(--danger);
+        background: linear-gradient(to right, var(--danger), var(--danger-dark));
         color: var(--text-light);
+        position: relative;
+        overflow: hidden;
     }
 
-        .btn-danger:hover {
-            background-color: var(--danger-dark);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(231, 76, 60, 0.3);
-        }
+    .btn-danger::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        transition: 0.5s;
+    }
+
+    .btn-danger:hover::before {
+        left: 100%;
+    }
+
+    .btn-danger:hover {
+        background: linear-gradient(to right, var(--danger-dark), var(--danger));
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(231, 76, 60, 0.3);
+    }
 
     .btn-secondary {
         background-color: var(--light-gray);
         color: var(--text-dark);
-        border: 1px solid #ddd;
+        border: 1px solid #e0e0e0;
+        position: relative;
+        overflow: hidden;
     }
 
-        .btn-secondary:hover {
-            background-color: #e6e6e6;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
-        }
+    .btn-secondary::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(0,0,0,0.05), transparent);
+        transition: 0.5s;
+    }
 
-    .divider {
-        height: 1px;
-        background: linear-gradient(to right, transparent, var(--light-orange), transparent);
-        margin: 30px 0;
+    .btn-secondary:hover::before {
+        left: 100%;
+    }
+
+    .btn-secondary:hover {
+        background-color: #e6e6e6;
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
     }
 
     /* Animated background effect */
@@ -256,7 +395,7 @@
         width: 150px;
         height: 150px;
         background: var(--light-orange);
-        opacity: 0.2;
+        opacity: 0.15;
         border-radius: 0 0 0 100%;
         z-index: 0;
     }
@@ -269,89 +408,237 @@
         width: 120px;
         height: 120px;
         background: var(--light-orange);
-        opacity: 0.15;
+        opacity: 0.1;
         border-radius: 0 100% 0 0;
         z-index: 0;
     }
 
+    /* Status indicator */
+    .status-indicator {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 12px;
+        background-color: rgba(231, 76, 60, 0.1);
+        border-radius: 20px;
+        font-size: 0.9rem;
+        color: var(--danger);
+        font-weight: 500;
+    }
+
+    .status-indicator i {
+        animation: blink 1.5s infinite;
+    }
+
+    @@keyframes blink {
+        0%, 100% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0.4;
+        }
+    }
+
+    /* Custom scrollbar for content preview */
+    .content-preview::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .content-preview::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+    }
+
+    .content-preview::-webkit-scrollbar-thumb {
+        background: var(--secondary-orange);
+        border-radius: 10px;
+    }
+
+    .content-preview::-webkit-scrollbar-thumb:hover {
+        background: var(--primary-orange);
+    }
+
+    /* Floating action button for mobile */
+    .floating-action {
+        display: none;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 99;
+    }
+
     /* Responsive Design */
     @@media (max-width: 768px) {
-        .delete-container
+        .delete-container {
+            margin: 15px;
+            padding: 20px 15px;
+        }
 
-    {
-        margin: 20px 15px;
-        padding: 20px;
-    }
+        .page-title {
+            font-size: 1.8rem;
+        }
 
-    .page-title {
-        font-size: 1.8rem;
-    }
+        .page-subtitle {
+            font-size: 1.1rem;
+        }
 
-    .page-subtitle {
-        font-size: 1.2rem;
-    }
-
-    .detail-label {
-        flex: 0 0 30%;
-    }
-
+        .detail-label {
+            flex: 0 0 30%;
+        }
+        
+        .warning-box {
+            padding: 12px;
+        }
+        
+        .warning-box i {
+            font-size: 1.8rem;
+            margin-right: 12px;
+        }
     }
 
     @@media (max-width: 576px) {
-        .delete-container
+        .delete-container {
+            margin: 10px;
+            padding: 15px;
+            border-radius: 12px;
+        }
 
-    {
-        margin: 15px;
-        padding: 15px;
-        border-radius: 12px;
+        .page-title {
+            font-size: 1.6rem;
+        }
+        
+        .page-subtitle {
+            font-size: 1rem;
+        }
+
+        .warning-box {
+            flex-direction: column;
+            text-align: center;
+            padding: 12px 10px;
+        }
+        
+        .warning-box i {
+            margin-right: 0;
+            margin-bottom: 10px;
+            font-size: 1.6rem;
+        }
+        
+        .warning-box p {
+            font-size: 0.95rem;
+        }
+
+        .post-details {
+            padding: 15px;
+        }
+        
+        .post-title {
+            font-size: 1.3rem;
+            padding-bottom: 10px;
+        }
+
+        .detail-item {
+            flex-direction: column;
+            padding-bottom: 12px;
+            margin-bottom: 12px;
+        }
+
+        .detail-label {
+            flex: 0 0 100%;
+            margin-bottom: 8px;
+        }
+
+        .detail-value {
+            padding-left: 28px;
+        }
+
+        .actions-container {
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 10px 20px;
+        }
+        
+        .floating-action {
+            display: block;
+        }
     }
-
-    .page-title {
-        font-size: 1.6rem;
-    }
-
-    .detail-item {
-        flex-direction: column;
-    }
-
-    .detail-label {
-        flex: 0 0 100%;
-        margin-bottom: 8px;
-    }
-
-    .detail-value {
-        padding-left: 28px;
-    }
-
-    .actions-container {
-        flex-direction: column;
-    }
-
-    .btn {
-        width: 100%;
-    }
-
+    
+    /* iPhone 5 optimizations (320px) */
+    @@media (max-width: 320px) {
+        .delete-container {
+            margin: 8px;
+            padding: 12px 10px;
+        }
+        
+        .page-title {
+            font-size: 1.4rem;
+        }
+        
+        .page-subtitle {
+            font-size: 0.9rem;
+        }
+        
+        .warning-box p {
+            font-size: 0.85rem;
+        }
+        
+        .post-title {
+            font-size: 1.2rem;
+        }
+        
+        .detail-label {
+            font-size: 0.9rem;
+        }
+        
+        .detail-value {
+            font-size: 0.9rem;
+            padding-left: 25px;
+        }
+        
+        .content-preview {
+            max-height: 100px;
+            padding: 12px;
+        }
+        
+        .status-indicator {
+            font-size: 0.8rem;
+            padding: 5px 10px;
+        }
     }
 </style>
 
 <div class="delete-container">
+    <div class="status-indicator">
+        <i class="fas fa-exclamation-circle"></i>
+        <span>Delete Mode</span>
+    </div>
+
     <div class="delete-header">
         <h1 class="page-title">
             <i class="fas fa-trash-alt"></i>
-            Xóa bài viết
+            Delete Post
         </h1>
-        <h3 class="page-subtitle">Bạn có chắc chắn muốn xóa bài viết này?</h3>
+        <h3 class="page-subtitle">Are you sure you want to delete this post?</h3>
     </div>
 
     <div class="warning-box">
         <i class="fas fa-exclamation-triangle"></i>
-        <p>Lưu ý: Hành động này <strong>không thể hoàn tác</strong>. Tất cả thông tin của bài viết sẽ bị xóa vĩnh viễn.</p>
+        <div>
+            <p><strong>Warning:</strong> This action <strong>cannot be undone</strong>. All post information will be permanently deleted from the system.</p>
+            <p style="margin-top: 8px; font-size: 0.95rem;">If you only want to hide the post, consider updating its status instead of deleting it.</p>
+        </div>
     </div>
 
     <div class="post-details">
         <h2 class="post-title">
             <i class="fas fa-file-alt"></i>
-            Thông tin bài viết
+            Post Information
         </h2>
 
         <div class="details-list">
@@ -361,7 +648,7 @@
                     @Html.DisplayNameFor(model => model.Title)
                 </div>
                 <div class="detail-value">
-                    @Html.DisplayFor(model => model.Title)
+                    <strong>@Html.DisplayFor(model => model.Title)</strong>
                 </div>
             </div>
 
@@ -383,6 +670,7 @@
                     @Html.DisplayNameFor(model => model.CreatedAt)
                 </div>
                 <div class="detail-value">
+                    <i class="far fa-clock" style="color: var(--secondary-orange); margin-right: 5px;"></i>
                     @Html.DisplayFor(model => model.CreatedAt)
                 </div>
             </div>
@@ -393,6 +681,7 @@
                     @Html.DisplayNameFor(model => model.UpdatedAt)
                 </div>
                 <div class="detail-value">
+                    <i class="far fa-clock" style="color: var(--secondary-orange); margin-right: 5px;"></i>
                     @Html.DisplayFor(model => model.UpdatedAt)
                 </div>
             </div>
@@ -403,6 +692,7 @@
                     @Html.DisplayNameFor(model => model.Blog)
                 </div>
                 <div class="detail-value">
+                    <i class="fas fa-bookmark" style="color: var(--secondary-orange); margin-right: 5px;"></i>
                     @Html.DisplayFor(model => model.Blog.Description)
                 </div>
             </div>
@@ -415,30 +705,61 @@
         <input type="hidden" asp-for="PostId" />
         <div class="actions-container">
             <button type="button" class="btn btn-danger" onclick="confirmDelete()">
-                <i class="fas fa-trash-alt"></i> Xóa bài viết
+                <i class="fas fa-trash-alt"></i> Confirm Delete
             </button>
             <a asp-action="Index" class="btn btn-secondary">
-                <i class="fas fa-arrow-left"></i> Quay lại
+                <i class="fas fa-arrow-left"></i> Go Back
             </a>
         </div>
     </form>
+
+    <div class="floating-action">
+        <button type="button" class="btn btn-danger" style="width: auto; padding: 12px 15px; border-radius: 50%;" onclick="confirmDelete()">
+            <i class="fas fa-trash-alt" style="margin: 0;"></i>
+        </button>
+    </div>
 </div>
 
 <script>
     function confirmDelete() {
         Swal.fire({
-            title: 'Bạn có chắc chắn?',
-            text: "Bài viết này sẽ bị xóa vĩnh viễn và không thể khôi phục!",
+            title: '<i class="fas fa-exclamation-triangle" style="color: #e74c3c;"></i> Confirm Delete',
+            html: '<p>This post will be <strong>permanently</strong> deleted and cannot be recovered!</p>' +
+                  '<p>Are you sure you want to continue?</p>',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#e74c3c',
             cancelButtonColor: '#6c757d',
-            confirmButtonText: '<i class="fas fa-trash-alt"></i> Xóa',
-            cancelButtonText: '<i class="fas fa-times"></i> Hủy',
-            reverseButtons: true
+            confirmButtonText: '<i class="fas fa-trash-alt"></i> Delete Permanently',
+            cancelButtonText: '<i class="fas fa-times"></i> Cancel',
+            reverseButtons: true,
+            background: '#fff',
+            iconColor: '#e74c3c',
+            customClass: {
+                title: 'swal-title',
+                confirmButton: 'swal-confirm-button',
+                cancelButton: 'swal-cancel-button'
+            },
+            backdrop: `rgba(255, 127, 36, 0.1)`,
+            showClass: {
+                popup: 'animate__animated animate__fadeIn'
+            },
+            hideClass: {
+                popup: 'animate__animated animate__fadeOut'
+            }
         }).then((result) => {
             if (result.isConfirmed) {
-                document.getElementById('deleteForm').submit();
+                Swal.fire({
+                    title: 'Deleting...',
+                    html: 'Please wait a moment',
+                    timer: 1000,
+                    timerProgressBar: true,
+                    didOpen: () => {
+                        Swal.showLoading()
+                    }
+                }).then(() => {
+                    document.getElementById('deleteForm').submit();
+                })
             }
         });
     }

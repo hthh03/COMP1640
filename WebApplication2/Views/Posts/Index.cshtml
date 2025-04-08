@@ -151,10 +151,15 @@
             white-space: nowrap;
         }
 
-            .posts-table th i {
+            .posts-table th i.fa-sort {
                 margin-left: 5px;
                 font-size: 0.9rem;
                 opacity: 0.7;
+            }
+
+            .posts-table th i:first-child {
+                margin-right: 5px;
+                opacity: 0.9;
             }
 
             .posts-table th:hover {
@@ -227,6 +232,27 @@
             font-size: 0.9rem;
         }
 
+    /* Status indicator */
+    .status-indicator {
+        display: inline-flex;
+        align-items: center;
+        padding: 4px 10px;
+        border-radius: 12px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-left: 5px;
+    }
+
+    .status-updated {
+        background-color: #E3F2FD;
+        color: #1976D2;
+    }
+
+    .status-new {
+        background-color: #E8F5E9;
+        color: #388E3C;
+    }
+
     /* Badge styling */
     .blog-badge {
         background-color: var(--light-orange);
@@ -250,6 +276,22 @@
             color: white;
             transform: translateY(-2px);
         }
+
+    /* Date group styling */
+    .date-group {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .date-primary {
+        font-weight: 600;
+    }
+
+    .date-secondary {
+        font-size: 0.8rem;
+        color: #777;
+    }
 
     /* Actions styling */
     .actions-cell {
@@ -590,6 +632,16 @@
 
         <div class="stat-card">
             <div class="stat-icon">
+                <i class="fas fa-edit"></i>
+            </div>
+            <div class="stat-content">
+                <div class="stat-value">@Model.Count(p => p.UpdatedAt != null)</div>
+                <div class="stat-label">Bài đăng đã cập nhật</div>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">
                 <i class="fas fa-eye"></i>
             </div>
             <div class="stat-content">
@@ -602,9 +654,9 @@
     <div class="search-container">
         <div class="search-box">
             <i class="fas fa-search"></i>
-            <input type="text" class="search-input" placeholder="Tìm kiếm bài đăng...">
+            <input type="text" id="searchInput" class="search-input" placeholder="Tìm kiếm bài đăng...">
         </div>
-        <button class="filter-btn">
+        <button class="filter-btn" id="filterBtn">
             <i class="fas fa-filter"></i>
         </button>
     </div>
@@ -625,16 +677,12 @@
                             @Html.DisplayNameFor(model => model.Content)
                         </th>
                         <th>
-                            <i class="fas fa-calendar-plus"></i>
-                            @Html.DisplayNameFor(model => model.CreatedAt)
+                            <i class="fas fa-calendar-alt"></i>
+                            Thời gian
                             <i class="fas fa-sort"></i>
                         </th>
                         <th>
-                            <i class="fas fa-calendar-day"></i>
-                            @Html.DisplayNameFor(model => model.UpdatedAt)
-                        </th>
-                        <th>
-                            <i class="fas fa-folder"></i>
+                            <i class="fas fa-bookmark"></i>
                             @Html.DisplayNameFor(model => model.BlogId)
                         </th>
                         <th>
@@ -661,18 +709,39 @@
                                     @Html.DisplayFor(modelItem => item.Content)
                                 }
                             </td>
-                            <td class="date-cell">
-                                <i class="far fa-calendar-alt"></i>
-                                @item.CreatedAt.ToString("dd MMM yyyy")
-                            </td>
-                            <td class="date-cell">
-                                <i class="far fa-clock"></i>
-                                @(item.UpdatedAt?.ToString("dd MMM yyyy") ?? "Chưa cập nhật")
+                            <td>
+                                <div class="date-group">
+                                    <div class="date-primary">
+                                        <i class="fas fa-calendar-plus"></i>
+                                        @item.CreatedAt.ToString("dd/MM/yyyy")
+                                    </div>
+                                    @if (item.UpdatedAt != null)
+                                    {
+                                        <div class="date-secondary">
+                                            <i class="fas fa-sync-alt"></i>
+                                            Cập nhật: @item.UpdatedAt?.ToString("dd/MM/yyyy HH:mm")
+                                            @if (item.UpdatedAt?.Date == DateTime.Now.Date)
+                                            {
+                                                <span class="status-indicator status-updated">
+                                                    <i class="fas fa-clock"></i> Hôm nay
+                                                </span>
+                                            }
+                                        </div>
+                                    }
+                                    else if (item.CreatedAt.Date == DateTime.Now.Date)
+                                    {
+                                        <div class="date-secondary">
+                                            <span class="status-indicator status-new">
+                                                <i class="fas fa-star"></i> Mới
+                                            </span>
+                                        </div>
+                                    }
+                                </div>
                             </td>
                             <td>
                                 <div class="blog-badge">
-                                    <i class="fas fa-bookmark"></i>
-                                    @Html.DisplayFor(modelItem => item.Blog.Name ?? item.BlogId.ToString())
+                                    <i class="fas fa-folder"></i>
+                                    @Html.DisplayFor(modelItem => item.BlogId)
                                 </div>
                             </td>
                             <td class="actions-cell">
@@ -721,3 +790,26 @@
         </a>
     </div>
 </div>
+
+<script>
+    // Simple search functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('searchInput');
+        const tableRows = document.querySelectorAll('.posts-table tbody tr');
+
+        searchInput.addEventListener('keyup', function() {
+            const searchTerm = searchInput.value.toLowerCase();
+
+            tableRows.forEach(row => {
+                const titleCell = row.querySelector('.title-cell').textContent.toLowerCase();
+                const contentCell = row.querySelector('.content-cell').textContent.toLowerCase();
+
+                if (titleCell.includes(searchTerm) || contentCell.includes(searchTerm)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+    });
+</script>

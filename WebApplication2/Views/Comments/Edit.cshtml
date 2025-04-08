@@ -34,50 +34,50 @@
 
     .page-container {
         max-width: 900px;
-        margin: 30px auto;
+        margin: 20px auto;
         background-color: #ffffff;
         border-radius: 16px;
         box-shadow: 0 10px 30px rgba(210, 105, 30, 0.2);
-        padding: 25px;
+        padding: 20px 15px;
         position: relative;
         overflow: hidden;
     }
 
-        .page-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 150px;
-            height: 150px;
-            background: var(--light-orange);
-            opacity: 0.2;
-            border-radius: 0 0 0 100%;
-            z-index: 0;
-        }
+    .page-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 120px;
+        height: 120px;
+        background: var(--light-orange);
+        opacity: 0.2;
+        border-radius: 0 0 0 100%;
+        z-index: 0;
+    }
 
-        .page-container::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 120px;
-            height: 120px;
-            background: var(--light-orange);
-            opacity: 0.15;
-            border-radius: 0 100% 0 0;
-            z-index: 0;
-        }
+    .page-container::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100px;
+        height: 100px;
+        background: var(--light-orange);
+        opacity: 0.15;
+        border-radius: 0 100% 0 0;
+        z-index: 0;
+    }
 
     .page-header {
         text-align: center;
-        margin-bottom: 30px;
+        margin-bottom: 20px;
         position: relative;
         z-index: 1;
     }
 
     .page-title {
-        font-size: 2.5rem;
+        font-size: 2rem;
         color: var(--dark-orange);
         margin-bottom: 5px;
         font-weight: 700;
@@ -85,20 +85,20 @@
         position: relative;
     }
 
-        .page-title::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 3px;
-            background: var(--primary-orange);
-            border-radius: 3px;
-        }
+    .page-title::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 3px;
+        background: var(--primary-orange);
+        border-radius: 3px;
+    }
 
     .page-subtitle {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
         color: var(--secondary-orange);
         margin-top: 15px;
         display: flex;
@@ -106,48 +106,44 @@
         justify-content: center;
     }
 
-        .page-subtitle i {
-            margin-right: 10px;
-            font-size: 1.4rem;
-        }
+    .page-subtitle i {
+        margin-right: 10px;
+        font-size: 1.3rem;
+    }
 
     .form-container {
         background-color: #ffffff;
         border-radius: 12px;
-        padding: 25px;
+        padding: 20px 15px;
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
         position: relative;
         z-index: 1;
         border: 1px solid var(--border-color);
     }
 
-    .form-row {
-        margin-bottom: 25px;
-    }
-
     .form-group {
-        margin-bottom: 25px;
+        margin-bottom: 20px;
         position: relative;
     }
 
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: var(--dark-orange);
-            font-size: 1.05rem;
-            display: flex;
-            align-items: center;
-        }
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: var(--dark-orange);
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+    }
 
-            .form-group label i {
-                margin-right: 8px;
-                color: var(--primary-orange);
-            }
+    .form-group label i {
+        margin-right: 8px;
+        color: var(--primary-orange);
+    }
 
     .form-control {
         width: 100%;
-        padding: 12px 15px;
+        padding: 10px 12px;
         font-size: 1rem;
         border: 2px solid var(--border-color);
         border-radius: 8px;
@@ -157,12 +153,12 @@
         box-sizing: border-box;
     }
 
-        .form-control:focus {
-            border-color: var(--primary-orange);
-            background-color: var(--input-focus);
-            box-shadow: 0 0 0 3px rgba(255, 127, 36, 0.2);
-            outline: none;
-        }
+    .form-control:focus {
+        border-color: var(--primary-orange);
+        background-color: var(--input-focus);
+        box-shadow: 0 0 0 3px rgba(255, 127, 36, 0.2);
+        outline: none;
+    }
 
     .text-danger {
         color: var(--error-color);
@@ -172,7 +168,7 @@
     }
 
     .btn {
-        padding: 12px 24px;
+        padding: 10px 20px;
         border-radius: 30px;
         cursor: pointer;
         font-weight: 600;
@@ -183,24 +179,24 @@
         justify-content: center;
         border: none;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        font-size: 1rem;
-        min-width: 120px;
+        font-size: 0.95rem;
+        min-width: 100px;
     }
 
-        .btn i {
-            margin-right: 8px;
-        }
+    .btn i {
+        margin-right: 8px;
+    }
 
     .btn-primary {
         background-color: var(--primary-orange);
         color: var(--text-light);
     }
 
-        .btn-primary:hover {
-            background-color: var(--dark-orange);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(210, 105, 30, 0.3);
-        }
+    .btn-primary:hover {
+        background-color: var(--dark-orange);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(210, 105, 30, 0.3);
+    }
 
     .btn-secondary {
         background-color: var(--light-gray);
@@ -208,18 +204,19 @@
         border: 1px solid #ddd;
     }
 
-        .btn-secondary:hover {
-            background-color: #e6e6e6;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-        }
+    .btn-secondary:hover {
+        background-color: #e6e6e6;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    }
 
     .form-actions {
         display: flex;
-        gap: 15px;
-        margin-top: 30px;
+        gap: 12px;
+        margin-top: 25px;
         flex-wrap: wrap;
         align-items: center;
+        justify-content: center;
     }
 
     .back-link {
@@ -232,35 +229,35 @@
         transition: all 0.3s ease;
     }
 
-        .back-link i {
-            margin-right: 8px;
-            transition: transform 0.3s ease;
-        }
+    .back-link i {
+        margin-right: 8px;
+        transition: transform 0.3s ease;
+    }
 
-        .back-link:hover {
-            color: var(--primary-orange);
-        }
+    .back-link:hover {
+        color: var(--primary-orange);
+    }
 
-            .back-link:hover i {
-                transform: translateX(-5px);
-            }
+    .back-link:hover i {
+        transform: translateX(-5px);
+    }
 
     .form-help {
         background-color: var(--light-orange);
-        padding: 15px;
+        padding: 12px;
         border-radius: 8px;
-        margin-top: 25px;
-        font-size: 0.95rem;
+        margin-top: 20px;
+        font-size: 0.9rem;
         color: var(--dark-orange);
         border-left: 4px solid var(--primary-orange);
     }
 
-        .form-help i {
-            margin-right: 8px;
-        }
+    .form-help i {
+        margin-right: 8px;
+    }
 
     .form-group textarea.form-control {
-        min-height: 150px;
+        min-height: 120px;
         resize: vertical;
     }
 
@@ -268,14 +265,14 @@
         position: relative;
     }
 
-        .date-input-wrapper i {
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--secondary-orange);
-            pointer-events: none;
-        }
+    .date-input-wrapper i {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--secondary-orange);
+        pointer-events: none;
+    }
 
     .form-icon {
         position: absolute;
@@ -290,49 +287,45 @@
         position: relative;
     }
 
-        .select-wrapper::after {
-            content: '\f107';
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
-            position: absolute;
-            right: 15px;
-            top: 42px;
-            color: var(--secondary-orange);
-            pointer-events: none;
-        }
+    .select-wrapper::after {
+        content: '\f107';
+        font-family: 'Font Awesome 6 Free';
+        font-weight: 900;
+        position: absolute;
+        right: 15px;
+        top: 42px;
+        color: var(--secondary-orange);
+        pointer-events: none;
+    }
 
     /* Character count styles */
     .char-counter {
         display: flex;
         justify-content: flex-end;
         margin-top: 8px;
-        font-size: 0.9rem;
+        font-size: 0.85rem;
         color: var(--secondary-orange);
         transition: all 0.3s ease;
     }
 
-        .char-counter.warning {
-            color: var(--warning-color);
-        }
+    .char-counter.warning {
+        color: var(--warning-color);
+    }
 
-        .char-counter.danger {
-            color: var(--error-color);
-        }
+    .char-counter.danger {
+        color: var(--error-color);
+    }
 
     /* Animation */
     @@keyframes fade-in {
-        from
-
-    {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 
     .form-container {
@@ -340,71 +333,79 @@
     }
 
     /* Responsive Design */
-    @@media (max-width: 768px) {
-        .page-container
+    @@media (max-width: 480px) {
+        .page-container {
+            margin: 10px;
+            padding: 15px 10px;
+            border-radius: 12px;
+        }
 
-    {
-        margin: 20px 15px;
-        padding: 20px;
+        .page-title {
+            font-size: 1.6rem;
+        }
+
+        .page-subtitle {
+            font-size: 1rem;
+        }
+
+        .form-container {
+            padding: 15px 10px;
+        }
+
+        .form-group label {
+            font-size: 0.95rem;
+        }
+
+        .form-control {
+            padding: 8px 10px;
+            font-size: 0.95rem;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            min-width: 90px;
+        }
+        
+        .form-actions {
+            flex-direction: column;
+            width: 100%;
+        }
+        
+        .form-actions .btn {
+            width: 100%;
+        }
     }
-
-    .page-title {
-        font-size: 2rem;
-    }
-
-    .page-subtitle {
-        font-size: 1.1rem;
-    }
-
-    .form-container {
-        padding: 20px;
-    }
-
-    }
-
-    @@media (max-width: 576px) {
-        .page-container
-
-    {
-        margin: 15px;
-        padding: 15px;
-    }
-
-    .page-title {
-        font-size: 1.7rem;
-    }
-
-    .page-subtitle {
-        font-size: 1rem;
-    }
-
-    .form-container {
-        padding: 15px;
-    }
-
-    .form-group label {
-        font-size: 1rem;
-    }
-
-    .form-control {
-        padding: 10px;
-    }
-
-    .btn {
-        padding: 10px 20px;
-        font-size: 0.95rem;
-    }
-
+    
+    /* iPhone 5 specific optimizations */
+    @@media (max-width: 320px) {
+        .page-container {
+            margin: 5px;
+            padding: 10px 8px;
+        }
+        
+        .page-title {
+            font-size: 1.4rem;
+        }
+        
+        .page-subtitle {
+            font-size: 0.9rem;
+        }
+        
+        .form-help {
+            font-size: 0.8rem;
+            padding: 10px;
+        }
     }
 </style>
 
 <div class="page-container">
     <div class="page-header">
         <h1 class="page-title">
-            <i class="fas fa-edit"></i> Chỉnh sửa
+            <i class="fas fa-edit"></i> Edit
         </h1>
         <h4 class="page-subtitle">
-            <i class="far fa-comment-dots"></i> Bình luận
+            <i class="far fa-comment-dots"></i> Comment
         </h4>
     </div>
 
@@ -415,19 +416,19 @@
 
             <div class="form-group">
                 <label asp-for="Content">
-                    <i class="fas fa-comment"></i> Nội dung bình luận
+                    <i class="fas fa-comment"></i> Comment Content
                 </label>
-                <textarea asp-for="Content" class="form-control" id="commentContent" placeholder="Nhập nội dung bình luận của bạn" maxlength="500"></textarea>
+                <textarea asp-for="Content" class="form-control" id="commentContent" placeholder="Enter your comment content" maxlength="500"></textarea>
                 <div class="char-counter" id="charCounter">
                     <i class="fas fa-text-height"></i>
-                    <span id="currentCount">0</span>/<span id="maxCount">500</span> từ
+                    <span id="currentCount">0</span>/<span id="maxCount">500</span> words
                 </div>
                 <span asp-validation-for="Content" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="PostId">
-                    <i class="fas fa-file-alt"></i> Bài viết
+                    <i class="fas fa-file-alt"></i> Post
                 </label>
                 <div class="select-wrapper">
                     <select asp-for="PostId" class="form-control" asp-items="ViewBag.PostId"></select>
@@ -437,7 +438,7 @@
 
             <div class="form-group">
                 <label asp-for="UserId">
-                    <i class="fas fa-user"></i> Người dùng
+                    <i class="fas fa-user"></i> User
                 </label>
                 <div class="select-wrapper">
                     <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId"></select>
@@ -447,7 +448,7 @@
 
             <div class="form-group">
                 <label asp-for="CreatedAt">
-                    <i class="fas fa-calendar-plus"></i> Ngày tạo
+                    <i class="fas fa-calendar-plus"></i> Created Date
                 </label>
                 <div class="date-input-wrapper">
                     <input asp-for="CreatedAt" class="form-control" type="datetime-local" />
@@ -458,7 +459,7 @@
 
             <div class="form-group">
                 <label asp-for="UpdatedAt">
-                    <i class="fas fa-calendar-check"></i> Ngày cập nhật
+                    <i class="fas fa-calendar-check"></i> Updated Date
                 </label>
                 <div class="date-input-wrapper">
                     <input asp-for="UpdatedAt" class="form-control" type="datetime-local" />
@@ -468,23 +469,23 @@
             </div>
 
             <div class="form-help">
-                <i class="fas fa-info-circle"></i> Nội dung bình luận không được vượt quá 500 từ. Các trường có dấu (*) là bắt buộc.
+                <i class="fas fa-info-circle"></i> Comment content cannot exceed 500 words. Fields with (*) are required.
             </div>
 
             <div class="form-actions">
                 <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-save"></i> Lưu thay đổi
+                    <i class="fas fa-save"></i> Save Changes
                 </button>
                 <a asp-action="Index" class="btn btn-secondary">
-                    <i class="fas fa-times"></i> Hủy
+                    <i class="fas fa-times"></i> Cancel
                 </a>
             </div>
         </form>
     </div>
 
-    <div class="text-center" style="margin-top: 30px;">
+    <div class="text-center" style="margin-top: 20px;">
         <a asp-action="Index" class="back-link">
-            <i class="fas fa-arrow-left"></i> Quay lại danh sách
+            <i class="fas fa-arrow-left"></i> Back to List
         </a>
     </div>
 </div>
@@ -495,24 +496,24 @@
     }
 
     <script>
-        // Hàm đếm từ trong văn bản
+        // Function to count words in text
         function countWords(text) {
-            // Loại bỏ khoảng trắng thừa và tách văn bản thành các từ
+            // Remove extra whitespace and split text into words
             return text.trim().split(/\s+/).filter(word => word.length > 0).length;
         }
 
-        // Hàm cập nhật bộ đếm từ
+        // Function to update word counter
         function updateWordCounter() {
             const textArea = document.getElementById('commentContent');
             const currentCountSpan = document.getElementById('currentCount');
             const charCounter = document.getElementById('charCounter');
             const maxCount = 500;
 
-            // Đếm số từ
+            // Count words
             const wordCount = countWords(textArea.value);
             currentCountSpan.textContent = wordCount;
 
-            // Thay đổi màu sắc dựa trên số lượng từ
+            // Change color based on word count
             if (wordCount > maxCount) {
                 charCounter.className = 'char-counter danger';
             } else if (wordCount >= maxCount * 0.8) {
@@ -521,26 +522,26 @@
                 charCounter.className = 'char-counter';
             }
 
-            // Kiểm tra xem có vượt quá giới hạn không
+            // Check if exceeds limit
             if (wordCount > maxCount) {
-                // Giới hạn số từ bằng cách cắt bớt nội dung
+                // Limit word count by trimming content
                 let words = textArea.value.trim().split(/\s+/);
                 textArea.value = words.slice(0, maxCount).join(' ');
-                updateWordCounter(); // Gọi lại hàm để cập nhật số từ
+                updateWordCounter(); // Call function again to update word count
             }
         }
 
-        // Thiết lập sự kiện khi trang được tải
+        // Set events when page loads
         document.addEventListener('DOMContentLoaded', function() {
             const textArea = document.getElementById('commentContent');
 
-            // Cập nhật bộ đếm khi trang tải
+            // Update counter when page loads
             updateWordCounter();
 
-            // Thiết lập sự kiện cho việc nhập liệu
+            // Set events for input
             textArea.addEventListener('input', updateWordCounter);
             textArea.addEventListener('paste', function() {
-                // Sử dụng setTimeout để đảm bảo nội dung đã được dán vào
+                // Use setTimeout to ensure content has been pasted
                 setTimeout(updateWordCounter, 0);
             });
         });
