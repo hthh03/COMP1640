@@ -1,0 +1,58 @@
+﻿@model dynamic
+@using WebApplication2.Models
+
+<h2>Create a Meeting</h2>
+
+<!-- Form để tạo cuộc họp -->
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label for="teacherEmail">Teacher Email</label>
+        <input type="email" class="form-control" id="teacherEmail" name="teacherEmail" required />
+    </div>
+    <div class="form-group">
+        <label for="topic">Meeting Topic</label>
+        <input type="text" class="form-control" id="topic" name="topic" required />
+    </div>
+    <div class="form-group">
+        <label for="startTime">Start Time</label>
+        <input type="datetime-local" class="form-control" id="startTime" name="startTime" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Create Meeting</button>
+</form>
+
+<!-- Hiển thị lịch sử cuộc họp -->
+<h3 class="mt-5">Meeting History</h3>
+@if (ViewBag.Meetings != null && ViewBag.Meetings.Count > 0)
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Topic</th>
+                <th>Teacher Email</th>
+                <th>Start Time</th>
+                <th>Room Name</th>
+                <th>Join URL</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var meeting in ViewBag.Meetings)
+            {
+                <tr>
+                    <td>@meeting.Topic</td>
+                    <td>@meeting.TeacherEmail</td>
+                    <td>@meeting.StartTime.ToString("g")</td>
+                    <td>@meeting.RoomName</td>
+                    <td><a href="@meeting.JoinUrl" target="_blank">@meeting.JoinUrl</a></td>
+                    <td>
+                        <a href="@Url.Action("Join", "Meeting", new { roomName = meeting.RoomName })" class="btn btn-sm btn-primary">Join</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No meetings found.</p>
+}
