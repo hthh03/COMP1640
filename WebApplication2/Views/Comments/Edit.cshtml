@@ -1,54 +1,548 @@
 ﻿@model WebApplication2.Models.Comment
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Chỉnh sửa bình luận";
 }
 
-<h1>Edit</h1>
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-<h4>Comment</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+<style>
+    /* Main color variables */
+    :root {
+        --primary-orange: #FF7F24;
+        --secondary-orange: #FFA07A;
+        --light-orange: #FFE4C4;
+        --dark-orange: #D2691E;
+        --text-dark: #333333;
+        --text-light: #ffffff;
+        --light-gray: #f5f5f5;
+        --border-color: #e0e0e0;
+        --input-bg: #ffffff;
+        --input-focus: #FFF5EE;
+        --success-color: #4CAF50;
+        --error-color: #f44336;
+        --warning-color: #FFC107;
+    }
+
+    body {
+        background-color: var(--light-gray);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    .page-container {
+        max-width: 900px;
+        margin: 30px auto;
+        background-color: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(210, 105, 30, 0.2);
+        padding: 25px;
+        position: relative;
+        overflow: hidden;
+    }
+
+        .page-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 150px;
+            height: 150px;
+            background: var(--light-orange);
+            opacity: 0.2;
+            border-radius: 0 0 0 100%;
+            z-index: 0;
+        }
+
+        .page-container::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 120px;
+            height: 120px;
+            background: var(--light-orange);
+            opacity: 0.15;
+            border-radius: 0 100% 0 0;
+            z-index: 0;
+        }
+
+    .page-header {
+        text-align: center;
+        margin-bottom: 30px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .page-title {
+        font-size: 2.5rem;
+        color: var(--dark-orange);
+        margin-bottom: 5px;
+        font-weight: 700;
+        display: inline-block;
+        position: relative;
+    }
+
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--primary-orange);
+            border-radius: 3px;
+        }
+
+    .page-subtitle {
+        font-size: 1.3rem;
+        color: var(--secondary-orange);
+        margin-top: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+        .page-subtitle i {
+            margin-right: 10px;
+            font-size: 1.4rem;
+        }
+
+    .form-container {
+        background-color: #ffffff;
+        border-radius: 12px;
+        padding: 25px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        position: relative;
+        z-index: 1;
+        border: 1px solid var(--border-color);
+    }
+
+    .form-row {
+        margin-bottom: 25px;
+    }
+
+    .form-group {
+        margin-bottom: 25px;
+        position: relative;
+    }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark-orange);
+            font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+        }
+
+            .form-group label i {
+                margin-right: 8px;
+                color: var(--primary-orange);
+            }
+
+    .form-control {
+        width: 100%;
+        padding: 12px 15px;
+        font-size: 1rem;
+        border: 2px solid var(--border-color);
+        border-radius: 8px;
+        background-color: var(--input-bg);
+        color: var(--text-dark);
+        transition: all 0.3s ease;
+        box-sizing: border-box;
+    }
+
+        .form-control:focus {
+            border-color: var(--primary-orange);
+            background-color: var(--input-focus);
+            box-shadow: 0 0 0 3px rgba(255, 127, 36, 0.2);
+            outline: none;
+        }
+
+    .text-danger {
+        color: var(--error-color);
+        font-size: 0.9rem;
+        margin-top: 5px;
+        display: block;
+    }
+
+    .btn {
+        padding: 12px 24px;
+        border-radius: 30px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        font-size: 1rem;
+        min-width: 120px;
+    }
+
+        .btn i {
+            margin-right: 8px;
+        }
+
+    .btn-primary {
+        background-color: var(--primary-orange);
+        color: var(--text-light);
+    }
+
+        .btn-primary:hover {
+            background-color: var(--dark-orange);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(210, 105, 30, 0.3);
+        }
+
+    .btn-secondary {
+        background-color: var(--light-gray);
+        color: var(--text-dark);
+        border: 1px solid #ddd;
+    }
+
+        .btn-secondary:hover {
+            background-color: #e6e6e6;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+
+    .form-actions {
+        display: flex;
+        gap: 15px;
+        margin-top: 30px;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+
+    .back-link {
+        display: inline-flex;
+        align-items: center;
+        color: var(--dark-orange);
+        text-decoration: none;
+        font-weight: 600;
+        margin-top: 20px;
+        transition: all 0.3s ease;
+    }
+
+        .back-link i {
+            margin-right: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: var(--primary-orange);
+        }
+
+            .back-link:hover i {
+                transform: translateX(-5px);
+            }
+
+    .form-help {
+        background-color: var(--light-orange);
+        padding: 15px;
+        border-radius: 8px;
+        margin-top: 25px;
+        font-size: 0.95rem;
+        color: var(--dark-orange);
+        border-left: 4px solid var(--primary-orange);
+    }
+
+        .form-help i {
+            margin-right: 8px;
+        }
+
+    .form-group textarea.form-control {
+        min-height: 150px;
+        resize: vertical;
+    }
+
+    .date-input-wrapper {
+        position: relative;
+    }
+
+        .date-input-wrapper i {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--secondary-orange);
+            pointer-events: none;
+        }
+
+    .form-icon {
+        position: absolute;
+        right: 12px;
+        top: 42px;
+        color: var(--secondary-orange);
+        font-size: 1.2rem;
+        pointer-events: none;
+    }
+
+    .select-wrapper {
+        position: relative;
+    }
+
+        .select-wrapper::after {
+            content: '\f107';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            right: 15px;
+            top: 42px;
+            color: var(--secondary-orange);
+            pointer-events: none;
+        }
+
+    /* Character count styles */
+    .char-counter {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 8px;
+        font-size: 0.9rem;
+        color: var(--secondary-orange);
+        transition: all 0.3s ease;
+    }
+
+        .char-counter.warning {
+            color: var(--warning-color);
+        }
+
+        .char-counter.danger {
+            color: var(--error-color);
+        }
+
+    /* Animation */
+    @@keyframes fade-in {
+        from
+
+    {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    }
+
+    .form-container {
+        animation: fade-in 0.5s ease-out;
+    }
+
+    /* Responsive Design */
+    @@media (max-width: 768px) {
+        .page-container
+
+    {
+        margin: 20px 15px;
+        padding: 20px;
+    }
+
+    .page-title {
+        font-size: 2rem;
+    }
+
+    .page-subtitle {
+        font-size: 1.1rem;
+    }
+
+    .form-container {
+        padding: 20px;
+    }
+
+    }
+
+    @@media (max-width: 576px) {
+        .page-container
+
+    {
+        margin: 15px;
+        padding: 15px;
+    }
+
+    .page-title {
+        font-size: 1.7rem;
+    }
+
+    .page-subtitle {
+        font-size: 1rem;
+    }
+
+    .form-container {
+        padding: 15px;
+    }
+
+    .form-group label {
+        font-size: 1rem;
+    }
+
+    .form-control {
+        padding: 10px;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        font-size: 0.95rem;
+    }
+
+    }
+</style>
+
+<div class="page-container">
+    <div class="page-header">
+        <h1 class="page-title">
+            <i class="fas fa-edit"></i> Chỉnh sửa
+        </h1>
+        <h4 class="page-subtitle">
+            <i class="far fa-comment-dots"></i> Bình luận
+        </h4>
+    </div>
+
+    <div class="form-container">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="CommentId" />
+
             <div class="form-group">
-                <label asp-for="Content" class="control-label"></label>
-                <input asp-for="Content" class="form-control" />
+                <label asp-for="Content">
+                    <i class="fas fa-comment"></i> Nội dung bình luận
+                </label>
+                <textarea asp-for="Content" class="form-control" id="commentContent" placeholder="Nhập nội dung bình luận của bạn" maxlength="500"></textarea>
+                <div class="char-counter" id="charCounter">
+                    <i class="fas fa-text-height"></i>
+                    <span id="currentCount">0</span>/<span id="maxCount">500</span> từ
+                </div>
                 <span asp-validation-for="Content" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="CreatedAt" class="control-label"></label>
-                <input asp-for="CreatedAt" class="form-control" />
-                <span asp-validation-for="CreatedAt" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UpdatedAt" class="control-label"></label>
-                <input asp-for="UpdatedAt" class="form-control" />
-                <span asp-validation-for="UpdatedAt" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PostId" class="control-label"></label>
-                <select asp-for="PostId" class="form-control" asp-items="ViewBag.PostId"></select>
+                <label asp-for="PostId">
+                    <i class="fas fa-file-alt"></i> Bài viết
+                </label>
+                <div class="select-wrapper">
+                    <select asp-for="PostId" class="form-control" asp-items="ViewBag.PostId"></select>
+                </div>
                 <span asp-validation-for="PostId" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
-                <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId"></select>
+                <label asp-for="UserId">
+                    <i class="fas fa-user"></i> Người dùng
+                </label>
+                <div class="select-wrapper">
+                    <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId"></select>
+                </div>
                 <span asp-validation-for="UserId" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <label asp-for="CreatedAt">
+                    <i class="fas fa-calendar-plus"></i> Ngày tạo
+                </label>
+                <div class="date-input-wrapper">
+                    <input asp-for="CreatedAt" class="form-control" type="datetime-local" />
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <span asp-validation-for="CreatedAt" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="UpdatedAt">
+                    <i class="fas fa-calendar-check"></i> Ngày cập nhật
+                </label>
+                <div class="date-input-wrapper">
+                    <input asp-for="UpdatedAt" class="form-control" type="datetime-local" />
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <span asp-validation-for="UpdatedAt" class="text-danger"></span>
+            </div>
+
+            <div class="form-help">
+                <i class="fas fa-info-circle"></i> Nội dung bình luận không được vượt quá 500 từ. Các trường có dấu (*) là bắt buộc.
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Lưu thay đổi
+                </button>
+                <a asp-action="Index" class="btn btn-secondary">
+                    <i class="fas fa-times"></i> Hủy
+                </a>
             </div>
         </form>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+    <div class="text-center" style="margin-top: 30px;">
+        <a asp-action="Index" class="back-link">
+            <i class="fas fa-arrow-left"></i> Quay lại danh sách
+        </a>
+    </div>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        // Hàm đếm từ trong văn bản
+        function countWords(text) {
+            // Loại bỏ khoảng trắng thừa và tách văn bản thành các từ
+            return text.trim().split(/\s+/).filter(word => word.length > 0).length;
+        }
+
+        // Hàm cập nhật bộ đếm từ
+        function updateWordCounter() {
+            const textArea = document.getElementById('commentContent');
+            const currentCountSpan = document.getElementById('currentCount');
+            const charCounter = document.getElementById('charCounter');
+            const maxCount = 500;
+
+            // Đếm số từ
+            const wordCount = countWords(textArea.value);
+            currentCountSpan.textContent = wordCount;
+
+            // Thay đổi màu sắc dựa trên số lượng từ
+            if (wordCount > maxCount) {
+                charCounter.className = 'char-counter danger';
+            } else if (wordCount >= maxCount * 0.8) {
+                charCounter.className = 'char-counter warning';
+            } else {
+                charCounter.className = 'char-counter';
+            }
+
+            // Kiểm tra xem có vượt quá giới hạn không
+            if (wordCount > maxCount) {
+                // Giới hạn số từ bằng cách cắt bớt nội dung
+                let words = textArea.value.trim().split(/\s+/);
+                textArea.value = words.slice(0, maxCount).join(' ');
+                updateWordCounter(); // Gọi lại hàm để cập nhật số từ
+            }
+        }
+
+        // Thiết lập sự kiện khi trang được tải
+        document.addEventListener('DOMContentLoaded', function() {
+            const textArea = document.getElementById('commentContent');
+
+            // Cập nhật bộ đếm khi trang tải
+            updateWordCounter();
+
+            // Thiết lập sự kiện cho việc nhập liệu
+            textArea.addEventListener('input', updateWordCounter);
+            textArea.addEventListener('paste', function() {
+                // Sử dụng setTimeout để đảm bảo nội dung đã được dán vào
+                setTimeout(updateWordCounter, 0);
+            });
+        });
+    </script>
 }

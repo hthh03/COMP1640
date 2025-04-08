@@ -1,56 +1,646 @@
 ﻿@model WebApplication2.Models.Post
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Tạo bài viết mới";
 }
 
-<h1>Create</h1>
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-<h4>Post</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form id="postForm" asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
+<style>
+    /* Main color variables */
+    :root {
+        --primary-orange: #FF7F24;
+        --secondary-orange: #FFA07A;
+        --light-orange: #FFE4C4;
+        --dark-orange: #D2691E;
+        --text-dark: #333333;
+        --text-light: #ffffff;
+        --light-gray: #f5f5f5;
+        --accent-color: #45B8AC;
+        --error-color: #FF6B6B;
+        --success-color: #4CAF50;
+        --gradient-bg: linear-gradient(135deg, var(--light-orange) 0%, #ffffff 100%);
+    }
+
+    body {
+        background-color: var(--light-gray);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: var(--text-dark);
+    }
+
+    .page-header {
+        text-align: center;
+        margin-bottom: 2rem;
+        position: relative;
+        padding-bottom: 1rem;
+    }
+
+        .page-header h1 {
+            color: var(--dark-orange);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        .page-header h4 {
+            color: var(--secondary-orange);
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin-top: 0.3rem;
+        }
+
+        .page-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary-orange);
+            border-radius: 3px;
+        }
+
+    .form-container {
+        max-width: 1000px;
+        margin: 0 auto 2rem;
+        background-color: white;
+        border-radius: 16px;
+        box-shadow: 0 8px 25px rgba(210, 105, 30, 0.15);
+        padding: 2rem;
+        border-top: 5px solid var(--primary-orange);
+        position: relative;
+        overflow: hidden;
+    }
+
+        .form-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 150px;
+            height: 150px;
+            background: var(--light-orange);
+            opacity: 0.3;
+            border-radius: 0 0 0 100%;
+            z-index: 0;
+        }
+
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+    }
+
+    .form-col {
+        flex: 1;
+        min-width: 300px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .preview-col {
+        flex: 1;
+        min-width: 300px;
+        background: var(--gradient-bg);
+        border-radius: 12px;
+        padding: 1.5rem;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.07);
+        border-left: 4px solid var(--secondary-orange);
+        position: relative;
+        z-index: 1;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+        position: relative;
+    }
+
+    .control-label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: var(--dark-orange);
+        display: flex;
+        align-items: center;
+    }
+
+        .control-label i {
+            margin-right: 8px;
+            color: var(--primary-orange);
+        }
+
+    .form-control {
+        width: 100%;
+        padding: 12px 15px;
+        font-size: 1rem;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+        .form-control:focus {
+            border-color: var(--primary-orange);
+            box-shadow: 0 0 0 3px rgba(255, 127, 36, 0.2);
+            outline: none;
+        }
+
+    textarea.form-control {
+        min-height: 150px;
+        resize: vertical;
+    }
+
+    .text-danger {
+        color: var(--error-color);
+        font-size: 0.9rem;
+        margin-top: 0.3rem;
+        display: flex;
+        align-items: center;
+    }
+
+        .text-danger::before {
+            content: '\f071';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            margin-right: 5px;
+            font-size: 0.8rem;
+        }
+
+    select.form-control {
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23D2691E' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: calc(100% - 15px) center;
+        background-size: 12px;
+        padding-right: 40px;
+    }
+
+    .btn {
+        padding: 12px 25px;
+        border-radius: 30px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        font-size: 1rem;
+    }
+
+        .btn i {
+            margin-right: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .btn:hover i {
+            transform: translateY(-2px);
+        }
+
+    .btn-primary {
+        background-color: var(--primary-orange);
+        color: var(--text-light);
+        min-width: 150px;
+    }
+
+        .btn-primary:hover {
+            background-color: var(--dark-orange);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(210, 105, 30, 0.3);
+        }
+
+    .btn-secondary {
+        background-color: var(--light-gray);
+        color: var(--text-dark);
+        border: 1px solid #ddd;
+    }
+
+        .btn-secondary:hover {
+            background-color: #e6e6e6;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+
+    .form-actions {
+        display: flex;
+        gap: 1rem;
+        margin-top: 2rem;
+        flex-wrap: wrap;
+    }
+
+    .back-link {
+        display: inline-flex;
+        align-items: center;
+        color: var(--dark-orange);
+        text-decoration: none;
+        font-weight: 600;
+        margin-top: 1.5rem;
+        transition: all 0.3s ease;
+    }
+
+        .back-link i {
+            margin-right: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: var(--primary-orange);
+        }
+
+            .back-link:hover i {
+                transform: translateX(-3px);
+            }
+
+    /* Preview styles */
+    .preview-title {
+        font-size: 1.5rem;
+        color: var(--dark-orange);
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+    }
+
+        .preview-title i {
+            margin-right: 10px;
+            color: var(--primary-orange);
+        }
+
+    .preview-box {
+        background-color: white;
+        border-radius: 10px;
+        padding: 1.5rem;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        margin-bottom: 1rem;
+        transition: all 0.3s ease;
+    }
+
+        .preview-box.empty {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            color: #aaa;
+            font-style: italic;
+        }
+
+            .preview-box.empty i {
+                font-size: 2.5rem;
+                margin-bottom: 1rem;
+                color: var(--light-orange);
+            }
+
+    .preview-post-title {
+        font-size: 1.3rem;
+        color: var(--dark-orange);
+        margin-bottom: 0.8rem;
+        font-weight: 600;
+    }
+
+    .preview-post-content {
+        color: var(--text-dark);
+        line-height: 1.6;
+        margin-bottom: 1rem;
+    }
+
+    .preview-meta {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        font-size: 0.9rem;
+        color: #666;
+        flex-wrap: wrap;
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid #eee;
+    }
+
+    .preview-meta-item {
+        display: flex;
+        align-items: center;
+    }
+
+        .preview-meta-item i {
+            margin-right: 6px;
+            color: var(--secondary-orange);
+        }
+
+    .form-tip {
+        background-color: rgba(255, 245, 238, 0.7);
+        border-left: 3px solid var(--secondary-orange);
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+        border-radius: 8px;
+        font-size: 0.95rem;
+        display: flex;
+        align-items: flex-start;
+    }
+
+        .form-tip i {
+            color: var(--primary-orange);
+            margin-right: 10px;
+            margin-top: 3px;
+        }
+
+    /* File upload styling */
+    .file-upload-container {
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    .file-upload-btn {
+        padding: 10px 15px;
+        background-color: var(--light-orange);
+        color: var(--dark-orange);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: 1px dashed var(--secondary-orange);
+    }
+
+        .file-upload-btn i {
+            margin-right: 8px;
+        }
+
+        .file-upload-btn:hover {
+            background-color: var(--secondary-orange);
+            color: white;
+        }
+
+    .file-upload-input {
+        position: absolute;
+        left: 0;
+        top: 0;
+        opacity: 0;
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+    }
+
+    .file-name {
+        margin-top: 0.5rem;
+        font-size: 0.9rem;
+        color: #666;
+    }
+
+    .input-with-icon {
+        position: relative;
+    }
+
+        .input-with-icon .form-control {
+            padding-left: 40px;
+        }
+
+        .input-with-icon i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #aaa;
+            transition: all 0.3s ease;
+        }
+
+        .input-with-icon .form-control:focus + i {
+            color: var(--primary-orange);
+        }
+
+    /* Responsive styles */
+    @@media (max-width: 768px) {
+        .form-container
+
+    {
+        padding: 1.5rem;
+    }
+
+    .row {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .page-header h1 {
+        font-size: 2rem;
+    }
+
+    .page-header h4 {
+        font-size: 1.1rem;
+    }
+
+    }
+
+    @@media (max-width: 480px) {
+        .form-container
+
+    {
+        padding: 1.2rem;
+        border-radius: 12px;
+    }
+
+    .page-header h1 {
+        font-size: 1.8rem;
+    }
+
+    .preview-col {
+        padding: 1.2rem;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+    }
+
+    }
+</style>
+
+<div class="page-header">
+    <h1><i class="fas fa-pen-fancy"></i> Tạo bài viết mới</h1>
+    <h4>Thêm nội dung cho blog của bạn</h4>
+</div>
+
+<div class="form-container">
+    <div class="form-tip">
+        <i class="fas fa-lightbulb fa-lg"></i>
+        <div>
+            <strong>Mẹo:</strong> Tạo tiêu đề hấp dẫn và nội dung phong phú sẽ thu hút nhiều độc giả hơn. Sử dụng các đoạn ngắn để nội dung dễ đọc.
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-col">
+            <form id="postForm" asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Title" class="control-label">
+                        <i class="fas fa-heading"></i> Tiêu đề bài viết
+                    </label>
+                    <div class="input-with-icon">
+                        <input asp-for="Title" class="form-control" placeholder="Nhập tiêu đề hấp dẫn" />
+                        <i class="fas fa-pencil-alt"></i>
+                    </div>
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Content" class="control-label">
+                        <i class="fas fa-align-left"></i> Nội dung
+                    </label>
+                    <textarea asp-for="Content" class="form-control" placeholder="Nhập nội dung chi tiết của bài viết..."></textarea>
+                    <span asp-validation-for="Content" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">
+                        <i class="fas fa-image"></i> Hình ảnh bài viết
+                    </label>
+                    <div class="file-upload-container">
+                        <div class="file-upload-btn">
+                            <i class="fas fa-cloud-upload-alt"></i> Chọn hình ảnh
+                        </div>
+                        <input type="file" class="file-upload-input" />
+                    </div>
+                    <div class="file-name">Chưa có file nào được chọn</div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group" style="flex: 1; min-width: 0; margin-right: 10px;">
+                        <label asp-for="CreatedAt" class="control-label">
+                            <i class="far fa-calendar-plus"></i> Ngày tạo
+                        </label>
+                        <div class="input-with-icon">
+                            <input asp-for="CreatedAt" class="form-control" type="datetime-local" />
+                            <i class="far fa-calendar-alt"></i>
+                        </div>
+                        <span asp-validation-for="CreatedAt" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group" style="flex: 1; min-width: 0;">
+                        <label asp-for="UpdatedAt" class="control-label">
+                            <i class="far fa-calendar-check"></i> Ngày cập nhật
+                        </label>
+                        <div class="input-with-icon">
+                            <input asp-for="UpdatedAt" class="form-control" type="datetime-local" />
+                            <i class="far fa-calendar-alt"></i>
+                        </div>
+                        <span asp-validation-for="UpdatedAt" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="BlogId" class="control-label">
+                        <i class="fas fa-folder-open"></i> Thuộc blog
+                    </label>
+                    <select asp-for="BlogId" class="form-control" asp-items="ViewBag.BlogId">
+                        <option value="">-- Chọn blog --</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">
+                        <i class="fas fa-tags"></i> Thẻ
+                    </label>
+                    <div class="input-with-icon">
+                        <input type="text" class="form-control" placeholder="Nhập thẻ và nhấn Enter (vd: tin tức, công nghệ)" />
+                        <i class="fas fa-hashtag"></i>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-paper-plane"></i> Đăng bài
+                    </button>
+                    <button type="button" class="btn btn-secondary" id="previewBtn">
+                        <i class="fas fa-eye"></i> Xem trước
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div class="preview-col">
+            <h3 class="preview-title">
+                <i class="fas fa-desktop"></i> Xem trước
+            </h3>
+            <div class="preview-box empty" id="previewBox">
+                <i class="far fa-eye-slash"></i>
+                <p>Chưa có nội dung xem trước</p>
+                <p>Điền thông tin bài viết và nhấn "Xem trước" để xem kết quả</p>
             </div>
-            <div class="form-group">
-                <label asp-for="Content" class="control-label"></label>
-                <input asp-for="Content" class="form-control" />
-                <span asp-validation-for="Content" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CreatedAt" class="control-label"></label>
-                <input asp-for="CreatedAt" class="form-control" />
-                <span asp-validation-for="CreatedAt" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UpdatedAt" class="control-label"></label>
-                <input asp-for="UpdatedAt" class="form-control" />
-                <span asp-validation-for="UpdatedAt" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BlogId" class="control-label"></label>
-                <select asp-for="BlogId" class ="form-control" asp-items="ViewBag.BlogId"></select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
+    </div>
+
+    <div>
+        <a href="javascript:history.back()" class="back-link">
+            <i class="fas fa-arrow-left"></i> Quay lại danh sách
+        </a>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 
     <script>
+        // File upload handling
+        document.querySelector('.file-upload-input').addEventListener('change', function(e) {
+            var fileName = e.target.files[0] ? e.target.files[0].name : 'Chưa có file nào được chọn';
+            document.querySelector('.file-name').textContent = fileName;
+        });
+
+        // Preview functionality
+        document.getElementById("previewBtn").addEventListener("click", function() {
+            const title = document.getElementById("Title").value || 'Tiêu đề bài viết';
+            const content = document.getElementById("Content").value || 'Nội dung bài viết sẽ hiển thị ở đây...';
+            const createdAt = document.getElementById("CreatedAt").value;
+            const formattedDate = createdAt ? new Date(createdAt).toLocaleDateString('vi-VN', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            }) : new Date().toLocaleDateString('vi-VN', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+
+            const previewBox = document.getElementById("previewBox");
+
+            // Remove empty class if exists
+            previewBox.classList.remove('empty');
+
+            // Generate preview HTML
+            previewBox.innerHTML = `
+                <div class="preview-post-title">${title}</div>
+                <div class="preview-post-content">${content}</div>
+                <div class="preview-meta">
+                    <div class="preview-meta-item">
+                        <i class="far fa-calendar-alt"></i> ${formattedDate}
+                    </div>
+                    <div class="preview-meta-item">
+                        <i class="far fa-user"></i> Admin
+                    </div>
+                    <div class="preview-meta-item">
+                        <i class="far fa-eye"></i> 0 lượt xem
+                    </div>
+                </div>
+            `;
+        });
+
+        // Form submission handling
         document.getElementById("postForm").addEventListener("submit", function(event) {
             event.preventDefault(); // Ngăn chặn form gửi đi ngay lập tức
 
@@ -60,6 +650,34 @@
             const createdAt = document.getElementById("CreatedAt").value;
             const updatedAt = document.getElementById("UpdatedAt").value;
             const blogId = document.getElementById("BlogId").value;
+
+            // Kiểm tra dữ liệu (validation đơn giản)
+            let isValid = true;
+            const errorMessages = [];
+
+            if (!title || title.trim() === '') {
+                isValid = false;
+                errorMessages.push('Vui lòng nhập tiêu đề bài viết');
+                document.getElementById("Title").classList.add('is-invalid');
+            }
+
+            if (!content || content.trim() === '') {
+                isValid = false;
+                errorMessages.push('Vui lòng nhập nội dung bài viết');
+                document.getElementById("Content").classList.add('is-invalid');
+            }
+
+            if (!blogId) {
+                isValid = false;
+                errorMessages.push('Vui lòng chọn blog');
+                document.getElementById("BlogId").classList.add('is-invalid');
+            }
+
+            if (!isValid) {
+                // Hiển thị thông báo lỗi
+                alert(errorMessages.join('\n'));
+                return;
+            }
 
             // In dữ liệu ra console của trình duyệt
             console.log("Title:", title);
