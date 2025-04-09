@@ -4,55 +4,107 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Etutor</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <!-- Single Bootstrap 5 version -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/account.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Simplified responsive navbar styles -->
+    <style>
+        .navbar {
+            background: linear-gradient(to right, #f6d365, #fda085);
+        }
+
+        .navbar-brand {
+            color: #ff8c00;
+        }
+
+        .btn-primary-custom {
+            background-color: #ff8c00;
+            color: white;
+        }
+
+        footer {
+            background: linear-gradient(to right, #f6d365, #fda085);
+            color: white;
+            padding: 1rem 0;
+        }
+
+        /* Handle focus states properly */
+        .navbar-toggler:focus {
+            box-shadow: none;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm" style="background: linear-gradient(to right, #f6d365, #fda085);">
+        <nav class="navbar navbar-expand-lg navbar-light shadow-sm">
             <div class="container-fluid">
-                <a class="navbar-brand fw-bold" asp-controller="Home" asp-action="Index" style="color: #ff8c00;">
+                <a class="navbar-brand fw-bold" asp-area="" asp-controller="Home" asp-action="Index">
                     <img src="~/image/logo.png" alt="Logo" width="30" height="30" class="me-2">
                     E-Tutor
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                <!-- Bootstrap 5 toggle syntax only -->
+                <button class="navbar-toggler" type="button" id="navbar-toggler">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-white me-3" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-white me-3 nav-menu-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         @if (User.IsInRole("Admin"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link" asp-controller="Admin" asp-action="Index">Admin Panel</a>
+                                <a class="nav-link text-white me-3 nav-menu-link" asp-area="" asp-controller="Admin" asp-action="Index">Admin Panel</a>
                             </li>
                         }
-
                         @if (User.IsInRole("Teacher"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link" href="@Url.Action("Dashboard", "Teacher")">Teacher Dashboard</a>
+                                <!-- Changed to tag helper syntax with nav-menu-link class -->
+                                <a class="nav-link text-white me-3 nav-menu-link" asp-area="" asp-controller="Teacher" asp-action="Dashboard">Teacher Dashboard</a>
                             </li>
                         }
-
                         @if (User.IsInRole("Student"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link" href="@Url.Action("Dashboard", "Student")">Student Dashboard</a>
+                                <!-- Changed to tag helper syntax with nav-menu-link class -->
+                                <a class="nav-link text-white me-3 nav-menu-link" asp-area="" asp-controller="Student" asp-action="Dashboard">Student Dashboard</a>
                             </li>
                         }
-
                         <li class="nav-item">
-                            <a class="nav-link text-white me-3" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-white me-3 nav-menu-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
-                        <partial name="_LoginPartial" />
+                    </ul>
+
+                    @* Login Partial *@
+                    @using Microsoft.AspNetCore.Identity;
+                    @using WebApplication2.Models
+                    @inject SignInManager<Users> signInManager;
+                    <ul class="navbar-nav ms-auto">
+                        @if (signInManager.IsSignedIn(User))
+                        {
+                            <li class="nav-item">
+                                <!-- Changed to include class and asp-area -->
+                                <a class="nav-link text-white me-3 nav-menu-link" asp-area="" asp-controller="Profile" asp-action="Profile">Profile</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn rounded-pill px-3 py-2 btn-primary-custom nav-menu-link" asp-area="" asp-controller="Account" asp-action="Logout">
+                                    <i class="fa-solid fa-right-from-bracket"></i>
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-white nav-menu-link" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white nav-menu-link" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
@@ -63,15 +115,55 @@
             @RenderBody()
         </main>
     </div>
-
-    <footer class="bg-dark text-white text-center" style="background: linear-gradient(to right, #f6d365, #fda085);">
+    <footer class="text-center">
         <div class="container">
-            &copy; 2025 Etutor. All rights reserved.<a class="text-white me-3" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2025 Etutor. All rights reserved.
+            <a class="text-white ms-2" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <!-- Bootstrap 5 JS only -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Completely custom navbar toggle implementation -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get navbar elements
+            const navbarToggler = document.getElementById('navbar-toggler');
+            const navbarCollapse = document.getElementById('navbarSupportedContent');
+            const menuLinks = document.querySelectorAll('.nav-menu-link');
+
+            if (navbarToggler && navbarCollapse) {
+                // Toggle menu on button click
+                navbarToggler.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    navbarCollapse.classList.toggle('show');
+                });
+
+                // Close menu when clicking on any menu link
+                menuLinks.forEach(function(link) {
+                    link.addEventListener('click', function() {
+                        if (navbarCollapse.classList.contains('show')) {
+                            navbarCollapse.classList.remove('show');
+                        }
+                    });
+                });
+
+                // Close menu when clicking outside navbar
+                document.addEventListener('click', function(event) {
+                    const isClickInsideNavbar = navbarToggler.contains(event.target) || navbarCollapse.contains(event.target);
+                    if (!isClickInsideNavbar && navbarCollapse.classList.contains('show')) {
+                        navbarCollapse.classList.remove('show');
+                    }
+                });
+            }
+
+            // Confirm script is loaded
+            console.log('Menu toggle script loaded successfully');
+        });
+    </script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
