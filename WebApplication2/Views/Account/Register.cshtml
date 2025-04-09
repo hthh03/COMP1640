@@ -6,6 +6,7 @@
     Layout = "~/Views/Shared/_AccountLayout.cshtml";
    
 }
+
 <div class="d-flex justify-content-center align-items-center min-vh-100" 
 style="background: linear-gradient(to right, #f6d365, #fda085); position: relative;">
 
@@ -84,10 +85,6 @@ style="background: linear-gradient(to right, #f6d365, #fda085); position: relati
                 <span asp-validation-for="Role" class="text-danger"></span>
             </div>
 
-            <div id="successPopup" class="popup hidden">
-                Registration Successful!
-            </div>
-
             <!-- Submit Button -->
             <button type="submit" class="btn w-100 p-2 fw-bold rounded-pill shadow-sm" style="background-color: #ff8c00; color: white;">
                 Sign Up
@@ -104,9 +101,10 @@ style="background: linear-gradient(to right, #f6d365, #fda085); position: relati
             </div>
 
         </form>
+        <script src="~/js/site.js"></script>
+
     </div>
 </div>
-
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial.cshtml");
@@ -124,4 +122,6 @@ style="background: linear-gradient(to right, #f6d365, #fda085); position: relati
             }
         }       
     </script>
+
+    
 }

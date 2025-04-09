@@ -1,22 +1,27 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApplication2.Data;
 using WebApplication2.Models;
+using WebApplication2.Utilities;
 
 [Authorize]
 public class CoursesController : Controller
 {
     private readonly AppDbContext _context;
     private readonly UserManager<Users> _userManager;
+    private readonly IHubContext<NotificationHub> _hubContext;
 
-    public CoursesController(AppDbContext context, UserManager<Users> userManager)
+
+    public CoursesController(AppDbContext context, UserManager<Users> userManager, IHubContext<NotificationHub> hubContext)
     {
         _context = context;
         _userManager = userManager;
+        _hubContext = hubContext;
     }
 
     public async Task<IActionResult> Index()
@@ -118,7 +123,7 @@ public class CoursesController : Controller
         }
         catch (DbUpdateConcurrencyException)
         {
-            return StatusCode(500, "Lỗi khi cập nhật khóa học.");
+            return StatusCode(500, "An error occurred when update the course.");
         }
     }
 
@@ -136,5 +141,49 @@ public class CoursesController : Controller
 
         await _context.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
+    }
+
+    [HttpPost]
+    public IActionResult SubmitCourseRequest(string studentId, int courseId)
+    {
+        // Fetch the teacher for this course from the database
+        var teacherId = _context.Courses
+                           .Where(c => c.Id == courseId)
+                           .Select(c => c.TeacherId)
+                           .FirstOrDefault();
+
+        // Create a new course request
+        var courseRequest = new CourseRequests
+        {
+            StudentId = studentId,
+            TeacherId = teacherId,
+            CourseId = courseId,
+            Status = "Pending",
+            CreatedAt = DateTime.Now
+        };
+
+        // Save to database
+        _context.CourseRequests.Add(courseRequest);
+        _context.SaveChanges();
+
+        var message = "A student has requested to join your course!";
+        _hubContext.Clients.User(teacherId).SendAsync("ReceiveNotification", message);
+
+        return Ok("Request submitted successfully!");
+    }
+
+    [HttpPost]
+    public IActionResult UpdateRequestStatus(int requestId, string status)
+    {
+        var request = _context.CourseRequests.FirstOrDefault(r => r.Id == requestId);
+        if (request != null)
+        {
+            request.Status = status; // "Approved" or "Denied"
+            _context.SaveChanges();
+
+            return Ok("Request updated successfully!");
+        }
+
+        return NotFound("Request not found!");
     }
 }

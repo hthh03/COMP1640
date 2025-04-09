@@ -26,27 +26,32 @@
                         @if (User.IsInRole("Admin"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link" asp-controller="Admin" asp-action="Index">Admin Panel</a>
+                                <a class="nav-link text-dark" asp-controller="Admin" asp-action="Index">Admin Panel</a>
                             </li>
                         }
 
                         @if (User.IsInRole("Teacher"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link" href="@Url.Action("Dashboard", "Teacher")">Teacher Dashboard</a>
+                                <a class="nav-link text-dark" href="@Url.Action("Dashboard", "Teacher")">Teacher Dashboard</a>
                             </li>
                         }
 
                         @if (User.IsInRole("Student"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link" href="@Url.Action("Dashboard", "Student")">Student Dashboard</a>
+                                <a class="nav-link text-dark" href="@Url.Action("Dashboard", "Student")">Student Dashboard</a>
                             </li>
                         }   
 
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                        <button type="button" class="btn btn-primary">
+                            Notifications <span class="badge bg-secondary">4</span>
+                        </button>
+                     
+
                         <partial name="_LoginPartial" />
                     </ul>
                 </div>

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using WebApplication2.Models;
 using Microsoft.AspNetCore.Identity;
+using WebApplication2.Utilities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +30,8 @@ builder.Services.AddAuthorization();
 
 // Thêm Controllers với Views
 builder.Services.AddControllersWithViews();
+// Thêm SignalR
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 
@@ -44,6 +47,10 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapHub<NotificationHub>("/notificationHub");
+});
 
 // Khởi tạo dữ liệu ban đầu (vai trò và tài khoản Admin mặc định)
 using (var scope = app.Services.CreateScope())
