@@ -2,12 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using WebApplication2.Models;
 using Microsoft.AspNetCore.Identity;
-using WebApplication2.Hubs;
-using Microsoft.AspNetCore.Http.Features;
+using WebApplication2.Utilities;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddSignalR();
-
 
 // Cấu hình DbContext
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -33,22 +30,11 @@ builder.Services.AddAuthorization();
 
 // Thêm Controllers với Views
 builder.Services.AddControllersWithViews();
-
-// Ảnh
-
-builder.Services.Configure<IISServerOptions>(options =>
-{
-    options.MaxRequestBodySize = 10 * 1024 * 1024; // 10MB
-});
-
-builder.Services.Configure<FormOptions>(options =>
-{
-    options.MultipartBodyLengthLimit = 10 * 1024 * 1024; // 10MB
-});
-
+// Thêm SignalR
+builder.Services.AddSignalR();
 
 var app = builder.Build();
-app.MapHub<MeetingHub>("/meetingHub");
+
 // Cấu hình Middleware
 if (!app.Environment.IsDevelopment())
 {
@@ -61,6 +47,10 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapHub<NotificationHub>("/notificationHub");
+});
 
 // Khởi tạo dữ liệu ban đầu (vai trò và tài khoản Admin mặc định)
 using (var scope = app.Services.CreateScope())

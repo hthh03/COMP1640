@@ -145,7 +145,7 @@ namespace WebApplication2.Controllers
                     }
 
                     // Đăng nhập tự động sau khi đăng ký
-                   /* await _signInManager.SignInAsync(user, isPersistent: false);
+                    await _signInManager.SignInAsync(user, isPersistent: false);
 
                     // Chuyển hướng theo vai trò sau khi đăng ký
                     if (model.Role == "Teacher")
@@ -155,7 +155,7 @@ namespace WebApplication2.Controllers
                     else if (model.Role == "Student")
                     {
                         return RedirectToAction("Dashboard", "Student"); // Chuyển hướng Student đến Student Dashboard
-                    }*/
+                    }
 
                     return RedirectToAction("Index", "Home");
                 }
