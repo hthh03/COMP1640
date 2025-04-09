@@ -46,10 +46,29 @@
         display: inline-block;
         transition: background-color 0.3s;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin-right: 10px;
     }
 
         .submit-btn:hover {
             background-color: #FF7E2E;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+    .meeting-btn {
+        background-color: #D2691E;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-block;
+        transition: background-color 0.3s;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+        .meeting-btn:hover {
+            background-color: #800000;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
         }
 
@@ -101,28 +120,26 @@
         margin-top: 20px;
     }
 </style>
-
 <div class="course-container">
     <div class="course-header">
-        <h2 class="course-title">Khóa học: @Model.Name</h2>
+        <h2 class="course-title">Course: @Model.Name</h2>
         <p class="teacher-info">
-            <span class="teacher-label">Giáo viên:</span> @Model.Teacher.FullName
+            <span class="teacher-label">Teacher:</span> @Model.Teacher.FullName
         </p>
-
         @if (User.IsInRole("Student"))
         {
             <div class="btn-action">
-                <a asp-action="SubmitAssignment" asp-route-courseId="@Model.Id" class="submit-btn">Nộp bài tập</a>
+                <a asp-action="SubmitAssignment" asp-route-courseId="@Model.Id" class="submit-btn">Submit Assignment</a>
+                <a href="https://localhost:7286/meeting/create" class="meeting-btn">Join Meeting</a>
             </div>
         }
     </div>
-
     <div class="student-section">
-        <h3 class="section-header">Danh sách học viên</h3>
+        <h3 class="section-header">Student List</h3>
         <table class="student-table">
             <thead>
                 <tr>
-                    <th>Tên học viên</th>
+                    <th>Student Name</th>
                 </tr>
             </thead>
             <tbody>
