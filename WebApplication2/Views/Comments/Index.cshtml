@@ -1,59 +1,760 @@
 ﻿@model IEnumerable<WebApplication2.Models.Comment>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Danh sách bình luận";
 }
 
-<h1>Index</h1>
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Content)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedAt)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UpdatedAt)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Post)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.User)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Content)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedAt)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UpdatedAt)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Post.Content)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.Id)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.CommentId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.CommentId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.CommentId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<style>
+    /* Main color variables */
+    :root {
+        --primary-orange: #FF7F24;
+        --secondary-orange: #FFA07A;
+        --light-orange: #FFE4C4;
+        --dark-orange: #D2691E;
+        --text-dark: #333333;
+        --text-light: #ffffff;
+        --light-gray: #f5f5f5;
+        --accent-color: #45B8AC;
+        --gradient-bg: linear-gradient(135deg, var(--light-orange) 0%, #ffffff 100%);
+    }
+
+    body {
+        background-color: var(--light-gray);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    .comments-container {
+        max-width: 1000px;
+        margin: 20px auto;
+        background-color: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(210, 105, 30, 0.2);
+        padding: 20px;
+        border-top: 5px solid var(--primary-orange);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .comments-container::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 150px;
+        height: 150px;
+        background: var(--light-orange);
+        opacity: 0.15;
+        border-radius: 0 0 0 100%;
+        z-index: 0;
+    }
+
+    .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+        position: relative;
+        z-index: 1;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .page-title {
+        font-size: 2rem;
+        color: var(--dark-orange);
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+        margin: 0;
+    }
+
+    .page-title i {
+        margin-right: 15px;
+        color: var(--primary-orange);
+        font-size: 1.8rem;
+    }
+
+    .create-btn {
+        padding: 10px 20px;
+        background-color: var(--primary-orange);
+        color: var(--text-light);
+        border-radius: 30px;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 10px rgba(210, 105, 30, 0.3);
+    }
+
+    .create-btn i {
+        margin-right: 10px;
+    }
+
+    .create-btn:hover {
+        background-color: var(--dark-orange);
+        transform: translateY(-3px);
+        box-shadow: 0 6px 15px rgba(210, 105, 30, 0.4);
+    }
+
+    .stats-bar {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 25px;
+        flex-wrap: wrap;
+    }
+
+    .stat-card {
+        background: var(--gradient-bg);
+        border-radius: 12px;
+        padding: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        flex: 1;
+        min-width: 120px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        border-bottom: 3px solid var(--primary-orange);
+    }
+
+    .stat-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(210, 105, 30, 0.15);
+    }
+
+    .stat-icon {
+        font-size: 1.8rem;
+        color: var(--primary-orange);
+        margin-bottom: 8px;
+    }
+
+    .stat-value {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: var(--dark-orange);
+    }
+
+    .stat-label {
+        font-size: 0.85rem;
+        color: #777;
+        margin-top: 5px;
+        text-align: center;
+    }
+
+    .table-responsive {
+        overflow-x: auto;
+        margin-bottom: 20px;
+        border-radius: 12px;
+    }
+
+    .comments-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+    .comments-table thead {
+        background-color: var(--primary-orange);
+        color: var(--text-light);
+    }
+
+    .comments-table th {
+        padding: 15px;
+        text-align: left;
+        font-weight: 600;
+        font-size: 1rem;
+        position: relative;
+        transition: all 0.3s ease;
+        white-space: nowrap;
+    }
+
+    .comments-table th i {
+        margin-right: 8px;
+        opacity: 0.8;
+    }
+
+    .comments-table tbody tr {
+        background-color: #ffffff;
+        transition: all 0.3s ease;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .comments-table tbody tr:last-child {
+        border-bottom: none;
+    }
+
+    .comments-table tbody tr:hover {
+        background-color: rgba(255, 228, 196, 0.3);
+        transform: translateY(-2px);
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .comments-table td {
+        padding: 15px;
+        color: var(--text-dark);
+        vertical-align: middle;
+        position: relative;
+    }
+
+    /* Content styles */
+    .comment-content {
+        position: relative;
+        padding-left: 15px;
+        display: flex;
+        align-items: center;
+        min-width: 100px;
+    }
+
+    .comment-content::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 70%;
+        width: 3px;
+        background-color: var(--primary-orange);
+        border-radius: 3px;
+    }
+
+    /* Date styles */
+    .date-cell {
+        display: flex;
+        flex-direction: column;
+        min-width: 100px;
+    }
+
+    .date-primary {
+        font-weight: 600;
+        color: var(--dark-orange);
+        margin-bottom: 3px;
+    }
+
+    .date-secondary {
+        font-size: 0.85rem;
+        color: #777;
+    }
+
+    /* User styles */
+    .user-cell {
+        display: flex;
+        align-items: center;
+        min-width: 80px;
+    }
+
+    .user-avatar {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        background-color: var(--secondary-orange);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        margin-right: 10px;
+        font-size: 0.8rem;
+    }
+
+    .user-id {
+        font-weight: 600;
+        color: var(--dark-orange);
+        font-size: 0.95rem;
+    }
+
+    /* Post reference */
+    .post-reference {
+        display: inline-block;
+        max-width: 200px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        background-color: var(--light-orange);
+        padding: 5px 10px;
+        border-radius: 15px;
+        font-size: 0.85rem;
+        color: var(--dark-orange);
+        transition: all 0.3s ease;
+    }
+
+    .post-reference:hover {
+        background-color: var(--secondary-orange);
+        color: var(--text-light);
+    }
+
+    /* Action buttons */
+    .action-cell {
+        display: flex;
+        gap: 8px;
+        min-width: 100px;
+    }
+
+    .action-btn {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        color: white;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        text-decoration: none;
+    }
+
+    .edit-btn {
+        background-color: var(--primary-orange);
+    }
+
+    .details-btn {
+        background-color: var(--accent-color);
+    }
+
+    .delete-btn {
+        background-color: #FF6B6B;
+    }
+
+    .action-btn:hover {
+        transform: translateY(-3px) scale(1.1);
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Pagination */
+    .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 30px;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    .pagination-item {
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background-color: white;
+        color: var(--dark-orange);
+        font-weight: 600;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+
+    .pagination-item.active {
+        background-color: var(--primary-orange);
+        color: var(--text-light);
+    }
+
+    .pagination-item:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    .pagination-arrow {
+        background-color: var(--light-orange);
+    }
+
+    /* No data indicator */
+    .no-data {
+        color: #999;
+        font-style: italic;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    /* Empty state */
+    .empty-state {
+        text-align: center;
+        padding: 40px 20px;
+        background-color: #f9f9f9;
+        border-radius: 12px;
+        margin: 20px 0;
+    }
+
+    .empty-icon {
+        font-size: 3rem;
+        color: var(--secondary-orange);
+        margin-bottom: 15px;
+        opacity: 0.7;
+    }
+
+    .empty-text {
+        font-size: 1.1rem;
+        color: #777;
+        margin-bottom: 20px;
+    }
+
+    /* Table Scrollbar */
+    .table-responsive::-webkit-scrollbar {
+        height: 8px;
+    }
+
+    .table-responsive::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+    }
+
+    .table-responsive::-webkit-scrollbar-thumb {
+        background: var(--secondary-orange);
+        border-radius: 10px;
+    }
+
+    .table-responsive::-webkit-scrollbar-thumb:hover {
+        background: var(--primary-orange);
+    }
+
+    /* Responsive Design */
+    @@media (max-width: 992px) {
+        .stat-card {
+            min-width: 110px;
+        }
+    }
+
+    @@media (max-width: 768px) {
+        .comments-container {
+            margin: 15px;
+            padding: 15px;
+        }
+
+        .page-header {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .page-title {
+            font-size: 1.7rem;
+            margin-bottom: 10px;
+        }
+
+        .page-title i {
+            font-size: 1.5rem;
+        }
+
+        .stat-card {
+            min-width: 100px;
+            padding: 12px 10px;
+        }
+
+        .stat-icon {
+            font-size: 1.5rem;
+        }
+
+        .stat-value {
+            font-size: 1.4rem;
+        }
+
+        .stats-bar {
+            justify-content: center;
+        }
+
+        .comments-table th,
+        .comments-table td {
+            padding: 12px 10px;
+        }
+    }
+
+    @@media (max-width: 576px) {
+        .comments-container {
+            margin: 10px;
+            padding: 12px;
+            border-radius: 12px;
+        }
+
+        .page-title {
+            font-size: 1.5rem;
+        }
+
+        .create-btn {
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .stats-bar {
+            gap: 10px;
+        }
+
+        .stat-card {
+            padding: 10px 8px;
+            min-width: 90px;
+        }
+
+        .stat-icon {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            font-size: 1.3rem;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+        }
+
+        .action-btn {
+            width: 28px;
+            height: 28px;
+            font-size: 0.8rem;
+        }
+
+        .pagination-item {
+            width: 32px;
+            height: 32px;
+            font-size: 0.9rem;
+        }
+        
+        .comments-table th {
+            padding: 10px 8px;
+            font-size: 0.9rem;
+        }
+        
+        .comments-table td {
+            padding: 10px 8px;
+            font-size: 0.85rem;
+        }
+        
+        .date-primary {
+            font-size: 0.85rem;
+        }
+        
+        .date-secondary {
+            font-size: 0.75rem;
+        }
+    }
+    
+    /* iPhone 5 size (320px) specific optimizations */
+    @@media (max-width: 320px) {
+        .comments-container {
+            margin: 5px;
+            padding: 10px;
+        }
+        
+        .page-title {
+            font-size: 1.3rem;
+        }
+        
+        .page-title i {
+            font-size: 1.2rem;
+            margin-right: 8px;
+        }
+        
+        .stats-bar {
+            gap: 5px;
+        }
+        
+        .stat-card {
+            min-width: 80px;
+            padding: 8px 5px;
+        }
+        
+        .stat-icon {
+            font-size: 1.1rem;
+        }
+        
+        .stat-value {
+            font-size: 1.1rem;
+        }
+        
+        .stat-label {
+            font-size: 0.7rem;
+        }
+        
+        .action-cell {
+            gap: 3px;
+        }
+        
+        .action-btn {
+            width: 26px;
+            height: 26px;
+            font-size: 0.7rem;
+        }
+        
+        .pagination {
+            gap: 5px;
+        }
+        
+        .pagination-item {
+            width: 28px;
+            height: 28px;
+            font-size: 0.8rem;
+        }
+        
+        .empty-text {
+            font-size: 0.9rem;
+        }
+    }
+</style>
+
+<div class="comments-container">
+    <div class="page-header">
+        <h1 class="page-title">
+            <i class="far fa-comments"></i>
+            Comments List
+        </h1>
+        <a asp-action="Create" class="create-btn">
+            <i class="fas fa-plus-circle"></i> Add New
+        </a>
+    </div>
+
+    <div class="stats-bar">
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="far fa-comment"></i>
+            </div>
+            <div class="stat-value">@Model.Count()</div>
+            <div class="stat-label">Total Comments</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="far fa-user"></i>
+            </div>
+            <div class="stat-value">@Model.Select(c => c.User.Id).Distinct().Count()</div>
+            <div class="stat-label">Commenters</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="far fa-calendar-alt"></i>
+            </div>
+            <div class="stat-value">@(Model.Any() ? Model.Max(c => c.CreatedAt).ToString("MM/dd") : "-")</div>
+            <div class="stat-label">Latest Comment</div>
+        </div>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="empty-state">
+            <div class="empty-icon">
+                <i class="far fa-comment-dots"></i>
+            </div>
+            <div class="empty-text">No comments have been created yet</div>
+            <a asp-action="Create" class="create-btn">
+                <i class="fas fa-plus-circle"></i> Create First Comment
+            </a>
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="comments-table">
+                <thead>
+                    <tr>
+                        <th><i class="fas fa-pen-fancy"></i> Content</th>
+                        <th><i class="far fa-calendar-plus"></i> Created</th>
+                        <th><i class="far fa-calendar-check"></i> Updated</th>
+                        <th><i class="far fa-file-alt"></i> Post</th>
+                        <th><i class="far fa-user"></i> User</th>
+                        <th><i class="fas fa-cogs"></i> Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <div class="comment-content">
+                                    @if (item.Content != null && item.Content.Length > 50)
+                                    {
+                                        @(item.Content.Substring(0, 50) + "...")
+                                    }
+                                    else
+                                    {
+                                        @(item.Content ?? "")
+                                    }
+                                </div>
+                            </td>
+                            <td>
+                                <div class="date-cell">
+                                    <span class="date-primary">@item.CreatedAt.ToString("MM/dd/yyyy")</span>
+                                    <span class="date-secondary">@item.CreatedAt.ToString("HH:mm")</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="date-cell">
+                                    @if (item.UpdatedAt.HasValue)
+                                    {
+                                        <span class="date-primary">@item.UpdatedAt.Value.ToString("MM/dd/yyyy")</span>
+                                        <span class="date-secondary">@item.UpdatedAt.Value.ToString("HH:mm")</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="no-data"><i class="fas fa-minus"></i> Not updated</span>
+                                    }
+                                </div>
+                            </td>
+                            <td>
+                                <span class="post-reference" title="@(item.Post?.Content ?? "")">
+                                    <i class="far fa-file-alt"></i>
+                                    @if (item.Post != null && item.Post.Content != null && item.Post.Content.Length > 20)
+                                    {
+                                        @(item.Post.Content.Substring(0, 20) + "...")
+                                    }
+                                    else
+                                    {
+                                        @(item.Post?.Content ?? "")
+                                    }
+                                </span>
+                            </td>
+                            <td>
+                                <div class="user-cell">
+                                    <div class="user-avatar">
+                                        <i class="far fa-user"></i>
+                                    </div>
+                                    @if (item.User != null && item.User.Id != null && item.User.Id.Length > 5)
+                                    {
+                                        <span class="user-id">@item.User.Id.Substring(0, 5)...</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="user-id">@(item.User?.Id ?? "Unknown")</span>
+                                    }
+                                </div>
+                            </td>
+                            <td>
+                                <div class="action-cell">
+                                    <a asp-action="Edit" asp-route-id="@item.CommentId" class="action-btn edit-btn" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a asp-action="Details" asp-route-id="@item.CommentId" class="action-btn details-btn" title="Details">
+                                        <i class="fas fa-info"></i>
+                                    </a>
+                                    <a asp-action="Delete" asp-route-id="@item.CommentId" class="action-btn delete-btn" title="Delete">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="pagination">
+            <a href="#" class="pagination-item pagination-arrow">
+                <i class="fas fa-chevron-left"></i>
+            </a>
+            <a href="#" class="pagination-item active">1</a>
+            <a href="#" class="pagination-item">2</a>
+            <a href="#" class="pagination-item">3</a>
+            <a href="#" class="pagination-item pagination-arrow">
+                <i class="fas fa-chevron-right"></i>
+            </a>
+        </div>
+    }
+</div>

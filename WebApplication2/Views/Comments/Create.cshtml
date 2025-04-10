@@ -1,7 +1,10 @@
 ﻿@model WebApplication2.Models.Comment
 @{
-    ViewData["Title"] = "Create Comment";
+    ViewData["Title"] = "Tạo bình luận mới";
 }
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
     /* Main color variables */
@@ -13,60 +16,136 @@
         --text-dark: #333333;
         --text-light: #ffffff;
         --light-gray: #f5f5f5;
+        --input-bg: #f9f9f9;
+        --shadow-light: rgba(0, 0, 0, 0.08);
+    }
+
+    body {
+        background-color: var(--light-gray);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
     }
 
     .comment-container {
         max-width: 800px;
-        margin: 30px auto;
+        margin: 20px auto;
         background-color: #ffffff;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 6px 18px rgba(210, 105, 30, 0.12);
+        padding: 15px;
+        border-top: 4px solid var(--primary-orange);
     }
 
     .comment-header {
-        border-bottom: 3px solid var(--primary-orange);
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        position: relative;
         padding-bottom: 15px;
-        margin-bottom: 25px;
+    }
+
+    .comment-header:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(to right, var(--primary-orange), var(--light-orange), transparent);
+    }
+
+    .icon-container {
+        background-color: var(--primary-orange);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        box-shadow: 0 4px 10px rgba(210, 105, 30, 0.2);
+    }
+
+    .icon-container i {
+        color: var(--text-light);
+        font-size: 1.2rem;
+    }
+
+    .title-container {
+        flex: 1;
     }
 
     .comment-title {
-        font-size: 2rem;
-        color: var(--primary-orange);
+        font-size: 1.6rem;
+        color: var(--dark-orange);
         font-weight: 700;
         margin-bottom: 5px;
+        line-height: 1.2;
     }
 
     .comment-subtitle {
-        font-size: 1.2rem;
-        color: var(--dark-orange);
+        font-size: 1rem;
+        color: var(--secondary-orange);
         font-weight: 500;
+        display: flex;
+        align-items: center;
+    }
+
+    .comment-subtitle i {
+        margin-right: 6px;
+        font-size: 0.8rem;
     }
 
     .form-group {
         margin-bottom: 20px;
+        position: relative;
     }
 
     .control-label {
-        display: block;
+        display: flex;
+        align-items: center;
         font-weight: 600;
         color: var(--dark-orange);
         margin-bottom: 8px;
+        font-size: 1rem;
+    }
+
+    .control-label i {
+        margin-right: 6px;
+        color: var(--primary-orange);
     }
 
     .form-control {
         width: 100%;
-        padding: 10px 12px;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        font-size: 16px;
-        transition: border-color 0.3s;
+        padding: 10px 12px 10px 35px;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+        background-color: var(--input-bg);
+        box-sizing: border-box;
     }
 
     .form-control:focus {
         border-color: var(--primary-orange);
         outline: none;
-        box-shadow: 0 0 0 2px rgba(255, 127, 36, 0.25);
+        box-shadow: 0 0 0 3px rgba(255, 127, 36, 0.15);
+        background-color: #ffffff;
+    }
+
+    .input-icon {
+        position: absolute;
+        left: 12px;
+        top: 38px;
+        color: #aaa;
+        transition: all 0.3s ease;
+        font-size: 0.9rem;
+    }
+
+    .form-control:focus + .input-icon,
+    .form-control:not(:placeholder-shown) + .input-icon {
+        color: var(--primary-orange);
     }
 
     textarea.form-control {
@@ -74,17 +153,26 @@
         resize: vertical;
     }
 
+    select.form-control {
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23FF7F24' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: calc(100% - 12px) center;
+        padding-right: 30px !important;
+    }
+
     .text-danger {
-        color: #dc3545;
-        font-size: 0.9rem;
-        margin-top: 5px;
+        color: #e74c3c;
+        font-size: 0.85rem;
+        margin-top: 6px;
         display: block;
+        padding-left: 5px;
     }
 
     /* Button styles */
     .btn {
         padding: 10px 20px;
-        border-radius: 4px;
+        border-radius: 25px;
         cursor: pointer;
         font-weight: 600;
         transition: all 0.3s ease;
@@ -93,6 +181,13 @@
         align-items: center;
         justify-content: center;
         border: none;
+        min-width: 120px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        font-size: 0.9rem;
+    }
+
+    .btn i {
+        margin-right: 8px;
     }
 
     .btn-primary {
@@ -102,87 +197,376 @@
 
     .btn-primary:hover {
         background-color: var(--dark-orange);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(210, 105, 30, 0.2);
     }
 
     .btn-secondary {
         background-color: var(--light-gray);
         color: var(--text-dark);
+        border: 1px solid #ddd;
     }
 
     .btn-secondary:hover {
-        background-color: #e0e0e0;
+        background-color: #e6e6e6;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 10px;
+        margin-top: 20px;
+        flex-wrap: wrap;
     }
 
     .action-links {
-        margin-top: 25px;
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
     }
 
     .action-links a {
         color: var(--primary-orange);
         text-decoration: none;
         font-weight: 500;
-        transition: color 0.3s;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+    }
+
+    .action-links a i {
+        margin-right: 6px;
     }
 
     .action-links a:hover {
         color: var(--dark-orange);
-        text-decoration: underline;
+        transform: translateX(-3px);
     }
 
+    /* Form enhancements */
+    .form-card {
+        background-color: #ffffff;
+        border-radius: 10px;
+        padding: 15px;
+        box-shadow: 0 3px 10px var(--shadow-light);
+        margin-bottom: 15px;
+        border-left: 3px solid var(--light-orange);
+    }
 
+    .form-card-title {
+        font-size: 1.1rem;
+        color: var(--dark-orange);
+        margin-bottom: 15px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid var(--light-orange);
+        display: flex;
+        align-items: center;
+    }
+
+    .form-card-title i {
+        margin-right: 8px;
+    }
+
+    /* Checkbox styling */
+    .form-check {
+        display: flex;
+        align-items: center;
+        margin-top: 15px;
+    }
+
+    .form-check-input {
+        width: 16px;
+        height: 16px;
+        margin-right: 8px;
+        accent-color: var(--primary-orange);
+    }
+
+    .form-check-label {
+        font-size: 0.9rem;
+        color: var(--text-dark);
+    }
+
+    /* Enhanced Responsive adjustments */
+    @@media (max-width: 768px) {
+        .comment-container {
+            margin: 15px;
+        }
+    }
+
+    @@media (max-width: 576px) {
+        .comment-container {
+            padding: 12px;
+            margin: 10px;
+            border-radius: 10px;
+        }
+
+        .comment-title {
+            font-size: 1.4rem;
+        }
+
+        .comment-subtitle {
+            font-size: 0.9rem;
+        }
+
+        .icon-container {
+            width: 35px;
+            height: 35px;
+        }
+
+        .icon-container i {
+            font-size: 1rem;
+        }
+
+        .form-control {
+            font-size: 0.85rem;
+            padding: 8px 10px 8px 30px;
+        }
+
+        .input-icon {
+            top: 36px;
+            left: 10px;
+            font-size: 0.85rem;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            min-width: 100%;
+            font-size: 0.85rem;
+        }
+
+        .action-buttons {
+            flex-direction: column;
+        }
+    }
+
+    @@media (max-width: 420px) {
+        .comment-container {
+            margin: 8px;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .form-card {
+            padding: 12px;
+        }
+        
+        .form-card-title {
+            font-size: 1rem;
+        }
+        
+        .comment-title {
+            font-size: 1.3rem;
+        }
+    }
+
+    @@media (max-width: 320px) {
+        .comment-container {
+            margin: 5px;
+            padding: 8px;
+            border-radius: 8px;
+        }
+
+        .comment-header {
+            flex-direction: column;
+            align-items: flex-start;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .icon-container {
+            width: 30px;
+            height: 30px;
+            margin-right: 0;
+            margin-bottom: 10px;
+        }
+
+        .icon-container i {
+            font-size: 0.9rem;
+        }
+
+        .comment-title {
+            font-size: 1.2rem;
+        }
+
+        .comment-subtitle {
+            font-size: 0.8rem;
+        }
+
+        .form-card {
+            padding: 10px;
+        }
+
+        .form-card-title {
+            font-size: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .control-label {
+            font-size: 0.9rem;
+        }
+
+        .form-control {
+            padding: 6px 8px 6px 25px;
+            font-size: 0.8rem;
+        }
+
+        .input-icon {
+            top: 34px;
+            left: 8px;
+            font-size: 0.8rem;
+        }
+
+        textarea.form-control {
+            min-height: 100px;
+        }
+
+        .btn {
+            padding: 8px 12px;
+            font-size: 0.8rem;
+            border-radius: 20px;
+        }
+
+        .text-danger {
+            font-size: 0.75rem;
+            margin-top: 4px;
+        }
+
+        .action-links {
+            margin-top: 15px;
+        }
+
+        .form-check-input {
+            width: 14px;
+            height: 14px;
+            margin-right: 6px;
+        }
+
+        .form-check-label {
+            font-size: 0.8rem;
+        }
+    }
+
+    /* Animation */
+    @@keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .form-group {
+        animation: fadeIn 0.4s ease forwards;
+    }
+
+    .form-group:nth-child(1) { animation-delay: 0.1s; }
+    .form-group:nth-child(2) { animation-delay: 0.2s; }
+    .form-group:nth-child(3) { animation-delay: 0.3s; }
+    .form-group:nth-child(4) { animation-delay: 0.4s; }
+    .form-group:nth-child(5) { animation-delay: 0.5s; }
 </style>
 
 <div class="comment-container">
     <div class="comment-header">
-        <h1 class="comment-title">Create</h1>
-        <p class="comment-subtitle">Comment</p>
-    </div>
-
-    <div class="row">
-        <div class="col-md-12">
-            <form asp-action="Create">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                
-                <div class="form-group">
-                    <label asp-for="Content" class="control-label"></label>
-                    <textarea asp-for="Content" class="form-control"></textarea>
-                    <span asp-validation-for="Content" class="text-danger"></span>
-                </div>
-                
-                <div class="form-group">
-                    <label asp-for="CreatedAt" class="control-label"></label>
-                    <input asp-for="CreatedAt" class="form-control" />
-                    <span asp-validation-for="CreatedAt" class="text-danger"></span>
-                </div>
-                
-                <div class="form-group">
-                    <label asp-for="UpdatedAt" class="control-label"></label>
-                    <input asp-for="UpdatedAt" class="form-control" />
-                    <span asp-validation-for="UpdatedAt" class="text-danger"></span>
-                </div>
-                
-                <div class="form-group">
-                    <label asp-for="PostId" class="control-label"></label>
-                    <select asp-for="PostId" class="form-control" asp-items="ViewBag.PostId"></select>
-                </div>
-                
-                <div class="form-group">
-                    <label asp-for="UserId" class="control-label"></label>
-                    <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId"></select>
-                </div>
-                
-                <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-primary" />
-                </div>
-            </form>
+        <div class="icon-container">
+            <i class="fas fa-comment-dots"></i>
+        </div>
+        <div class="title-container">
+            <h1 class="comment-title">Create New Comment</h1>
+            <p class="comment-subtitle">
+                <i class="fas fa-info-circle"></i>
+                Share your thoughts about the post
+            </p>
         </div>
     </div>
-    
+
+    <div class="form-card">
+        <h3 class="form-card-title">
+            <i class="fas fa-pen-fancy"></i>
+            Comment Content
+        </h3>
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Content" class="control-label">
+                    <i class="fas fa-align-left"></i> Content
+                </label>
+                <textarea asp-for="Content" class="form-control" placeholder="Enter your comment here..."></textarea>
+                <i class="fas fa-comment input-icon"></i>
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CreatedAt" class="control-label">
+                    <i class="far fa-calendar-plus"></i> Created Date
+                </label>
+                <input asp-for="CreatedAt" class="form-control" type="datetime-local" />
+                <i class="far fa-calendar-alt input-icon"></i>
+                <span asp-validation-for="CreatedAt" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="UpdatedAt" class="control-label">
+                    <i class="far fa-calendar-check"></i> Updated Date
+                </label>
+                <input asp-for="UpdatedAt" class="form-control" type="datetime-local" />
+                <i class="far fa-clock input-icon"></i>
+                <span asp-validation-for="UpdatedAt" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="PostId" class="control-label">
+                    <i class="fas fa-file-alt"></i> Post
+                </label>
+                <select asp-for="PostId" class="form-control" asp-items="ViewBag.PostId">
+                    <option value="">-- Select Post --</option>
+                </select>
+                <i class="fas fa-book input-icon"></i>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="UserId" class="control-label">
+                    <i class="fas fa-user"></i> User
+                </label>
+                <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId">
+                    <option value="">-- Select User --</option>
+                </select>
+                <i class="fas fa-user-circle input-icon"></i>
+            </div>
+
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="notifyReplies">
+                <label class="form-check-label" for="notifyReplies">Notify me of replies</label>
+            </div>
+
+            <div class="action-buttons">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-paper-plane"></i> Submit Comment
+                </button>
+                <button type="reset" class="btn btn-secondary">
+                    <i class="fas fa-sync-alt"></i> Reset
+                </button>
+            </div>
+        </form>
+    </div>
+
     <div class="action-links">
-        <a asp-action="Index">Back to List</a>
+        <a asp-action="Index">
+            <i class="fas fa-arrow-left"></i> Back to List
+        </a>
     </div>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
