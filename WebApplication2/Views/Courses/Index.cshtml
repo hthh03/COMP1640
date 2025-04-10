@@ -149,7 +149,7 @@
     transition: all 0.3s ease;
     }
 
-<<<<<<< HEAD
+
         .btn-join:hover {
             background-color: #e88e00; /* Màu cam đậm hơn khi hover */
             transform: translateY(-2px);
@@ -173,7 +173,7 @@
             background-color: #e88e00; /* Màu xanh lá đậm hơn khi hover */
             transform: translateY(-2px);
         }
-=======
+
     .btn-join:hover {
     background-color: #e88e00; /* Màu cam đậm hơn khi hover */
     transform: translateY(-2px);
@@ -197,7 +197,7 @@
     .hidden {
         display: none;
     }
->>>>>>> d60f17b1a2c88a25736117208dee52bf80905601
+
 </style>
 
 <div class="course-container">
@@ -226,7 +226,7 @@
                     <td>@Html.DisplayFor(modelItem => item.Description)</td>
                     <td>@Html.DisplayFor(modelItem => item.Teacher.FullName)</td>
                     <td class="action-links">
-<<<<<<< HEAD
+
                         <a asp-action="Details" asp-route-id="@item.Id" class="details">Details</a>
 
                         @if (User.IsInRole("Teacher"))
@@ -235,19 +235,13 @@
                             <span><a asp-action="Delete" asp-route-id="@item.Id" class="delete">Delete</a></span>
                             <a href="https://localhost:7286/meeting/create" class="btn-meeting">Create Meeting</a>
                         }
-=======
-                        @if(User.IsInRole("Teacher"))
-                        {
-                            <a asp-action="Edit" asp-route-id="@item.Id" class="edit">Edit</a> 
-                        }
-                        
-                        <a asp-action="Details" asp-route-id="@item.Id" class="details">Details</a> 
->>>>>>> d60f17b1a2c88a25736117208dee52bf80905601
 
-                        @if (User.IsInRole("Teacher"))
-                        {
-                            <a asp-action="Delete" asp-route-id="@item.Id" class="delete">Delete</a>
-                        }
+                  
+                        
+                     
+
+
+                     
                         
                         @if (User.IsInRole("Student"))
                         {

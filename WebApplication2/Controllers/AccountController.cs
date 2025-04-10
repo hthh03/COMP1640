@@ -240,5 +240,12 @@ namespace WebApplication2.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+        //list teacher
+        public async Task<IActionResult> ListTeachers()
+        {
+            var usersInRole = await _userManager.GetUsersInRoleAsync("Teacher");
+            return View(usersInRole);
+        }
     }
+
 }

@@ -3,12 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using WebApplication2.Models;
 using Microsoft.AspNetCore.Identity;
 using WebApplication2.Utilities;
+using WebApplication2.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
-<<<<<<< HEAD
 builder.Services.AddSignalR();
-=======
->>>>>>> d60f17b1a2c88a25736117208dee52bf80905601
+
 
 // Cấu hình DbContext
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -34,16 +33,14 @@ builder.Services.AddAuthorization();
 
 // Thêm Controllers với Views
 builder.Services.AddControllersWithViews();
-<<<<<<< HEAD
+
 
 var app = builder.Build();
 app.MapHub<MeetingHub>("/meetingHub");
-=======
-// Thêm SignalR
-builder.Services.AddSignalR();
 
-var app = builder.Build();
->>>>>>> d60f17b1a2c88a25736117208dee52bf80905601
+
+
+
 
 // Cấu hình Middleware
 if (!app.Environment.IsDevelopment())
