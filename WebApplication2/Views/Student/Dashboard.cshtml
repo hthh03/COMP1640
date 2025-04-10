@@ -13,56 +13,116 @@
 
 <div class="container-fluid p-0">
     <div class="row g-0">
-        <!-- Sidebar -->
-        <div class="col-md-2 sidebar" style="background-color: #ffffff; min-height: 100vh; border-right: 1px solid #e0e0e0;">
-            <div class="d-flex align-items-center p-3">
-                <div class="bg-warning rounded p-2 me-2">
-                    <i class="bi bi-mortarboard-fill text-white"></i>
+        <!-- Sidebar - Desktop (vertical) / Tablet (collapsible) / Mobile (horizontal) -->
+        <div class="col-12 col-md-3 col-lg-2 sidebar">
+            <!-- Shared Dashboard Header - Used for all device sizes -->
+            <div class="dashboard-header d-flex justify-content-between align-items-center p-3 bg-white border-bottom">
+                <div class="d-flex align-items-center">
+                    <div class="bg-warning rounded p-2 me-2">
+                        <i class="bi bi-mortarboard-fill text-white"></i>
+                    </div>
+                    <h5 class="mb-0 fw-bold">Student Dashboard</h5>
                 </div>
-                <h5 class="mb-0 fw-bold">Student Dashboard</h5>
+                <!-- Hamburger menu for tablet view -->
+                <button class="btn btn-link d-md-none p-0" type="button" data-bs-toggle="collapse" data-bs-target="#tabletMenu" aria-expanded="false" aria-controls="tabletMenu">
+                    <i class="bi bi-list text-dark fs-4"></i>
+                </button>
             </div>
 
-            <div class="list-group list-group-flush border-0">
-                <!-- Dashboard Item -->
-                <a href="#" class="list-group-item list-group-item-action active d-flex align-items-center py-3"
-                   style="background-color: #fff8ed; border-bottom: none; border-left: 3px solid #f8a01c; border-radius: 0; color: #f8a01c;">
-                    <i class="bi bi-grid-fill me-3"></i>
-                    <span>Dashboard</span>
-                </a>
+            <!-- Horizontal Mobile Menu -->
+            <div class="collapse show d-md-none" id="horizontalMenu">
+                <div class="horizontal-menu">
+                    <div class="menu-items-row">
+                        <a href="#" class="menu-item active">
+                            <i class="bi bi-grid-fill"></i>
+                            <span>Dashboard</span>
+                        </a>
+                        <a href="@Url.Action("Index", "Courses")" class="menu-item">
+                            <i class="bi bi-book"></i>
+                            <span>Courses</span>
+                        </a>
+                        <a href="#" class="menu-item">
+                            <i class="bi bi-person-video3"></i>
+                            <span>Teachers</span>
+                        </a>
+                        <a href="#" class="menu-item">
+                            <i class="bi bi-chat-left-text"></i>
+                            <span>Messages</span>
+                        </a>
+                        <a href="#" class="menu-item">
+                            <i class="bi bi-heart"></i>
+                            <span>Wishlist</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
 
-                <!-- Courses -->
-                <a href="@Url.Action("Index", "Courses")" class="list-group-item list-group-item-action d-flex align-items-center py-3"
-                   style="border: none; color: #6c757d;">
-                    <i class="bi bi-book me-3"></i>
-                    <span>Courses</span>
-                </a>
+            <!-- Tablet Menu - Collapsible vertical menu for tablet view -->
+            <div class="collapse tablet-menu" id="tabletMenu">
+                <div class="list-group list-group-flush border-0 mt-3">
+                    <a href="#" class="list-group-item list-group-item-action active d-flex align-items-center py-3"
+                       style="background-color: #fff8ed; border-bottom: none; border-left: 3px solid #f8a01c; border-radius: 0; color: #f8a01c;">
+                        <i class="bi bi-grid-fill me-3"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="@Url.Action("Index", "Courses")" class="list-group-item list-group-item-action d-flex align-items-center py-3"
+                       style="border: none; color: #6c757d;">
+                        <i class="bi bi-book me-3"></i>
+                        <span>Courses</span>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action d-flex align-items-center py-3"
+                       style="border: none; color: #6c757d;">
+                        <i class="bi bi-person-video3 me-3"></i>
+                        <span>Teachers</span>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action d-flex align-items-center py-3"
+                       style="border: none; color: #6c757d;">
+                        <i class="bi bi-chat-left-text me-3"></i>
+                        <span>Messages</span>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action d-flex align-items-center py-3"
+                       style="border: none; color: #6c757d;">
+                        <i class="bi bi-heart me-3"></i>
+                        <span>Wishlist</span>
+                    </a>
+                </div>
+            </div>
 
-                <!-- Teachers -->
-                <a href="#" class="list-group-item list-group-item-action d-flex align-items-center py-3"
-                   style="border: none; color: #6c757d;">
-                    <i class="bi bi-person-video3 me-3"></i>
-                    <span>Teachers</span>
-                </a>
-
-                <!-- Messages Item -->
-                <a href="#" class="list-group-item list-group-item-action d-flex align-items-center py-3"
-                   style="border: none; color: #6c757d;">
-                    <i class="bi bi-chat-left-text me-3"></i>
-                    <span>Messages</span>
-                </a>
-
-                <!-- Wishlist Item -->
-                <a href="#" class="list-group-item list-group-item-action d-flex align-items-center py-3"
-                   style="border: none; color: #6c757d;">
-                    <i class="bi bi-heart me-3"></i>
-                    <span>Wishlist</span>
-                </a>
+            <!-- Desktop Menu - Only visible on desktop -->
+            <div class="desktop-menu d-none d-lg-block">
+                <div class="list-group list-group-flush border-0 mt-3">
+                    <a href="#" class="list-group-item list-group-item-action active d-flex align-items-center py-3"
+                       style="background-color: #fff8ed; border-bottom: none; border-left: 3px solid #f8a01c; border-radius: 0; color: #f8a01c;">
+                        <i class="bi bi-grid-fill me-3"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="@Url.Action("Index", "Courses")" class="list-group-item list-group-item-action d-flex align-items-center py-3"
+                       style="border: none; color: #6c757d;">
+                        <i class="bi bi-book me-3"></i>
+                        <span>Courses</span>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action d-flex align-items-center py-3"
+                       style="border: none; color: #6c757d;">
+                        <i class="bi bi-person-video3 me-3"></i>
+                        <span>Teachers</span>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action d-flex align-items-center py-3"
+                       style="border: none; color: #6c757d;">
+                        <i class="bi bi-chat-left-text me-3"></i>
+                        <span>Messages</span>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action d-flex align-items-center py-3"
+                       style="border: none; color: #6c757d;">
+                        <i class="bi bi-heart me-3"></i>
+                        <span>Wishlist</span>
+                    </a>
+                </div>
             </div>
         </div>
 
         <!-- Main Content -->
-        <div class="col-md-10">
-            <div class="p-4">
+        <div class="col-12 col-md-9 col-lg-10">
+            <div class="p-3 p-md-4">
                 <!-- Header -->
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <div>
@@ -72,8 +132,8 @@
                 </div>
 
                 <!-- Stats Cards -->
-                <div class="row mb-4">
-                    <div class="col-md-4">
+                <div class="row mb-4 g-3">
+                    <div class="col-12 col-sm-6 col-md-4">
                         <div class="card border-0 shadow-sm">
                             <div class="card-body d-flex align-items-center">
                                 <div class="rounded-circle p-3 me-3" style="background-color: rgba(255, 159, 67, 0.1);">
@@ -86,7 +146,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-12 col-sm-6 col-md-4">
                         <div class="card border-0 shadow-sm">
                             <div class="card-body d-flex align-items-center">
                                 <div class="rounded-circle p-3 me-3" style="background-color: rgba(92, 128, 246, 0.1);">
@@ -99,7 +159,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-12 col-sm-12 col-md-4">
                         <div class="card text-white border-0 shadow-sm" style="background-color: #F79421;">
                             <div class="card-body d-flex align-items-center justify-content-between">
                                 <div>
@@ -115,9 +175,9 @@
                 </div>
 
                 <!-- Main Dashboard Body -->
-                <div class="row">
+                <div class="row g-3">
                     <!-- Left Column - Python Course and My Courses -->
-                    <div class="col-md-8">
+                    <div class="col-12 col-md-8">
                         <!-- Python Course Banner -->
                         <div class="card border-0 shadow-sm mb-4">
                             <div class="card-body p-4">
@@ -193,7 +253,6 @@
                                         <a href="#" class="btn btn-sm btn-outline-warning">View Course</a>
                                     </div>
                                 </div>
-
                                 <div class="text-end mt-3">
                                     <a href="#" class="text-decoration-none text-warning">View all <i class="bi bi-arrow-right"></i></a>
                                 </div>
@@ -202,7 +261,7 @@
                     </div>
 
                     <!-- Right Column - Upcoming Tasks and Transactions -->
-                    <div class="col-md-4">
+                    <div class="col-12 col-md-4">
                         <!-- Upcoming Tasks Section -->
                         <div class="card border-0 shadow-sm mb-4">
                             <div class="card-header bg-white border-0">
@@ -216,7 +275,6 @@
                                         <p class="text-muted small mb-0">01:00 PM - 02:00 PM</p>
                                     </div>
                                 </div>
-
                                 <div class="d-flex mb-3">
                                     <div class="me-3" style="width: 6px; background-color: #F48A5E; border-radius: 3px;"></div>
                                     <div>
@@ -224,7 +282,6 @@
                                         <p class="text-muted small mb-0">02:00 PM - 03:00 PM</p>
                                     </div>
                                 </div>
-
                                 <div class="d-flex">
                                     <div class="me-3" style="width: 6px; background-color: #59C4AA; border-radius: 3px;"></div>
                                     <div>
@@ -232,7 +289,6 @@
                                         <p class="text-muted small mb-0">03:00 PM - 04:00 PM</p>
                                     </div>
                                 </div>
-
                                 <div class="text-end mt-3">
                                     <a href="#" class="text-decoration-none text-warning">View all Tasks <i class="bi bi-arrow-right"></i></a>
                                 </div>
@@ -256,7 +312,6 @@
                                     </div>
                                     <div class="fw-bold">-₹64.50</div>
                                 </div>
-
                                 <div class="d-flex align-items-center mb-3">
                                     <div class="rounded-circle p-2 me-3 text-white d-flex align-items-center justify-content-center" style="background-color: #59C4AA; width: 40px; height: 40px;">
                                         <i class="bi bi-bus-front"></i>
@@ -267,7 +322,6 @@
                                     </div>
                                     <div class="fw-bold">-₹40.50</div>
                                 </div>
-
                                 <div class="d-flex align-items-center">
                                     <div class="rounded-circle p-2 me-3 text-white d-flex align-items-center justify-content-center" style="background-color: #F48A5E; width: 40px; height: 40px;">
                                         <i class="bi bi-pencil"></i>
@@ -278,7 +332,6 @@
                                     </div>
                                     <div class="fw-bold">-₹70.00</div>
                                 </div>
-
                                 <div class="text-end mt-3">
                                     <a href="#" class="text-decoration-none text-warning">View all <i class="bi bi-arrow-right"></i></a>
                                 </div>
@@ -295,6 +348,227 @@
     <!-- Include Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
-    <!-- Bootstrap JS (Optional) -->
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Handle tablet sidebar toggle
+        document.addEventListener("DOMContentLoaded", function() {
+            const tabletMediaQuery = window.matchMedia('(min-width: 768px) and (max-width: 991.98px)');
+
+            function updateSidebarForTablet(mediaQuery) {
+                if (mediaQuery.matches) {
+                    // We're in tablet mode - hide the tablet menu by default
+                    const tabletMenu = document.getElementById('tabletMenu');
+                    if (tabletMenu) {
+                        tabletMenu.classList.remove('show');
+                    }
+                }
+            }
+
+            // Initial check
+            updateSidebarForTablet(tabletMediaQuery);
+
+            // Add listener for changes
+            tabletMediaQuery.addEventListener('change', updateSidebarForTablet);
+        });
+    </script>
+
+    <style>
+        /* General Sidebar Styles */
+        .sidebar {
+            background-color: #ffffff;
+            border-right: 1px solid #e0e0e0;
+        }
+
+        /* Add spacing for content */
+        .card {
+            margin-bottom: 1rem;
+        }
+
+        /* Desktop Sidebar Styles */
+        @@media (min-width: 992px) {
+            .sidebar
+
+        {
+            min-height: 100vh;
+        }
+
+        .horizontal-menu {
+            display: none !important;
+        }
+
+        .tablet-menu {
+            display: none !important;
+        }
+
+        .list-group-item.active {
+            background-color: #fff8ed;
+            border-bottom: none;
+            border-left: 3px solid #f8a01c;
+            border-radius: 0;
+            color: #f8a01c;
+        }
+
+        .list-group-item {
+            border: none;
+            color: #6c757d;
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+        }
+
+        }
+
+        /* Tablet Sidebar Styles */
+        @@media (min-width: 768px) and (max-width: 991.98px) {
+            .sidebar
+
+        {
+            min-height: auto;
+            width: 100%;
+            border-right: none;
+            border-bottom: 1px solid #e0e0e0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        /* Hide mobile horizontal menu on tablets */
+        .horizontal-menu {
+            display: none !important;
+        }
+
+        /* Hide desktop menu */
+        .desktop-menu {
+            display: none !important;
+        }
+
+        /* Tablet-specific collapsible menu */
+        .tablet-menu {
+            width: 100%;
+            background-color: #ffffff;
+        }
+
+            .tablet-menu .list-group-item.active {
+                background-color: #fff8ed;
+                border-bottom: none;
+                border-left: 3px solid #f8a01c;
+                border-radius: 0;
+                color: #f8a01c;
+            }
+
+            .tablet-menu .list-group-item {
+                border: none;
+                color: #6c757d;
+                padding-top: 0.75rem;
+                padding-bottom: 0.75rem;
+            }
+
+        }
+
+        /* Mobile Sidebar Styles - FORCED HORIZONTAL LAYOUT */
+        @@media (max-width: 767.98px) {
+            .sidebar
+
+        {
+            min-height: auto;
+            width: 100%;
+            border-right: none;
+            border-bottom: 1px solid #e0e0e0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        /* Hide desktop and tablet menus completely */
+        .desktop-menu, .tablet-menu {
+            display: none !important;
+        }
+
+        /* Horizontal menu styling */
+        .horizontal-menu {
+            width: 100%;
+            overflow-x: auto;
+            background-color: #ffffff;
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+        }
+
+        .menu-items-row {
+            display: flex;
+            width: 100%;
+            min-width: fit-content;
+        }
+
+        .menu-item {
+            flex: 0 0 auto;
+            text-align: center;
+            padding: 12px 16px;
+            color: #6c757d;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 80px;
+        }
+
+            .menu-item i {
+                font-size: 1.2rem;
+                margin-bottom: 5px;
+            }
+
+            .menu-item.active {
+                color: #f8a01c;
+                background-color: #fff8ed;
+                border-bottom: 3px solid #f8a01c;
+            }
+
+            .menu-item span {
+                display: block;
+                white-space: nowrap;
+            }
+
+        /* Force show the horizontal menu by default */
+        #horizontalMenu {
+            display: block !important;
+        }
+
+        /* More padding for mobile content */
+        .card-body {
+            padding: 1rem;
+        }
+
+        /* Adjust font sizes for mobile */
+        h2 {
+            font-size: 1.5rem;
+        }
+
+        h4, h5 {
+            font-size: 1.1rem;
+        }
+
+        }
+
+        /* Responsive utility classes */
+        .responsive-text {
+            font-size: 1rem;
+        }
+
+        @@media (min-width: 768px) {
+            .responsive-text
+
+        {
+            font-size: 1.1rem;
+        }
+
+        }
+
+        @@media (min-width: 992px) {
+            .responsive-text
+
+        {
+            font-size: 1.25rem;
+        }
+
+        }
+    </style>
 }
