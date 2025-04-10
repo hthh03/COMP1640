@@ -7,7 +7,6 @@ using WebApplication2.Hubs;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSignalR();
 
-
 // Cấu hình DbContext
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("Meeting")));
@@ -33,9 +32,9 @@ builder.Services.AddAuthorization();
 // Thêm Controllers với Views
 builder.Services.AddControllersWithViews();
 
-
 var app = builder.Build();
 app.MapHub<MeetingHub>("/meetingHub");
+
 // Cấu hình Middleware
 if (!app.Environment.IsDevelopment())
 {
@@ -75,7 +74,9 @@ using (var scope = app.Services.CreateScope())
         {
             FullName = adminEmail,
             Email = adminEmail,
-            EmailConfirmed = true
+            UserName = adminEmail, // ✅ Thêm dòng này để tránh lỗi khi tạo tài khoản
+            EmailConfirmed = true,
+            Role = "Admin"
         };
 
         var result = userManager.CreateAsync(adminUser, adminPassword).Result;
