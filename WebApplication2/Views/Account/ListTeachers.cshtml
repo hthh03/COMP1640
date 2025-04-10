@@ -1,0 +1,27 @@
+﻿@model IEnumerable<WebApplication2.Models.Users>
+
+@{
+    ViewData["Title"] = "Danh sách giáo viên";
+}
+
+<h2>Danh sách giáo viên</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Họ và tên</th>
+            <th>Email</th>
+            <th>Tên đăng nhập</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var teacher in Model)
+        {
+            <tr>
+                <td>@teacher.FullName</td>
+                <td>@teacher.Email</td>
+                <td>@teacher.UserName</td>
+            </tr>
+        }
+    </tbody>
+</table>

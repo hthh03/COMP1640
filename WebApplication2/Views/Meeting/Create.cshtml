@@ -1,0 +1,281 @@
+﻿@{
+    ViewData["Title"] = "Create Meeting";
+}
+
+<style>
+    :root {
+        --primary-color: #FF7F24; /* Cam chính */
+        --secondary-color: #FFB74D; /* Cam nhạt */
+        --accent-color: #FF5722; /* Cam đậm */
+        --light-color: #FFF3E0; /* Cam rất nhạt */
+        --text-color: #333333;
+        --white-color: #FFFFFF;
+    }
+    
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: var(--text-color);
+    }
+    
+    .meeting-container {
+        max-width: 1140px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    
+    .meeting-card {
+        background-color: var(--white-color);
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        margin-bottom: 30px;
+        overflow: hidden;
+    }
+    
+    .card-header {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 20px;
+        font-size: 20px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+    }
+    
+    .card-header i {
+        margin-right: 10px;
+        font-size: 24px;
+    }
+    
+    .card-body {
+        padding: 25px;
+    }
+    
+    .form-group {
+        margin-bottom: 20px;
+    }
+    
+    label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+        color: var(--text-color);
+    }
+    
+    .form-control {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 16px;
+        transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    
+    .form-control:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(255, 127, 36, 0.25);
+        outline: none;
+    }
+    
+    .btn {
+        display: inline-block;
+        font-weight: 500;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        user-select: none;
+        border: 1px solid transparent;
+        padding: 12px 24px;
+        font-size: 16px;
+        line-height: 1.5;
+        border-radius: 6px;
+        transition: all 0.2s;
+        cursor: pointer;
+    }
+    
+    .btn-primary {
+        color: white;
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+    }
+    
+    .btn-primary:hover {
+        background-color: var(--accent-color);
+        border-color: var(--accent-color);
+    }
+    
+    .btn-sm {
+        padding: 6px 12px;
+        font-size: 14px;
+        border-radius: 4px;
+    }
+    
+    .section-title {
+        color: var(--primary-color);
+        border-left: 5px solid var(--primary-color);
+        padding-left: 15px;
+        margin-bottom: 25px;
+        font-weight: 600;
+    }
+    
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 1rem;
+        color: var(--text-color);
+    }
+    
+    .table-bordered {
+        border: 1px solid #dee2e6;
+    }
+    
+    .table th,
+    .table td {
+        padding: 12px 15px;
+        vertical-align: top;
+        border-top: 1px solid #dee2e6;
+    }
+    
+    .table-bordered th,
+    .table-bordered td {
+        border: 1px solid #dee2e6;
+    }
+    
+    .table thead th {
+        vertical-align: bottom;
+        border-bottom: 2px solid #dee2e6;
+        background-color: var(--light-color);
+        color: var(--primary-color);
+        font-weight: 600;
+    }
+    
+    .table tbody tr:hover {
+        background-color: rgba(255, 127, 36, 0.05);
+    }
+    
+    .table a {
+        color: var(--primary-color);
+        text-decoration: none;
+    }
+    
+    .table a:hover {
+        text-decoration: underline;
+        color: var(--accent-color);
+    }
+    
+    .meeting-icon {
+        margin-right: 8px;
+        color: var(--primary-color);
+    }
+    
+    .no-meetings {
+        text-align: center;
+        padding: 30px;
+        color: #777;
+        background-color: var(--light-color);
+        border-radius: 6px;
+    }
+    
+    .mt-5 {
+        margin-top: 3rem;
+    }
+    
+    /* Fix for the Join button text color */
+    .table .btn-primary {
+        color: white !important; /* Using !important to ensure text is visible */
+    }
+    
+    /* Responsive adjustments */
+
+        .card-header {
+            padding: 15px;
+        }
+        
+        .card-body {
+            padding: 15px;
+        }
+        
+        .table {
+            display: block;
+            overflow-x: auto;
+        }
+    }
+</style>
+
+<!-- Thêm Font Awesome CDN -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<div class="meeting-container">
+    @if (!User.IsInRole("Student"))
+    {
+        <div class="meeting-card">
+            <div class="card-header">
+            <i class="fas fa-video"></i> <h2 style="margin: 0;">Create a Meeting</h2>
+        </div>
+        <div class="card-body">
+            <!-- Form để tạo cuộc họp - Giữ nguyên cấu trúc gốc -->
+            <form asp-action="Create" method="post">
+                <div class="form-group">
+                    <label for="teacherEmail"><i class="fas fa-envelope meeting-icon"></i>Teacher Email</label>
+                    <input type="email" class="form-control" id="teacherEmail" name="teacherEmail" required />
+                </div>
+                <div class="form-group">
+                    <label for="topic"><i class="fas fa-comment-alt meeting-icon"></i>Meeting Topic</label>
+                    <input type="text" class="form-control" id="topic" name="topic" required />
+                </div>
+                <div class="form-group">
+                    <label for="startTime"><i class="fas fa-clock meeting-icon"></i>Start Time</label>
+                    <input type="datetime-local" class="form-control" id="startTime" name="startTime" required />
+                </div>
+                <button type="submit" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Create Meeting</button>
+            </form>
+        </div>
+    </div>}
+
+    <!-- Hiển thị lịch sử cuộc họp - Giữ nguyên cấu trúc gốc -->
+
+    <h3 class="section-title mt-5"><i class="fas fa-history"></i> Meeting Schedule</h3>
+    
+    @if (ViewBag.Meetings != null && ViewBag.Meetings.Count > 0)
+    {
+        <div class="meeting-card">
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th><i class="fas fa-comment-alt meeting-icon"></i>Topic</th>
+                            <th><i class="fas fa-user meeting-icon"></i>Teacher Email</th>
+                            <th><i class="fas fa-calendar-alt meeting-icon"></i>Start Time</th>
+                            <th><i class="fas fa-door-open meeting-icon"></i>Room Name</th>
+                            <th><i class="fas fa-link meeting-icon"></i>Join URL</th>
+                            <th><i class="fas fa-cogs meeting-icon"></i>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var meeting in ViewBag.Meetings)
+                        {
+                            <tr>
+                                <td>@meeting.Topic</td>
+                                <td>@meeting.TeacherEmail</td>
+                                <td>@meeting.StartTime.ToString("g")</td>
+                                <td>@meeting.RoomName</td>
+                                <td><a href="@meeting.JoinUrl" target="_blank">@meeting.JoinUrl</a></td>
+                                <td>
+                                    <a href="@Url.Action("Join", "Meeting", new { roomName = meeting.RoomName })" class="btn btn-sm btn-primary">
+                                        <i class="fas fa-sign-in-alt"></i> Join
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="no-meetings">
+            <i class="fas fa-info-circle" style="font-size: 48px; display: block; margin-bottom: 15px;"></i>
+            <p>No meetings found.</p>
+        </div>
+    }
+</div>
