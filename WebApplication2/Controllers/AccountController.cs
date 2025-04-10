@@ -119,7 +119,8 @@ namespace WebApplication2.Controllers
                     FullName = model.Name,
                     Email = model.Email,
                     UserName = model.Email,
-                    Role = model.Role
+                    Role = model.Role,
+                    ProfileImage = null // Tùy chọn, có thể bỏ dòng này luôn
                 };
 
                 var result = await _userManager.CreateAsync(user, model.Password);

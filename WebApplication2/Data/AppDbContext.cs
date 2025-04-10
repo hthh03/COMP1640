@@ -17,7 +17,7 @@ namespace WebApplication2.Data
         public DbSet<Assignment> Assignments { get; set; }
         public DbSet<Submission> Submissions { get; set; }
         public DbSet<Meeting> Meetings { get; set; }
-
+        public  DbSet<CourseRequests> CourseRequests {  get; set; } 
 
 
 
@@ -50,8 +50,7 @@ namespace WebApplication2.Data
             builder.Entity<StudentCourse>()
                 .HasOne(sc => sc.Course)
                 .WithMany(c => c.StudentCourses)
-                .HasForeignKey(sc => sc.CourseId);
-
+                .HasForeignKey(sc => sc.CourseId);        
         }
     }
 }

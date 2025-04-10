@@ -1,21 +1,27 @@
-﻿@using Microsoft.AspNetCore.Identity;
-@using WebApplication2.Models
-@inject SignInManager<Users> signInManager;
+﻿@* @using Microsoft.AspNetCore.Identity; *@
+@* @using WebApplication2.Models *@
+@* @inject SignInManager<Users> signInManager; *@
 
-<ul class="navbar-nav ms-auto">
-    @if (signInManager.IsSignedIn(User))
-    {
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-controller="Account" asp-action="Logout">Logout</a>
-        </li>
-    }
-    else
-    {
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">Login</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-controller="Account" asp-action="Register">Register</a>
-        </li>
-    }
-</ul>
+@* <ul class="navbar-nav ms-auto"> *@
+@*     @if (signInManager.IsSignedIn(User)) *@
+@*     { *@
+@*         <li class="nav-item"> *@
+@*             <a class="nav-link text-white me-3" asp-controller="Profile" asp-action="Profile">Profile</a> *@
+@*         </li> *@
+@*         <li class="nav-item"> *@
+@*             <a class="btn rounded-pill px-3 py-2" style="background-color: #ff8c00; color: white;" asp-controller="Account" asp-action="Logout"> *@
+@*                 <i class="fa-solid fa-right-from-bracket"></i> *@
+@*             </a> *@
+
+@*         </li> *@
+@*     } *@
+@*     else *@
+@*     { *@
+@*         <li class="nav-item"> *@
+@*             <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">Login</a> *@
+@*         </li> *@
+@*         <li class="nav-item"> *@
+@*             <a class="nav-link text-dark" asp-controller="Account" asp-action="Register">Register</a> *@
+@*         </li> *@
+@*     } *@
+@* </ul> *@

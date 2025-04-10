@@ -1,4 +1,5 @@
-﻿using WebApplication2.Models;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using WebApplication2.Models;
 
 public class StudentCourse
 {

@@ -6,149 +6,150 @@
 <style>
     /* E-Tutor Theme Colors */
     :root {
-        --primary-color: #FF9800;
-        --primary-light: #FFECB3;
-        --secondary-color: #2ecc71; /* Đổi thành màu xanh lá cây */
-        --text-dark: #333;
-        --text-light: #666;
-        --white: #fff;
-        --light-gray: #f5f5f5;
-        --border-color: #e0e0e0;
-        --success-color: #4CAF50;
-        --warning-color: #FFC107;
+    --primary-color: #FF9800;
+    --primary-light: #FFECB3;
+    --secondary-color: #2ecc71; /* Đổi thành màu xanh lá cây */
+    --text-dark: #333;
+    --text-light: #666;
+    --white: #fff;
+    --light-gray: #f5f5f5;
+    --border-color: #e0e0e0;
+    --success-color: #4CAF50;
+    --warning-color: #FFC107;
     }
 
     /* Page Layout */
     .course-container {
-        padding: 20px;
-        background-color: var(--white);
-        border-radius: 8px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-        margin-bottom: 30px;
+    padding: 20px;
+    background-color: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    margin-bottom: 30px;
     }
 
     .page-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 25px;
-        border-bottom: 2px solid var(--primary-color);
-        padding-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 15px;
     }
 
     h1 {
-        font-size: 28px;
-        color: var(--text-dark);
-        margin: 0;
+    font-size: 28px;
+    color: var(--text-dark);
+    margin: 0;
     }
 
     /* Button Styling */
     .btn-create {
-        background-color: var(--primary-color);
-        color: var(--white);
-        border: none;
-        padding: 10px 20px;
-        border-radius: 4px;
-        text-decoration: none;
-        font-weight: 500;
-        display: inline-block;
-        transition: all 0.3s ease;
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+    display: inline-block;
+    transition: all 0.3s ease;
     }
 
-        .btn-create:hover {
-            background-color: #e88e00;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
+    .btn-create:hover {
+    background-color: #e88e00;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
 
     /* Table Styling */
     .course-table {
-        width: 100%;
-        border-collapse: separate;
-        border-spacing: 0;
-        border-radius: 8px;
-        overflow: hidden;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 8px;
+    overflow: hidden;
     }
 
-        .course-table thead {
-            background-color: var(--primary-color);
-            color: var(--white);
-        }
+    .course-table thead {
+    background-color: var(--primary-color);
+    color: var(--white);
+    }
 
-        .course-table th {
-            padding: 15px;
-            font-weight: 500;
-            text-align: left;
-        }
+    .course-table th {
+    padding: 15px;
+    font-weight: 500;
+    text-align: left;
+    }
 
-        .course-table tbody tr {
-            transition: all 0.2s ease;
-        }
+    .course-table tbody tr {
+    transition: all 0.2s ease;
+    }
 
-            .course-table tbody tr:nth-child(odd) {
-                background-color: var(--light-gray);
-            }
+    .course-table tbody tr:nth-child(odd) {
+    background-color: var(--light-gray);
+    }
 
-            .course-table tbody tr:hover {
-                background-color: var(--primary-light);
-            }
+    .course-table tbody tr:hover {
+    background-color: var(--primary-light);
+    }
 
-        .course-table td {
-            padding: 15px;
-            border-bottom: 1px solid var(--border-color);
-        }
+    .course-table td {
+    padding: 15px;
+    border-bottom: 1px solid var(--border-color);
+    }
 
-            /* Nhấn mạnh tên môn học (cột NAME) */
-            .course-table td:nth-child(1) {
-                color: black; /* Màu cam cho tên môn học */
-                font-weight: 600; /* Làm đậm để nhấn mạnh */
-            }
+    /* Nhấn mạnh tên môn học (cột NAME) */
+    .course-table td:nth-child(1) {
+    color: black; /* Màu cam cho tên môn học */
+    font-weight: 600; /* Làm đậm để nhấn mạnh */
+    }
 
-            /* Nhấn mạnh tên teacher (cột TEACHER) */
-            .course-table td:nth-child(3) {
-                color: var(--primary-color); /* Màu xanh lá cây cho tên teacher */
-                font-weight: 600; /* Làm đậm để nhấn mạnh */
-            }
+    /* Nhấn mạnh tên teacher (cột TEACHER) */
+    .course-table td:nth-child(3) {
+    color: var(--primary-color); /* Màu xanh lá cây cho tên teacher */
+    font-weight: 600; /* Làm đậm để nhấn mạnh */
+    }
 
     /* Action Buttons */
     .action-links a {
-        display: inline-block;
-        margin-right: 10px;
-        color: var(--secondary-color);
-        text-decoration: none;
-        font-weight: 500;
-        transition: all 0.2s ease;
+    display: inline-block;
+    margin-right: 10px;
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s ease;
     }
 
-        .action-links a:hover {
-            color: #27ae60; /* Màu xanh lá cây đậm hơn khi hover */
-            text-decoration: underline;
-        }
+    .action-links a:hover {
+    color: #27ae60; /* Màu xanh lá cây đậm hơn khi hover */
+    text-decoration: underline;
+    }
 
-        .action-links a.edit {
-            color: var(--secondary-color);
-        }
+    .action-links a.edit {
+    color: var(--secondary-color);
+    }
 
-        .action-links a.details {
-            color: var(--primary-color);
-        }
+    .action-links a.details {
+    color: var(--primary-color);
+    }
 
-        .action-links a.delete {
-            color: #e74c3c;
-        }
+    .action-links a.delete {
+    color: #e74c3c;
+    }
 
     /* Join Button */
     .btn-join {
-        background-color: var(--primary-color); /* Màu cam */
-        color: var(--white);
-        border: none;
-        padding: 8px 15px;
-        border-radius: 4px;
-        font-size: 14px;
-        cursor: pointer;
-        transition: all 0.3s ease;
+    background-color: var(--primary-color); /* Màu cam */
+    color: var(--white);
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
     }
 
+<<<<<<< HEAD
         .btn-join:hover {
             background-color: #e88e00; /* Màu cam đậm hơn khi hover */
             transform: translateY(-2px);
@@ -172,12 +173,40 @@
             background-color: #e88e00; /* Màu xanh lá đậm hơn khi hover */
             transform: translateY(-2px);
         }
+=======
+    .btn-join:hover {
+    background-color: #e88e00; /* Màu cam đậm hơn khi hover */
+    transform: translateY(-2px);
+    }
+
+    .popup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #d4edda;
+        color: #155724;
+        padding: 20px;
+        border: 1px solid #c3e6cb;
+        border-radius: 5px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        z-index: 1000;
+    }
+
+    .hidden {
+        display: none;
+    }
+>>>>>>> d60f17b1a2c88a25736117208dee52bf80905601
 </style>
 
 <div class="course-container">
     <div class="page-header">
         <h1>Courses</h1>
-        <a asp-action="Create" class="btn-create">Create New Course</a>
+        @if (User.IsInRole("Admin") || User.IsInRole("Teacher"))
+        {
+            <a asp-action="Create" class="btn-create">Create New Course</a>
+        }
     </div>
 
     <table class="course-table">
@@ -197,6 +226,7 @@
                     <td>@Html.DisplayFor(modelItem => item.Description)</td>
                     <td>@Html.DisplayFor(modelItem => item.Teacher.FullName)</td>
                     <td class="action-links">
+<<<<<<< HEAD
                         <a asp-action="Details" asp-route-id="@item.Id" class="details">Details</a>
 
                         @if (User.IsInRole("Teacher"))
@@ -205,16 +235,48 @@
                             <span><a asp-action="Delete" asp-route-id="@item.Id" class="delete">Delete</a></span>
                             <a href="https://localhost:7286/meeting/create" class="btn-meeting">Create Meeting</a>
                         }
+=======
+                        @if(User.IsInRole("Teacher"))
+                        {
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="edit">Edit</a> 
+                        }
+                        
+                        <a asp-action="Details" asp-route-id="@item.Id" class="details">Details</a> 
+>>>>>>> d60f17b1a2c88a25736117208dee52bf80905601
 
+                        @if (User.IsInRole("Teacher"))
+                        {
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="delete">Delete</a>
+                        }
+                        
                         @if (User.IsInRole("Student"))
                         {
-                            <form asp-action="Join" asp-route-id="@item.Id" method="post" style="display:inline;">
+                            <div id="successPopup" class="popup hidden">
+                                Join Successful!
+                            </div>
+                            <form asp-action="Join" asp-route-id="@item.Id" method="post" style="display:inline;" id="JoinForm">
                                 <button type="submit" class="btn-join">Join</button>
-                            </form>
+                            </form>                            
                         }
                     </td>
                 </tr>
             }
-        </tbody>
+        </tbody>        
     </table>
 </div>
+<script>
+        document.getElementById("JoinForm").addEventListener("submit", (e) => {
+        e.preventDefault(); // Prevent actual form submission
+
+        const isRegistrationSuccessful = true; // Simulate success
+        if (isRegistrationSuccessful) {
+            const popup = document.getElementById("successPopup");
+            popup.classList.remove("hidden");
+
+            // Hide the pop-up automatically after 3 seconds
+            setTimeout(() => {
+                popup.classList.add("hidden");
+            }, 3000);
+        }
+    });
+</script>
