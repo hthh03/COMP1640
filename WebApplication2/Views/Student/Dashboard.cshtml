@@ -13,8 +13,8 @@
 
 <div class="container-fluid p-0">
     <div class="row g-0">
-        <!-- Sidebar - Desktop (vertical) / Tablet (collapsible) / Mobile (horizontal) -->
-        <div class="col-12 col-md-3 col-lg-2 sidebar">
+        <!-- Sidebar - Desktop (vertical) / Tablet & Mobile (horizontal) -->
+        <div class="col-12 col-lg-2 sidebar">
             <!-- Shared Dashboard Header - Used for all device sizes -->
             <div class="dashboard-header d-flex justify-content-between align-items-center p-3 bg-white border-bottom">
                 <div class="d-flex align-items-center">
@@ -23,14 +23,14 @@
                     </div>
                     <h5 class="mb-0 fw-bold">Student Dashboard</h5>
                 </div>
-                <!-- Hamburger menu for tablet view -->
-                <button class="btn btn-link d-md-none p-0" type="button" data-bs-toggle="collapse" data-bs-target="#tabletMenu" aria-expanded="false" aria-controls="tabletMenu">
+                <!-- Hamburger menu for desktop view only -->
+                <button class="btn btn-link d-lg-none p-0" type="button" data-bs-toggle="collapse" data-bs-target="#horizontalMenu" aria-expanded="true" aria-controls="horizontalMenu">
                     <i class="bi bi-list text-dark fs-4"></i>
                 </button>
             </div>
 
-            <!-- Horizontal Mobile Menu -->
-            <div class="collapse show d-md-none" id="horizontalMenu">
+            <!-- Horizontal Menu for both Mobile and Tablet -->
+            <div class="collapse show" id="horizontalMenu">
                 <div class="horizontal-menu">
                     <div class="menu-items-row">
                         <a href="#" class="menu-item active">
@@ -54,37 +54,6 @@
                             <span>Wishlist</span>
                         </a>
                     </div>
-                </div>
-            </div>
-
-            <!-- Tablet Menu - Collapsible vertical menu for tablet view -->
-            <div class="collapse tablet-menu" id="tabletMenu">
-                <div class="list-group list-group-flush border-0 mt-3">
-                    <a href="#" class="list-group-item list-group-item-action active d-flex align-items-center py-3"
-                       style="background-color: #fff8ed; border-bottom: none; border-left: 3px solid #f8a01c; border-radius: 0; color: #f8a01c;">
-                        <i class="bi bi-grid-fill me-3"></i>
-                        <span>Dashboard</span>
-                    </a>
-                    <a href="@Url.Action("Index", "Courses")" class="list-group-item list-group-item-action d-flex align-items-center py-3"
-                       style="border: none; color: #6c757d;">
-                        <i class="bi bi-book me-3"></i>
-                        <span>Courses</span>
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action d-flex align-items-center py-3"
-                       style="border: none; color: #6c757d;">
-                        <i class="bi bi-person-video3 me-3"></i>
-                        <span>Teachers</span>
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action d-flex align-items-center py-3"
-                       style="border: none; color: #6c757d;">
-                        <i class="bi bi-chat-left-text me-3"></i>
-                        <span>Messages</span>
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action d-flex align-items-center py-3"
-                       style="border: none; color: #6c757d;">
-                        <i class="bi bi-heart me-3"></i>
-                        <span>Wishlist</span>
-                    </a>
                 </div>
             </div>
 
@@ -121,7 +90,7 @@
         </div>
 
         <!-- Main Content -->
-        <div class="col-12 col-md-9 col-lg-10">
+        <div class="col-12 col-lg-10">
             <div class="p-3 p-md-4">
                 <!-- Header -->
                 <div class="d-flex justify-content-between align-items-center mb-4">
@@ -352,25 +321,23 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        // Handle tablet sidebar toggle
+        // Handle menu toggle for mobile and tablet
         document.addEventListener("DOMContentLoaded", function() {
-            const tabletMediaQuery = window.matchMedia('(min-width: 768px) and (max-width: 991.98px)');
+            // Check if the menu should be expanded or collapsed on load
+            function updateMenuVisibility() {
+                const horizontalMenu = document.getElementById('horizontalMenu');
 
-            function updateSidebarForTablet(mediaQuery) {
-                if (mediaQuery.matches) {
-                    // We're in tablet mode - hide the tablet menu by default
-                    const tabletMenu = document.getElementById('tabletMenu');
-                    if (tabletMenu) {
-                        tabletMenu.classList.remove('show');
-                    }
+                // Always show on initial load for better UX
+                if (horizontalMenu) {
+                    horizontalMenu.classList.add('show');
                 }
             }
 
-            // Initial check
-            updateSidebarForTablet(tabletMediaQuery);
+            // Run on page load
+            updateMenuVisibility();
 
-            // Add listener for changes
-            tabletMediaQuery.addEventListener('change', updateSidebarForTablet);
+            // Optional: Add listener for window resize if needed
+            window.addEventListener('resize', updateMenuVisibility);
         });
     </script>
 
@@ -398,11 +365,7 @@
             display: none !important;
         }
 
-        .tablet-menu {
-            display: none !important;
-        }
-
-        .list-group-item.active {
+        .desktop-menu .list-group-item.active {
             background-color: #fff8ed;
             border-bottom: none;
             border-left: 3px solid #f8a01c;
@@ -410,7 +373,7 @@
             color: #f8a01c;
         }
 
-        .list-group-item {
+        .desktop-menu .list-group-item {
             border: none;
             color: #6c757d;
             padding-top: 0.75rem;
@@ -419,8 +382,8 @@
 
         }
 
-        /* Tablet Sidebar Styles */
-        @@media (min-width: 768px) and (max-width: 991.98px) {
+        /* Tablet and Mobile Shared Horizontal Menu Styles */
+        @@media (max-width: 991.98px) {
             .sidebar
 
         {
@@ -433,56 +396,9 @@
             z-index: 1000;
         }
 
-        /* Hide mobile horizontal menu on tablets */
-        .horizontal-menu {
-            display: none !important;
-        }
-
-        /* Hide desktop menu */
-        .desktop-menu {
-            display: none !important;
-        }
-
-        /* Tablet-specific collapsible menu */
-        .tablet-menu {
-            width: 100%;
-            background-color: #ffffff;
-        }
-
-            .tablet-menu .list-group-item.active {
-                background-color: #fff8ed;
-                border-bottom: none;
-                border-left: 3px solid #f8a01c;
-                border-radius: 0;
-                color: #f8a01c;
-            }
-
-            .tablet-menu .list-group-item {
-                border: none;
-                color: #6c757d;
-                padding-top: 0.75rem;
-                padding-bottom: 0.75rem;
-            }
-
-        }
-
-        /* Mobile Sidebar Styles - FORCED HORIZONTAL LAYOUT */
-        @@media (max-width: 767.98px) {
-            .sidebar
-
-        {
-            min-height: auto;
-            width: 100%;
-            border-right: none;
-            border-bottom: 1px solid #e0e0e0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        /* Hide desktop and tablet menus completely */
-        .desktop-menu, .tablet-menu {
-            display: none !important;
+        /* Ensure horizontal menu is shown */
+        #horizontalMenu {
+            display: block !important;
         }
 
         /* Horizontal menu styling */
@@ -527,13 +443,34 @@
                 white-space: nowrap;
             }
 
-        /* Force show the horizontal menu by default */
-        #horizontalMenu {
-            display: block !important;
+        /* Hide desktop menu */
+        .desktop-menu {
+            display: none !important;
         }
 
-        /* More padding for mobile content */
-        .card-body {
+        }
+
+        /* Tablet-specific styles */
+        @@media (min-width: 768px) and (max-width: 991.98px) {
+            /* Additional tablet-specific styles can go here if needed */
+            .menu-item
+
+        {
+            padding: 14px 20px; /* Slightly larger touch targets for tablet */
+        }
+
+        .menu-item i {
+            font-size: 1.3rem; /* Slightly larger icons for tablet */
+        }
+
+        }
+
+        /* Mobile-specific styles */
+        @@media (max-width: 767.98px) {
+            /* More padding for mobile content */
+            .card-body
+
+        {
             padding: 1rem;
         }
 

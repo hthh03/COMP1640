@@ -8,7 +8,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
-    /* Main color variables */
     :root {
         --primary-orange: #FF7F24;
         --secondary-orange: #FFA07A;
@@ -40,18 +39,18 @@
         overflow: hidden;
     }
 
-    .comments-container::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 150px;
-        height: 150px;
-        background: var(--light-orange);
-        opacity: 0.15;
-        border-radius: 0 0 0 100%;
-        z-index: 0;
-    }
+        .comments-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 150px;
+            height: 150px;
+            background: var(--light-orange);
+            opacity: 0.15;
+            border-radius: 0 0 0 100%;
+            z-index: 0;
+        }
 
     .page-header {
         display: flex;
@@ -74,11 +73,11 @@
         margin: 0;
     }
 
-    .page-title i {
-        margin-right: 15px;
-        color: var(--primary-orange);
-        font-size: 1.8rem;
-    }
+        .page-title i {
+            margin-right: 15px;
+            color: var(--primary-orange);
+            font-size: 1.8rem;
+        }
 
     .create-btn {
         padding: 10px 20px;
@@ -93,15 +92,15 @@
         box-shadow: 0 4px 10px rgba(210, 105, 30, 0.3);
     }
 
-    .create-btn i {
-        margin-right: 10px;
-    }
+        .create-btn i {
+            margin-right: 10px;
+        }
 
-    .create-btn:hover {
-        background-color: var(--dark-orange);
-        transform: translateY(-3px);
-        box-shadow: 0 6px 15px rgba(210, 105, 30, 0.4);
-    }
+        .create-btn:hover {
+            background-color: var(--dark-orange);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(210, 105, 30, 0.4);
+        }
 
     .stats-bar {
         display: flex;
@@ -125,10 +124,10 @@
         border-bottom: 3px solid var(--primary-orange);
     }
 
-    .stat-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 20px rgba(210, 105, 30, 0.15);
-    }
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(210, 105, 30, 0.15);
+        }
 
     .stat-icon {
         font-size: 1.8rem;
@@ -164,50 +163,49 @@
         overflow: hidden;
     }
 
-    .comments-table thead {
-        background-color: var(--primary-orange);
-        color: var(--text-light);
-    }
+        .comments-table thead {
+            background-color: var(--primary-orange);
+            color: var(--text-light);
+        }
 
-    .comments-table th {
-        padding: 15px;
-        text-align: left;
-        font-weight: 600;
-        font-size: 1rem;
-        position: relative;
-        transition: all 0.3s ease;
-        white-space: nowrap;
-    }
+        .comments-table th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 1rem;
+            position: relative;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
 
-    .comments-table th i {
-        margin-right: 8px;
-        opacity: 0.8;
-    }
+            .comments-table th i {
+                margin-right: 8px;
+                opacity: 0.8;
+            }
 
-    .comments-table tbody tr {
-        background-color: #ffffff;
-        transition: all 0.3s ease;
-        border-bottom: 1px solid #f0f0f0;
-    }
+        .comments-table tbody tr {
+            background-color: #ffffff;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid #f0f0f0;
+        }
 
-    .comments-table tbody tr:last-child {
-        border-bottom: none;
-    }
+            .comments-table tbody tr:last-child {
+                border-bottom: none;
+            }
 
-    .comments-table tbody tr:hover {
-        background-color: rgba(255, 228, 196, 0.3);
-        transform: translateY(-2px);
-        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
-    }
+            .comments-table tbody tr:hover {
+                background-color: rgba(255, 228, 196, 0.3);
+                transform: translateY(-2px);
+                box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+            }
 
-    .comments-table td {
-        padding: 15px;
-        color: var(--text-dark);
-        vertical-align: middle;
-        position: relative;
-    }
+        .comments-table td {
+            padding: 15px;
+            color: var(--text-dark);
+            vertical-align: middle;
+            position: relative;
+        }
 
-    /* Content styles */
     .comment-content {
         position: relative;
         padding-left: 15px;
@@ -216,19 +214,18 @@
         min-width: 100px;
     }
 
-    .comment-content::before {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 50%;
-        transform: translateY(-50%);
-        height: 70%;
-        width: 3px;
-        background-color: var(--primary-orange);
-        border-radius: 3px;
-    }
+        .comment-content::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 70%;
+            width: 3px;
+            background-color: var(--primary-orange);
+            border-radius: 3px;
+        }
 
-    /* Date styles */
     .date-cell {
         display: flex;
         flex-direction: column;
@@ -246,7 +243,6 @@
         color: #777;
     }
 
-    /* User styles */
     .user-cell {
         display: flex;
         align-items: center;
@@ -273,7 +269,6 @@
         font-size: 0.95rem;
     }
 
-    /* Post reference */
     .post-reference {
         display: inline-block;
         max-width: 200px;
@@ -288,12 +283,11 @@
         transition: all 0.3s ease;
     }
 
-    .post-reference:hover {
-        background-color: var(--secondary-orange);
-        color: var(--text-light);
-    }
+        .post-reference:hover {
+            background-color: var(--secondary-orange);
+            color: var(--text-light);
+        }
 
-    /* Action buttons */
     .action-cell {
         display: flex;
         gap: 8px;
@@ -330,7 +324,6 @@
         box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
     }
 
-    /* Pagination */
     .pagination {
         display: flex;
         justify-content: center;
@@ -354,21 +347,20 @@
         text-decoration: none;
     }
 
-    .pagination-item.active {
-        background-color: var(--primary-orange);
-        color: var(--text-light);
-    }
+        .pagination-item.active {
+            background-color: var(--primary-orange);
+            color: var(--text-light);
+        }
 
-    .pagination-item:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
-    }
+        .pagination-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+        }
 
     .pagination-arrow {
         background-color: var(--light-orange);
     }
 
-    /* No data indicator */
     .no-data {
         color: #999;
         font-style: italic;
@@ -377,7 +369,6 @@
         gap: 5px;
     }
 
-    /* Empty state */
     .empty-state {
         text-align: center;
         padding: 40px 20px;
@@ -399,7 +390,6 @@
         margin-bottom: 20px;
     }
 
-    /* Table Scrollbar */
     .table-responsive::-webkit-scrollbar {
         height: 8px;
     }
@@ -414,191 +404,434 @@
         border-radius: 10px;
     }
 
-    .table-responsive::-webkit-scrollbar-thumb:hover {
-        background: var(--primary-orange);
-    }
+        .table-responsive::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-orange);
+        }
 
     /* Responsive Design */
-    @@media (max-width: 992px) {
-        .stat-card {
-            min-width: 110px;
-        }
+    @@media (max-width: 991px) { /* Tablet */
+        .comments-container
+
+    {
+        max-width: 90%;
+        margin: 15px auto;
+        padding: 15px;
     }
 
-    @@media (max-width: 768px) {
-        .comments-container {
-            margin: 15px;
-            padding: 15px;
-        }
-
-        .page-header {
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        .page-title {
-            font-size: 1.7rem;
-            margin-bottom: 10px;
-        }
+    .page-title {
+        font-size: 1.9rem;
+    }
 
         .page-title i {
-            font-size: 1.5rem;
+            font-size: 1.7rem;
         }
 
-        .stat-card {
-            min-width: 100px;
-            padding: 12px 10px;
+    .stats-bar {
+        gap: 10px;
+        justify-content: center;
+    }
+
+    .stat-card {
+        min-width: 110px;
+        padding: 12px;
+    }
+
+    .stat-icon {
+        font-size: 1.6rem;
+    }
+
+    .stat-value {
+        font-size: 1.5rem;
+    }
+
+    .comments-table th,
+    .comments-table td {
+        padding: 12px;
+    }
+
+    }
+
+    @@media (max-width: 767px) { /* Mobile */
+        .comments-container
+
+    {
+        margin: 10px 10px;
+        padding: 15px;
+        border-radius: 12px;
+    }
+
+    .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .page-title {
+        font-size: 1.8rem;
+        margin-bottom: 10px;
+    }
+
+        .page-title i {
+            font-size: 1.6rem;
+            margin-right: 12px;
         }
 
-        .stat-icon {
-            font-size: 1.5rem;
-        }
+    .create-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 9px 18px;
+    }
 
-        .stat-value {
+    .stats-bar {
+        gap: 10px;
+        justify-content: center;
+    }
+
+    .stat-card {
+        min-width: 100px;
+        padding: 10px;
+    }
+
+    .stat-icon {
+        font-size: 1.5rem;
+        margin-bottom: 6px;
+    }
+
+    .stat-value {
+        font-size: 1.4rem;
+    }
+
+    .stat-label {
+        font-size: 0.8rem;
+    }
+
+    .comments-table th,
+    .comments-table td {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+
+    .comment-content {
+        min-width: 80px;
+    }
+
+    .date-cell {
+        min-width: 80px;
+    }
+
+    .date-primary {
+        font-size: 0.9rem;
+    }
+
+    .date-secondary {
+        font-size: 0.75rem;
+    }
+
+    .user-cell {
+        min-width: 70px;
+    }
+
+    .user-avatar {
+        width: 30px;
+        height: 30px;
+        font-size: 0.7rem;
+        margin-right: 8px;
+    }
+
+    .user-id {
+        font-size: 0.9rem;
+    }
+
+    .post-reference {
+        max-width: 150px;
+        font-size: 0.8rem;
+        padding: 4px 8px;
+    }
+
+    .action-cell {
+        gap: 6px;
+        min-width: 90px;
+    }
+
+    .action-btn {
+        width: 28px;
+        height: 28px;
+        font-size: 0.8rem;
+    }
+
+    .pagination {
+        gap: 6px;
+        margin-top: 20px;
+    }
+
+    .pagination-item {
+        width: 32px;
+        height: 32px;
+        font-size: 0.9rem;
+    }
+
+    .empty-state {
+        padding: 30px 15px;
+    }
+
+    .empty-icon {
+        font-size: 2.5rem;
+    }
+
+    .empty-text {
+        font-size: 1rem;
+    }
+
+    }
+
+    @@media (max-width: 480px) { /* Small Mobile */
+        .comments-container
+
+    {
+        margin: 8px 8px;
+        padding: 12px;
+        border-radius: 10px;
+    }
+
+    .comments-container::before {
+        width: 120px;
+        height: 120px;
+    }
+
+    .page-title {
+        font-size: 1.6rem;
+    }
+
+        .page-title i {
             font-size: 1.4rem;
+            margin-right: 10px;
         }
 
-        .stats-bar {
-            justify-content: center;
-        }
-
-        .comments-table th,
-        .comments-table td {
-            padding: 12px 10px;
-        }
+    .create-btn {
+        padding: 8px 16px;
+        font-size: 0.9rem;
     }
 
-    @@media (max-width: 576px) {
-        .comments-container {
-            margin: 10px;
-            padding: 12px;
-            border-radius: 12px;
-        }
-
-        .page-title {
-            font-size: 1.5rem;
-        }
-
-        .create-btn {
-            padding: 8px 16px;
-            font-size: 0.9rem;
-            width: 100%;
-            justify-content: center;
-        }
-
-        .stats-bar {
-            gap: 10px;
-        }
-
-        .stat-card {
-            padding: 10px 8px;
-            min-width: 90px;
-        }
-
-        .stat-icon {
-            font-size: 1.3rem;
-            margin-bottom: 5px;
-        }
-
-        .stat-value {
-            font-size: 1.3rem;
-        }
-
-        .stat-label {
-            font-size: 0.75rem;
-        }
-
-        .action-btn {
-            width: 28px;
-            height: 28px;
-            font-size: 0.8rem;
-        }
-
-        .pagination-item {
-            width: 32px;
-            height: 32px;
-            font-size: 0.9rem;
-        }
-        
-        .comments-table th {
-            padding: 10px 8px;
-            font-size: 0.9rem;
-        }
-        
-        .comments-table td {
-            padding: 10px 8px;
-            font-size: 0.85rem;
-        }
-        
-        .date-primary {
-            font-size: 0.85rem;
-        }
-        
-        .date-secondary {
-            font-size: 0.75rem;
-        }
+    .stats-bar {
+        gap: 8px;
     }
-    
-    /* iPhone 5 size (320px) specific optimizations */
-    @@media (max-width: 320px) {
-        .comments-container {
-            margin: 5px;
-            padding: 10px;
+
+    .stat-card {
+        min-width: 90px;
+        padding: 8px;
+    }
+
+    .stat-icon {
+        font-size: 1.3rem;
+        margin-bottom: 5px;
+    }
+
+    .stat-value {
+        font-size: 1.3rem;
+    }
+
+    .stat-label {
+        font-size: 0.75rem;
+    }
+
+    .comments-table th,
+    .comments-table td {
+        padding: 8px;
+        font-size: 0.85rem;
+    }
+
+    .comment-content {
+        padding-left: 12px;
+        min-width: 70px;
+    }
+
+        .comment-content::before {
+            width: 2px;
+            height: 60%;
         }
-        
-        .page-title {
-            font-size: 1.3rem;
-        }
-        
+
+    .date-primary {
+        font-size: 0.85rem;
+    }
+
+    .date-secondary {
+        font-size: 0.7rem;
+    }
+
+    .user-avatar {
+        width: 28px;
+        height: 28px;
+        font-size: 0.65rem;
+    }
+
+    .user-id {
+        font-size: 0.85rem;
+    }
+
+    .post-reference {
+        max-width: 120px;
+        padding: 3px 6px;
+        font-size: 0.75rem;
+    }
+
+    .action-btn {
+        width: 26px;
+        height: 26px;
+        font-size: 0.75rem;
+    }
+
+    .pagination-item {
+        width: 30px;
+        height: 30px;
+        font-size: 0.85rem;
+    }
+
+    .empty-state {
+        padding: 25px 10px;
+    }
+
+    .empty-icon {
+        font-size: 2rem;
+    }
+
+    .empty-text {
+        font-size: 0.9rem;
+    }
+
+    }
+
+    @@media (max-width: 320px) { /* Very Small Mobile (e.g., iPhone 5) */
+        .comments-container
+
+    {
+        margin: 5px 5px;
+        padding: 10px;
+        border-radius: 8px;
+    }
+
+    .comments-container::before {
+        width: 100px;
+        height: 100px;
+    }
+
+    .page-title {
+        font-size: 1.4rem;
+    }
+
         .page-title i {
             font-size: 1.2rem;
             margin-right: 8px;
         }
-        
-        .stats-bar {
-            gap: 5px;
-        }
-        
-        .stat-card {
-            min-width: 80px;
-            padding: 8px 5px;
-        }
-        
-        .stat-icon {
-            font-size: 1.1rem;
-        }
-        
-        .stat-value {
-            font-size: 1.1rem;
-        }
-        
-        .stat-label {
-            font-size: 0.7rem;
-        }
-        
-        .action-cell {
-            gap: 3px;
-        }
-        
-        .action-btn {
-            width: 26px;
-            height: 26px;
-            font-size: 0.7rem;
-        }
-        
-        .pagination {
-            gap: 5px;
-        }
-        
-        .pagination-item {
-            width: 28px;
-            height: 28px;
-            font-size: 0.8rem;
-        }
-        
-        .empty-text {
-            font-size: 0.9rem;
-        }
+
+    .create-btn {
+        padding: 7px 14px;
+        font-size: 0.85rem;
+    }
+
+    .stats-bar {
+        gap: 6px;
+    }
+
+    .stat-card {
+        min-width: 80px;
+        padding: 6px;
+    }
+
+    .stat-icon {
+        font-size: 1.2rem;
+        margin-bottom: 4px;
+    }
+
+    .stat-value {
+        font-size: 1.2rem;
+    }
+
+    .stat-label {
+        font-size: 0.7rem;
+    }
+
+    .comments-table th,
+    .comments-table td {
+        padding: 6px;
+        font-size: 0.8rem;
+    }
+
+    .comment-content {
+        padding-left: 10px;
+        min-width: 60px;
+    }
+
+    .date-cell {
+        min-width: 70px;
+    }
+
+    .date-primary {
+        font-size: 0.8rem;
+    }
+
+    .date-secondary {
+        font-size: 0.65rem;
+    }
+
+    .user-cell {
+        min-width: 60px;
+    }
+
+    .user-avatar {
+        width: 24px;
+        height: 24px;
+        font-size: 0.6rem;
+        margin-right: 6px;
+    }
+
+    .user-id {
+        font-size: 0.8rem;
+    }
+
+    .post-reference {
+        max-width: 100px;
+        padding: 2px 5px;
+        font-size: 0.7rem;
+    }
+
+    .action-cell {
+        gap: 4px;
+        min-width: 80px;
+    }
+
+    .action-btn {
+        width: 24px;
+        height: 24px;
+        font-size: 0.7rem;
+    }
+
+    .pagination {
+        gap: 5px;
+        margin-top: 15px;
+    }
+
+    .pagination-item {
+        width: 28px;
+        height: 28px;
+        font-size: 0.8rem;
+    }
+
+    .empty-state {
+        padding: 20px 8px;
+    }
+
+    .empty-icon {
+        font-size: 1.8rem;
+    }
+
+    .empty-text {
+        font-size: 0.85rem;
+        margin-bottom: 15px;
+    }
+
+    .create-btn i {
+        margin-right: 8px;
+    }
+
     }
 </style>
 

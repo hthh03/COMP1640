@@ -13,8 +13,8 @@
 
 <div class="container-fluid p-0">
     <div class="row g-0">
-        <!-- Sidebar - Desktop (vertical) / Tablet (collapsible) / Mobile (horizontal) -->
-        <div class="col-12 col-md-3 col-lg-2 sidebar">
+        <!-- Sidebar - Desktop (vertical) / Tablet (horizontal) / Mobile (horizontal) -->
+        <div class="col-12 col-lg-2 sidebar">
             <!-- Shared Dashboard Header - Used for all device sizes -->
             <div class="dashboard-header d-flex justify-content-between align-items-center p-3 bg-white border-bottom">
                 <div class="d-flex align-items-center">
@@ -23,12 +23,10 @@
                     </div>
                     <h5 class="mb-0 fw-bold">Teacher Dashboard</h5>
                 </div>
-                <!-- Hamburger menu for tablet view -->
-
             </div>
 
-            <!-- Horizontal Mobile Menu -->
-            <div class="collapse show d-md-none" id="horizontalMenu">
+            <!-- Horizontal Menu for Tablet and Mobile -->
+            <div class="horizontal-menu-wrapper d-lg-none">
                 <div class="horizontal-menu">
                     <div class="menu-items-row">
                         <a href="#" class="menu-item active">
@@ -52,46 +50,6 @@
                             <span>Earnings</span>
                         </a>
                     </div>
-                </div>
-            </div>
-
-            <!-- Tablet Menu - Collapsible vertical menu for tablet view -->
-            <div class="collapse tablet-menu" id="tabletMenu">
-                <div class="list-group list-group-flush border-0 mt-3">
-                    <!-- Dashboard Item -->
-                    <a href="#" class="list-group-item list-group-item-action active d-flex align-items-center py-3"
-                       style="background-color: #fff8ed; border-bottom: none; border-left: 3px solid #f8a01c; border-radius: 0; color: #f8a01c;">
-                        <i class="bi bi-grid-fill me-3"></i>
-                        <span>Dashboard</span>
-                    </a>
-
-                    <!-- Create New Course -->
-                    <a href="@Url.Action("Create", "Courses")" class="list-group-item list-group-item-action d-flex align-items-center py-3"
-                       style="border: none; color: #6c757d;">
-                        <i class="bi bi-plus-circle me-3"></i>
-                        <span>Create New Course</span>
-                    </a>
-
-                    <!-- Courses -->
-                    <a href="@Url.Action("Index", "Courses")" class="list-group-item list-group-item-action d-flex align-items-center py-3"
-                       style="border: none; color: #6c757d;">
-                        <i class="bi bi-book me-3"></i>
-                        <span>Courses</span>
-                    </a>
-
-                    <!-- Messages Item -->
-                    <a href="#" class="list-group-item list-group-item-action d-flex align-items-center py-3"
-                       style="border: none; color: #6c757d;">
-                        <i class="bi bi-chat-left-text me-3"></i>
-                        <span>Messages</span>
-                    </a>
-
-                    <!-- Earnings Item -->
-                    <a href="#" class="list-group-item list-group-item-action d-flex align-items-center py-3"
-                       style="border: none; color: #6c757d;">
-                        <i class="bi bi-cash-coin me-3"></i>
-                        <span>Earnings</span>
-                    </a>
                 </div>
             </div>
 
@@ -137,7 +95,7 @@
         </div>
 
         <!-- Main Content -->
-        <div class="col-12 col-md-9 col-lg-10">
+        <div class="col-12 col-lg-10">
             <div class="p-3 p-md-4">
                 <!-- Header -->
                 <div class="d-flex justify-content-between align-items-center mb-4">
@@ -444,27 +402,6 @@
     <script>
         // You can add JavaScript for your charts here
         // For example, using Chart.js or other libraries
-
-        // Handle tablet sidebar toggle
-        document.addEventListener("DOMContentLoaded", function() {
-            const tabletMediaQuery = window.matchMedia('(min-width: 768px) and (max-width: 991.98px)');
-
-            function updateSidebarForTablet(mediaQuery) {
-                if (mediaQuery.matches) {
-                    // We're in tablet mode - hide the tablet menu by default
-                    const tabletMenu = document.getElementById('tabletMenu');
-                    if (tabletMenu) {
-                        tabletMenu.classList.remove('show');
-                    }
-                }
-            }
-
-            // Initial check
-            updateSidebarForTablet(tabletMediaQuery);
-
-            // Add listener for changes
-            tabletMediaQuery.addEventListener('change', updateSidebarForTablet);
-        });
     </script>
 
     <style>
@@ -487,11 +424,7 @@
             min-height: 100vh;
         }
 
-        .horizontal-menu {
-            display: none !important;
-        }
-
-        .tablet-menu {
+        .horizontal-menu-wrapper {
             display: none !important;
         }
 
@@ -512,8 +445,8 @@
 
         }
 
-        /* Tablet Sidebar Styles */
-        @@media (min-width: 768px) and (max-width: 991.98px) {
+        /* Tablet & Mobile Shared Styles */
+        @@media (max-width: 991.98px) {
             .sidebar
 
         {
@@ -524,63 +457,6 @@
             position: sticky;
             top: 0;
             z-index: 1000;
-        }
-
-        /* Hide mobile horizontal menu on tablets */
-        .horizontal-menu {
-            display: none !important;
-        }
-
-        /* Hide desktop menu */
-        .desktop-menu {
-            display: none !important;
-        }
-
-        /* Tablet-specific collapsible menu */
-        .tablet-menu {
-            width: 100%;
-            background-color: #ffffff;
-        }
-
-            .tablet-menu .list-group-item.active {
-                background-color: #fff8ed;
-                border-bottom: none;
-                border-left: 3px solid #f8a01c;
-                border-radius: 0;
-                color: #f8a01c;
-            }
-
-            .tablet-menu .list-group-item {
-                border: none;
-                color: #6c757d;
-                padding-top: 0.75rem;
-                padding-bottom: 0.75rem;
-            }
-
-        /* Force column layout for stats cards on tablets */
-        .stats-card {
-            margin-bottom: 1rem;
-        }
-
-        }
-
-        /* Mobile Sidebar Styles - FORCED HORIZONTAL LAYOUT */
-        @@media (max-width: 767.98px) {
-            .sidebar
-
-        {
-            min-height: auto;
-            width: 100%;
-            border-right: none;
-            border-bottom: 1px solid #e0e0e0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        /* Hide desktop and tablet menus completely */
-        .desktop-menu, .tablet-menu {
-            display: none !important;
         }
 
         /* Horizontal menu styling */
@@ -625,8 +501,41 @@
                 white-space: nowrap;
             }
 
-        /* Force show the horizontal menu by default */
-        #horizontalMenu {
+        }
+
+        /* Tablet Specific Styles */
+        @@media (min-width: 768px) and (max-width: 991.98px) {
+            /* Force show horizontal menu for tablets */
+            .horizontal-menu-wrapper
+
+        {
+            display: block !important;
+        }
+
+        /* Adjust menu item sizes for tablet */
+        .menu-item {
+            padding: 14px 20px;
+            min-width: 100px;
+        }
+
+            /* Add some spacing for tablet menu items */
+            .menu-item i {
+                font-size: 1.4rem;
+                margin-bottom: 6px;
+            }
+
+            .menu-item span {
+                font-size: 0.9rem;
+            }
+
+        }
+
+        /* Mobile Specific Styles */
+        @@media (max-width: 767.98px) {
+            /* Force show horizontal menu */
+            .horizontal-menu-wrapper
+
+        {
             display: block !important;
         }
 

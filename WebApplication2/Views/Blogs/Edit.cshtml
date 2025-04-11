@@ -29,7 +29,7 @@
                         <div class="form-group floating-label mb-4">
                             <div class="input-icon-group">
                                 <span class="input-icon"><i class="fa-solid fa-heading"></i></span>
-                                <input asp-for="Title" class="form-control pl-40" placeholder=" " />
+                                <input asp-for="Title" class="form-control pl-40" placeholder=" " maxlength="100" />
                                 <label asp-for="Title">Post Title</label>
                             </div>
                             <span asp-validation-for="Title" class="invalid-feedback"></span>
@@ -42,7 +42,7 @@
                         <div class="form-group floating-label mb-4">
                             <div class="input-icon-group">
                                 <span class="input-icon"><i class="fa-solid fa-align-left"></i></span>
-                                <textarea asp-for="Description" class="form-control pl-40" rows="4" placeholder=" "></textarea>
+                                <textarea asp-for="Description" class="form-control pl-40" rows="4" placeholder=" " maxlength="500"></textarea>
                                 <label asp-for="Description">Post Description</label>
                             </div>
                             <span asp-validation-for="Description" class="invalid-feedback"></span>
@@ -393,140 +393,221 @@
             color: #ffc107 !important;
         }
 
-        /* Responsive Design for iPhone 5 (320px) and up */
-        @@media (max-width: 576px) {
-            .container {
-                margin-top: 2rem;
-                margin-bottom: 2rem;
-            }
+        /* Responsive Design */
+        @@media (max-width: 991px) { /* Tablet */
+            .container
 
-            .card-header {
-                padding: 1rem;
-            }
-
-            .card-title {
-                font-size: 1.5rem;
-            }
-
-            .card-body {
-                padding: 1rem;
-            }
-
-            .form-control, .form-select {
-                padding: 0.65rem 0.85rem;
-                font-size: 0.9rem;
-            }
-
-            .btn {
-                padding: 0.65rem 1.2rem;
-                font-size: 0.9rem;
-            }
-
-            .form-group {
-                margin-bottom: 1.2rem;
-            }
-
-            .char-count {
-                font-size: 0.65rem;
-            }
+        {
+            max-width: 90%;
+            margin-top: 3rem;
+            margin-bottom: 3rem;
         }
 
-        @@media (max-width: 320px) {
-            .container {
-                padding: 0 10px;
-                margin-top: 1rem;
-                margin-bottom: 1rem;
+        .card-header {
+            padding: 1.25rem;
+        }
+
+        .card-title {
+            font-size: 1.6rem;
+        }
+
+        .card-body {
+            padding: 1.25rem;
+        }
+
+        .form-control, .form-select {
+            padding: 0.7rem 0.9rem;
+            font-size: 0.9rem;
+        }
+
+        .btn {
+            padding: 0.7rem 1.3rem;
+            font-size: 0.9rem;
+        }
+
+        .form-action-buttons {
+            gap: 8px;
+        }
+
+        }
+
+        @@media (max-width: 767px) { /* Mobile */
+            .container
+
+        {
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            border-radius: 12px;
+        }
+
+        .card-header {
+            padding: 1rem;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+        }
+
+        .card-body {
+            padding: 1rem;
+        }
+
+        .card-footer {
+            padding: 0.8rem;
+        }
+
+        .form-label {
+            font-size: 0.9rem;
+        }
+
+        .form-control, .form-select {
+            padding: 0.65rem 0.85rem;
+            font-size: 0.9rem;
+        }
+
+            .form-control.pl-40 {
+                padding-left: 35px;
             }
 
-            .card {
-                border-radius: 12px;
+        .input-icon {
+            width: 35px;
+            font-size: 0.9rem;
+        }
+
+        .btn {
+            padding: 0.65rem 1.2rem;
+            font-size: 0.9rem;
+            width: 100%;
+        }
+
+        .form-action-buttons {
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .floating-label label {
+            left: 35px;
+            top: 0.65rem;
+        }
+
+        .floating-label input:focus ~ label,
+        .floating-label input:not(:placeholder-shown) ~ label,
+        .floating-label textarea:focus ~ label,
+        .floating-label textarea:not(:placeholder-shown) ~ label {
+            top: -0.45rem;
+            left: 0.7rem;
+            font-size: 0.65rem;
+        }
+
+        textarea {
+            min-height: 90px;
+        }
+
+        .char-count {
+            font-size: 0.65rem;
+            right: 6px;
+            bottom: 6px;
+        }
+
+        .invalid-feedback {
+            bottom: -1.1rem;
+            font-size: 0.75rem;
+        }
+
+        }
+
+        @@media (max-width: 320px) { /* Small Mobile (e.g., iPhone 5) */
+            .container
+
+        {
+            padding: 0 10px;
+            margin-top: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-header {
+            padding: 0.8rem;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+        }
+
+            .card-title i {
+                font-size: 1rem;
+                margin-right: 5px;
             }
 
-            .card-header {
-                padding: 0.8rem;
+        .card-body {
+            padding: 0.8rem;
+        }
+
+        .card-footer {
+            padding: 0.6rem;
+            font-size: 0.85rem;
+        }
+
+        .form-label {
+            font-size: 0.85rem;
+        }
+
+        .form-control, .form-select {
+            padding: 0.5rem 0.75rem;
+            font-size: 0.85rem;
+        }
+
+            .form-control.pl-40 {
+                padding-left: 30px;
             }
 
-            .card-title {
-                font-size: 1.2rem;
-            }
+        .input-icon {
+            width: 30px;
+            font-size: 0.85rem;
+        }
 
-                .card-title i {
-                    font-size: 1rem;
-                    margin-right: 5px;
-                }
+        .btn {
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+        }
 
-            .card-body {
-                padding: 0.8rem;
-            }
+        .floating-label label {
+            left: 30px;
+            top: 0.5rem;
+        }
 
-            .card-footer {
-                padding: 0.8rem;
-                font-size: 0.85rem;
-            }
+        .floating-label input:focus ~ label,
+        .floating-label input:not(:placeholder-shown) ~ label,
+        .floating-label textarea:focus ~ label,
+        .floating-label textarea:not(:placeholder-shown) ~ label {
+            top: -0.4rem;
+            left: 0.6rem;
+            font-size: 0.6rem;
+        }
 
-            .form-label {
-                font-size: 0.85rem;
-            }
+        textarea {
+            min-height: 80px;
+        }
 
-            .form-control, .form-select {
-                padding: 0.5rem 0.75rem;
-                font-size: 0.85rem;
-            }
+        .char-count {
+            right: 5px;
+            bottom: 5px;
+            font-size: 0.6rem;
+            padding: 0.15rem 0.4rem;
+        }
 
-                .form-control.pl-40 {
-                    padding-left: 35px;
-                }
+        .invalid-feedback {
+            bottom: -1rem;
+            font-size: 0.7rem;
+        }
 
-            .input-icon {
-                width: 35px;
-                font-size: 0.9rem;
-            }
+        .alert {
+            font-size: 0.85rem;
+            padding: 0.75rem;
+        }
 
-            .btn {
-                padding: 0.5rem 1rem;
-                font-size: 0.85rem;
-                width: 100%;
-            }
-
-            .form-action-buttons {
-                flex-direction: column;
-                gap: 8px;
-            }
-
-            .floating-label label {
-                left: 35px;
-                top: 0.5rem;
-            }
-
-            .floating-label input:focus ~ label,
-            .floating-label input:not(:placeholder-shown) ~ label,
-            .floating-label textarea:focus ~ label,
-            .floating-label textarea:not(:placeholder-shown) ~ label {
-                top: -0.4rem;
-                left: 0.6rem;
-                font-size: 0.65rem;
-            }
-
-            textarea {
-                min-height: 80px;
-            }
-
-            .char-count {
-                right: 5px;
-                bottom: 5px;
-                font-size: 0.6rem;
-                padding: 0.15rem 0.4rem;
-            }
-
-            .invalid-feedback {
-                bottom: -1rem;
-                font-size: 0.75rem;
-            }
-
-            .alert {
-                font-size: 0.85rem;
-                padding: 0.75rem;
-            }
         }
     </style>
     <script>

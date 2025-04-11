@@ -1,13 +1,12 @@
 ﻿@model WebApplication2.Models.Blog
 @{
-    ViewData["Title"] = "Chi tiết Blog";
+    ViewData["Title"] = "Blog Details";
 }
 
 <!-- Font Awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
-    /* Main color variables */
     :root {
         --primary-orange: #FF7F24;
         --secondary-orange: #FFA07A;
@@ -195,7 +194,6 @@
             opacity: 0.3;
         }
 
-    /* Tags styling */
     .tags-container {
         display: flex;
         flex-wrap: wrap;
@@ -298,7 +296,6 @@
             z-index: -1;
         }
 
-    /* Actions container */
     .actions-container {
         display: flex;
         gap: 15px;
@@ -309,7 +306,6 @@
         z-index: 1;
     }
 
-    /* Button styles */
     .btn {
         padding: 12px 24px;
         border-radius: 30px;
@@ -369,7 +365,6 @@
             box-shadow: 0 6px 15px rgba(69, 184, 172, 0.3);
         }
 
-    /* Author info */
     .author-info {
         display: flex;
         align-items: center;
@@ -409,7 +404,6 @@
         color: #777;
     }
 
-    /* Social sharing */
     .social-sharing {
         display: flex;
         justify-content: center;
@@ -447,7 +441,6 @@
             box-shadow: 0 5px 12px rgba(0,0,0,0.15);
         }
 
-    /* Reading time indicator */
     .reading-time {
         display: inline-flex;
         align-items: center;
@@ -465,31 +458,51 @@
         }
 
     /* Responsive Design */
-    @@media (max-width: 768px) {
+    @@media (max-width: 991px) { /* Tablet */
         .blog-container
 
     {
-        margin: 20px 15px;
+        max-width: 90%;
+        margin: 20px auto;
         padding: 20px;
     }
 
     .blog-title {
-        font-size: 1.8rem;
+        font-size: 2rem;
+    }
+
+    .info-item {
+        flex: 1 1 calc(50% - 12px);
+        padding: 8px 14px;
+    }
+
+    .blog-description {
+        padding: 15px;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        min-width: 130px;
+    }
+
+    .author-info {
+        padding: 12px;
     }
 
     }
 
-    @@media (max-width: 576px) {
+    @@media (max-width: 767px) { /* Mobile */
         .blog-container
 
     {
+        max-width: 100%;
         margin: 15px;
         padding: 15px;
         border-radius: 12px;
     }
 
     .blog-title {
-        font-size: 1.6rem;
+        font-size: 1.8rem;
     }
 
         .blog-title i {
@@ -501,16 +514,33 @@
         margin-bottom: 20px;
     }
 
+    .blog-meta {
+        padding: 12px;
+    }
+
+    .blog-info {
+        gap: 10px;
+    }
+
     .info-item {
+        flex: 1 1 100%;
         padding: 8px 12px;
         font-size: 0.9rem;
-        flex: 1 1 auto;
     }
 
     .blog-description {
         font-size: 1rem;
         padding: 15px;
         margin-bottom: 20px;
+    }
+
+    .tags-container {
+        gap: 8px;
+    }
+
+    .tag {
+        padding: 6px 12px;
+        font-size: 0.85rem;
     }
 
     .blog-content {
@@ -521,15 +551,37 @@
         padding: 20px 15px;
     }
 
+    .actions-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+
     .btn {
         padding: 10px 20px;
         font-size: 0.95rem;
-        min-width: 120px;
+        min-width: 100%;
+    }
+
+    .author-info {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px;
+    }
+
+    .author-avatar {
+        margin-bottom: 10px;
+        margin-right: 0;
+    }
+
+    .social-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 1.1rem;
     }
 
     }
 
-    @@media (max-width: 400px) {
+    @@media (max-width: 400px) { /* Small Mobile */
         .blog-container
 
     {
@@ -538,13 +590,17 @@
     }
 
     .blog-title {
-        font-size: 1.4rem;
+        font-size: 1.6rem;
+    }
+
+    .reading-time {
+        padding: 6px 12px;
+        font-size: 0.85rem;
     }
 
     .info-item {
         padding: 6px 10px;
         font-size: 0.85rem;
-        flex: 1 1 100%;
     }
 
     .blog-description {
@@ -553,20 +609,37 @@
     }
 
     .tag {
-        padding: 6px 12px;
-        font-size: 0.85rem;
+        padding: 5px 10px;
+        font-size: 0.8rem;
+    }
+
+    .content-placeholder {
+        padding: 15px 10px;
+        font-size: 0.9rem;
     }
 
     .btn {
         padding: 8px 16px;
         font-size: 0.9rem;
-        min-width: 110px;
+    }
+
+    .author-avatar {
+        width: 40px;
+        height: 40px;
+    }
+
+    .author-name {
+        font-size: 0.95rem;
+    }
+
+    .author-role {
+        font-size: 0.8rem;
     }
 
     .social-btn {
-        width: 35px;
-        height: 35px;
-        font-size: 1.1rem;
+        width: 30px;
+        height: 30px;
+        font-size: 1rem;
     }
 
     }
@@ -581,7 +654,7 @@
 
         <div class="reading-time">
             <i class="fas fa-clock"></i>
-            <span>5 phút đọc</span>
+            <span>5 minutes read</span>
         </div>
     </div>
 
@@ -590,21 +663,21 @@
             <div class="info-item">
                 <span class="info-label">
                     <i class="far fa-calendar-alt"></i>
-                    Ngày đăng:
+                    Posted on:
                 </span>
                 <span class="info-value">@Model.CreatedAt.ToString("MMM dd, yyyy HH:mm")</span>
             </div>
             <div class="info-item">
                 <span class="info-label">
                     <i class="far fa-eye"></i>
-                    Lượt xem:
+                    Views:
                 </span>
                 <span class="info-value">1,234</span>
             </div>
             <div class="info-item">
                 <span class="info-label">
                     <i class="far fa-comment"></i>
-                    Bình luận:
+                    Comments:
                 </span>
                 <span class="info-value">15</span>
             </div>
@@ -617,7 +690,7 @@
         </div>
         <div class="author-details">
             <div class="author-name">@Model.User.Id.Substring(0, 8)...</div>
-            <div class="author-role">Tác giả</div>
+            <div class="author-role">Author</div>
         </div>
     </div>
 
@@ -627,17 +700,16 @@
 
     <div class="tags-container">
         <div class="tag"><i class="fas fa-tag"></i> Blog</div>
-        <div class="tag"><i class="fas fa-hashtag"></i> Tin tức</div>
-        <div class="tag"><i class="fas fa-bookmark"></i> Công nghệ</div>
-        <div class="tag"><i class="fas fa-fire"></i> Xu hướng</div>
+        <div class="tag"><i class="fas fa-hashtag"></i> News</div>
+        <div class="tag"><i class="fas fa-bookmark"></i> Technology</div>
+        <div class="tag"><i class="fas fa-fire"></i> Trends</div>
     </div>
 
     <div class="blog-content">
-        <!-- Blog content would go here -->
         <div class="content-placeholder">
             <i class="fas fa-pen-fancy fa-2x"></i>
-            <p>Đây là nơi hiển thị nội dung đầy đủ của bài viết. Hiện tại, mô hình không có trường nội dung đầy đủ.</p>
-            <p>Khi có nội dung, phần này sẽ hiển thị văn bản được định dạng đẹp mắt với hình ảnh và các yếu tố đa phương tiện khác.</p>
+            <p>This is where the full content of the post will be displayed. Currently, the model does not have a full content field.</p>
+            <p>When content is available, this section will display beautifully formatted text with images and other multimedia elements.</p>
         </div>
     </div>
 
@@ -655,13 +727,13 @@
 
     <div class="actions-container">
         <a asp-action="Edit" asp-route-id="@Model?.BlogId" class="btn btn-primary">
-            <i class="fas fa-edit"></i> Chỉnh sửa
+            <i class="fas fa-edit"></i> Edit
         </a>
         <a asp-action="Index" class="btn btn-secondary">
-            <i class="fas fa-arrow-left"></i> Quay lại
+            <i class="fas fa-arrow-left"></i> Back
         </a>
         <a asp-controller="Comments" asp-action="Create" asp-route-blogId="@Model?.BlogId" class="btn btn-accent">
-            <i class="far fa-comment-dots"></i> Bình luận
+            <i class="far fa-comment-dots"></i> Comment
         </a>
     </div>
 </div>

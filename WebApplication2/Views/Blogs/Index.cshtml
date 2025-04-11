@@ -51,22 +51,17 @@
                                     }
                                     @shortDesc
                                 </td>
-
                                 <td><span class="badge-date">@item.CreatedAt.ToString("dd/MM/yy")</span></td>
                                 <td>@item.User.Id</td>
                                 <td class="text-end action-column">
                                     <div class="btn-group action-buttons" role="group">
-
-                                        <a asp-action="Edit" asp-route-id="@item.BlogId"
-                                           class="btn action-btn btn-edit me-1">
+                                        <a asp-action="Edit" asp-route-id="@item.BlogId" class="btn action-btn btn-edit me-1">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <a asp-action="Details" asp-route-id="@item.BlogId"
-                                           class="btn action-btn btn-details me-1">
+                                        <a asp-action="Details" asp-route-id="@item.BlogId" class="btn action-btn btn-details me-1">
                                             <i class="fas fa-eye"></i>
                                         </a>
-                                        <a asp-action="Delete" asp-route-id="@item.BlogId"
-                                           class="btn action-btn btn-delete">
+                                        <a asp-action="Delete" asp-route-id="@item.BlogId" class="btn action-btn btn-delete">
                                             <i class="fas fa-trash"></i>
                                         </a>
                                     </div>
@@ -127,6 +122,10 @@
             font-family: 'Poppins', sans-serif;
             background-color: #f8f9fa;
             color: var(--text-dark);
+        }
+
+        .container-fluid {
+            padding: 0 2rem;
         }
 
         .blog-header {
@@ -323,79 +322,255 @@
             font-size: 0.75rem;
         }
 
-        /* Media Queries */
-        @@media (max-width: 360px) {
-            .container-fluid {
-                padding-left: 0.5rem;
-                padding-right: 0.5rem;
+        /* Responsive Design */
+        @@media (max-width: 991px) { /* Tablet */
+            .container-fluid
+
+        {
+            padding: 0 1.5rem;
+        }
+
+        .blog-title {
+            font-size: 1.4rem;
+        }
+
+        .btn-create {
+            padding: 0.35rem 0.7rem;
+            font-size: 0.8rem;
+        }
+
+        .table th {
+            font-size: 0.65rem;
+            padding: 0.5rem 0.35rem;
+        }
+
+        .table td {
+            font-size: 0.7rem;
+            padding: 0.5rem 0.35rem;
+        }
+
+        .action-btn {
+            padding: 0.15rem 0.35rem;
+            font-size: 0.65rem;
+        }
+
+        .empty-state {
+            padding: 1.5rem;
+        }
+
+            .empty-state i {
+                font-size: 1.8rem;
             }
 
-            .blog-title {
+        }
+
+        @@media (max-width: 767px) { /* Mobile */
+            .container-fluid
+
+        {
+            padding: 0 1rem;
+        }
+
+        .blog-header {
+            padding: 0.8rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .blog-title {
+            font-size: 1.3rem;
+        }
+
+        .btn-create {
+            padding: 0.3rem 0.6rem;
+            font-size: 0.75rem;
+        }
+
+        .card {
+            border-radius: 6px;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        .table th {
+            font-size: 0.6rem;
+            padding: 0.4rem 0.3rem;
+        }
+
+        .table td {
+            font-size: 0.65rem;
+            padding: 0.4rem 0.3rem;
+        }
+
+        .description-text {
+            max-width: 100px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-direction: row;
+            gap: 0.2rem;
+        }
+
+        .action-btn {
+            padding: 0.15rem 0.3rem;
+            font-size: 0.6rem;
+        }
+
+        .badge-date {
+            font-size: 0.6rem;
+        }
+
+        .empty-state {
+            padding: 1.2rem;
+        }
+
+            .empty-state i {
+                font-size: 1.5rem;
+            }
+
+            .empty-state h4 {
                 font-size: 1.2rem;
             }
 
-            .btn-create {
-                padding: 0.3rem 0.6rem;
-                font-size: 0.75rem;
+            .empty-state p {
+                font-size: 0.9rem;
             }
 
-            .table th {
-                font-size: 0.65rem;
-                padding: 0.5rem 0.3rem;
-            }
-
-            .table td {
-                padding: 0.5rem 0.3rem;
-                font-size: 0.7rem;
-            }
-
-            .action-buttons {
-                display: flex;
-                flex-direction: row;
-                gap: 0.2rem;
-            }
-
-            .action-btn {
-                padding: 0.15rem 0.3rem;
-                margin: 0;
-            }
-
-            .badge-date {
-                font-size: 0.6rem;
-            }
-
-            .empty-state {
-                padding: 1.5rem;
-            }
-
-                .empty-state h4 {
-                    font-size: 1rem;
-                }
-
-                .empty-state p {
-                    font-size: 0.8rem;
-                }
+        .pagination-container {
+            padding: 0.8rem;
         }
 
-        @@media (max-width: 320px) {
-            .table th, .table td {
-                padding: 0.4rem 0.2rem;
+        .page-link {
+            padding: 0.25rem 0.45rem;
+            font-size: 0.65rem;
+        }
+
+        }
+
+        @@media (max-width: 360px) { /* Small Mobile */
+            .container-fluid
+
+        {
+            padding: 0 0.5rem;
+        }
+
+        .blog-title {
+            font-size: 1.2rem;
+        }
+
+        .btn-create {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.7rem;
+        }
+
+        .table th {
+            font-size: 0.55rem;
+            padding: 0.35rem 0.2rem;
+        }
+
+        .table td {
+            font-size: 0.6rem;
+            padding: 0.35rem 0.2rem;
+        }
+
+        .description-text {
+            max-width: 80px;
+        }
+
+        .action-btn {
+            padding: 0.1rem 0.25rem;
+            font-size: 0.55rem;
+        }
+
+        .badge-date {
+            font-size: 0.55rem;
+            padding: 0.15rem 0.3rem;
+        }
+
+        .empty-state {
+            padding: 1rem;
+        }
+
+            .empty-state h4 {
+                font-size: 1rem;
             }
 
-            .description-text {
-                max-width: 60px;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
+            .empty-state p {
+                font-size: 0.8rem;
             }
 
-            .action-buttons {
-                gap: 0.1rem;
-            }
+        }
 
-            .action-btn {
-                padding: 0.1rem 0.2rem;
-            }
+        @@media (max-width: 320px) { /* Very Small Mobile (e.g., iPhone 5) */
+            .container-fluid
+
+        {
+            padding: 0 0.3rem;
+        }
+
+        .blog-header {
+            padding: 0.6rem;
+        }
+
+        .blog-title {
+            font-size: 1.1rem;
+        }
+
+        .btn-create {
+            padding: 0.2rem 0.4rem;
+            font-size: 0.65rem;
+        }
+
+        .table th {
+            font-size: 0.5rem;
+            padding: 0.3rem 0.15rem;
+        }
+
+        .table td {
+            font-size: 0.55rem;
+            padding: 0.3rem 0.15rem;
+        }
+
+        .description-text {
+            max-width: 60px;
+        }
+
+        .action-buttons {
+            gap: 0.1rem;
+        }
+
+        .action-btn {
+            padding: 0.1rem 0.2rem;
+            font-size: 0.5rem;
+        }
+
+        .badge-date {
+            font-size: 0.5rem;
+            padding: 0.1rem 0.25rem;
+        }
+
+        .empty-state i {
+            font-size: 1.3rem;
+        }
+
+        .empty-state h4 {
+            font-size: 0.9rem;
+        }
+
+        .empty-state p {
+            font-size: 0.75rem;
+        }
+
+        .page-link {
+            padding: 0.2rem 0.4rem;
+            font-size: 0.6rem;
+        }
+
         }
     </style>
 
