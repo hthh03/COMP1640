@@ -1,0 +1,36 @@
+﻿@model IEnumerable<WebApplication2.Models.Users>
+@{
+    ViewData["Title"] = "Danh sách người dùng";
+}
+
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h5>Chọn người dùng để bắt đầu chat</h5>
+        </div>
+        <div class="card-body">
+            <div class="list-group">
+                @if (Model.Any())
+                {
+                    @foreach (var user in Model)
+                    {
+                        <a href="@Url.Action("Chat", "Message", new { userId = user.Id })"
+                           class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            <div>
+                                <i class="bi bi-person-circle me-2"></i>
+                                @user.UserName
+                            </div>
+                            <span class="badge bg-primary rounded-pill">
+                                <i class="bi bi-chat-dots"></i>
+                            </span>
+                        </a>
+                    }
+                }
+                else
+                {
+                    <div class="alert alert-info">Không tìm thấy người dùng nào.</div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

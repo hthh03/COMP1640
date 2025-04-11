@@ -17,7 +17,11 @@ namespace WebApplication2.Data
         public DbSet<Assignment> Assignments { get; set; }
         public DbSet<Submission> Submissions { get; set; }
         public DbSet<Meeting> Meetings { get; set; }
+
         public  DbSet<CourseRequests> CourseRequests {  get; set; } 
+
+        public DbSet<Message> Messages { get; set; } 
+
 
 
 
