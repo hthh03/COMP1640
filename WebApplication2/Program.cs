@@ -4,6 +4,8 @@ using WebApplication2.Models;
 using Microsoft.AspNetCore.Identity;
 using WebApplication2.Utilities;
 using WebApplication2.Hubs;
+using Microsoft.AspNetCore.Http.Features;
+using WebApplication2.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSignalR();
@@ -30,13 +32,14 @@ builder.Services.AddIdentity<Users, IdentityRole>(options =>
 
 // Thêm Authorization
 builder.Services.AddAuthorization();
-
+builder.Services.AddScoped<MessageService>();
 // Thêm Controllers với Views
 builder.Services.AddControllersWithViews();
 
 
 var app = builder.Build();
 app.MapHub<MeetingHub>("/meetingHub");
+
 
 
 
@@ -49,6 +52,10 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+
+
+
+app.MapHub<MessageHub>("/messageHub");  // Đăng ký SignalR Hub
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
@@ -112,5 +119,7 @@ app.UseEndpoints(endpoints =>
         name: "default",
         pattern: "{controller=Home}/{action=GetStarted}/{id?}");
 });
+
+
 
 app.Run();

@@ -2,385 +2,802 @@
     ViewData["Title"] = "E-tutor";
 }
 
-<!-- Hero Section -->
-<section class="hero-section py-5 bg-warning text-white">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6">
-                <h1 class="display-4 fw-bold mb-4">Học cùng chuyên gia, thành công trong tầm tay</h1>
-                <p class="lead mb-4">E-tutor kết nối bạn với giáo viên giỏi nhất và cung cấp các khóa học chất lượng cao trong mọi lĩnh vực.</p>
-                <div class="d-flex gap-3">
-                    <a href="/courses" class="btn btn-light btn-lg px-4">Khám phá khóa học</a>
-                    <a href="/tutors" class="btn btn-outline-light btn-lg px-4">Tìm gia sư</a>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <img src="~/image/Peer-tutoring.webp" alt="E-tutor Learning" class="img-fluid rounded shadow">
-            </div>
-        </div>
-    </div>
-</section>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+        }
 
-<!-- Featured Courses Section -->
-<section class="py-5">
-    <div class="container">
-        <div class="row mb-4">
-            <div class="col-12 text-center">
-                <h2 class="fw-bold">Khóa học nổi bật</h2>
-                <p class="lead text-muted">Nâng cao kỹ năng của bạn với các khóa học hàng đầu</p>
-            </div>
-        </div>
-        <div class="row g-4">
-            <!-- Course Card 1 -->
-            <div class="col-md-4">
-                <div class="card h-100 shadow-sm">
-                    <img src="/image/k12-hero-home-page-1.webp" class="card-img-top" alt="Lập trình Web" width="100%" height="300">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center mb-2">
-                            <span class="badge bg-warning text-white">Công nghệ</span>
-                            <small class="text-muted">4.9 <i class="bi bi-star-fill text-warning"></i></small>
-                        </div>
-                        <h5 class="card-title">Lập trình Web Fullstack</h5>
-                        <p class="card-text">Học cách phát triển ứng dụng web từ cơ bản đến nâng cao với HTML, CSS, JavaScript và .NET Core.</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <span class="fw-bold text-warning">1.200.000₫</span>
-                            <a href="/courses/web-fullstack" class="btn btn-outline-warning">Xem chi tiết</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Course Card 2 -->
-            <div class="col-md-4">
-                <div class="card h-100 shadow-sm">
-                    <img src="/image/download.jpg" class="card-img-top" alt="Tiếng Anh giao tiếp" width="100%" height="300">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center mb-2">
-                            <span class="badge bg-success">Ngoại ngữ</span>
-                            <small class="text-muted">4.8 <i class="bi bi-star-fill text-warning"></i></small>
-                        </div>
-                        <h5 class="card-title">Tiếng Anh giao tiếp cho người mới bắt đầu</h5>
-                        <p class="card-text">Khóa học tập trung vào phát triển kỹ năng giao tiếp tiếng Anh với người bản ngữ.</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <span class="fw-bold text-warning">850.000₫</span>
-                            <a href="/courses/english-communication" class="btn btn-outline-warning">Xem chi tiết</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Course Card 3 -->
-            <div class="col-md-4">
-                <div class="card h-100 shadow-sm">
-                    <img src="/image/images.jpg" class="card-img-top" alt="Marketing Online" width="100%" height="300">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center mb-2">
-                            <span class="badge bg-danger">Marketing</span>
-                            <small class="text-muted">4.7 <i class="bi bi-star-fill text-warning"></i></small>
-                        </div>
-                        <h5 class="card-title">Digital Marketing toàn diện</h5>
-                        <p class="card-text">Học các chiến lược marketing kỹ thuật số hiệu quả từ chuyên gia hàng đầu trong ngành.</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <span class="fw-bold text-warning">1.500.000₫</span>
-                            <a href="/courses/digital-marketing" class="btn btn-outline-warning">Xem chi tiết</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="text-center mt-4">
-            <a href="/courses/index" class="btn btn-warning text-white px-4">Xem tất cả khóa học</a>
-        </div>
-    </div>
-</section>
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, #ffc107, #ffca28);
+            position: relative;
+            overflow: hidden;
+            padding: 100px 0;
+        }
 
-<!-- Why Choose Us Section -->
-<section class="py-5 bg-light">
-    <div class="container">
-        <div class="row mb-4">
-            <div class="col-12 text-center">
-                <h2 class="fw-bold">Tại sao chọn E-tutor?</h2>
-                <p class="lead text-muted">Nền tảng học trực tuyến hàng đầu Việt Nam</p>
-            </div>
-        </div>
-        <div class="row g-4">
-            <div class="col-md-4">
-                <div class="card h-100 border-0 bg-transparent">
-                    <div class="card-body text-center">
-                        <div class="feature-icon bg-warning text-white rounded-circle mb-3 mx-auto d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
-                            <i class="bi bi-person-check fs-1"></i>
-                        </div>
-                        <h4>Gia sư chất lượng</h4>
-                        <p>Đội ngũ giảng viên được tuyển chọn kỹ lưỡng, có nhiều năm kinh nghiệm và đam mê giảng dạy.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card h-100 border-0 bg-transparent">
-                    <div class="card-body text-center">
-                        <div class="feature-icon bg-warning text-white rounded-circle mb-3 mx-auto d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
-                            <i class="bi bi-laptop fs-1"></i>
-                        </div>
-                        <h4>Học mọi lúc, mọi nơi</h4>
-                        <p>Truy cập vào khóa học từ mọi thiết bị, học theo tiến độ riêng và xem lại bài giảng bất cứ khi nào.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card h-100 border-0 bg-transparent">
-                    <div class="card-body text-center">
-                        <div class="feature-icon bg-warning text-white rounded-circle mb-3 mx-auto d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
-                            <i class="bi bi-graph-up-arrow fs-1"></i>
-                        </div>
-                        <h4>Theo dõi tiến độ</h4>
-                        <p>Hệ thống thông minh giúp bạn theo dõi tiến độ học tập và đưa ra gợi ý cá nhân hóa.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+            .hero-section::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: url('~/images/hero-pattern.png') repeat;
+                opacity: 0.1;
+            }
 
-<!-- Top Tutors Section -->
-<section class="py-5">
-    <div class="container">
-        <div class="row mb-4">
-            <div class="col-12 text-center">
-                <h2 class="fw-bold">Gia sư hàng đầu</h2>
-                <p class="lead text-muted">Học từ những chuyên gia tốt nhất trong lĩnh vực của họ</p>
-            </div>
-        </div>
-        <div class="row g-4">
-            <!-- Tutor Card 1 -->
-            <div class="col-md-3">
-                <div class="card h-100 shadow-sm">
-                    <img src="/images/tutor1.png" class="card-img-top" alt="Nguyễn Văn A">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">TS. Nguyễn Văn A</h5>
-                        <p class="text-muted">Chuyên gia Công nghệ</p>
-                        <div class="mb-2">
-                            <span class="text-warning"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></span>
-                            <small class="text-muted">(126 đánh giá)</small>
-                        </div>
-                        <a href="/tutors/nguyen-van-a" class="btn btn-outline-warning btn-sm">Xem hồ sơ</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Tutor Card 2 -->
-            <div class="col-md-3">
-                <div class="card h-100 shadow-sm">
-                    <img src="/images/tutor2.png" class="card-img-top" alt="Trần Thị B">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">ThS. Trần Thị B</h5>
-                        <p class="text-muted">Giáo viên Tiếng Anh</p>
-                        <div class="mb-2">
-                            <span class="text-warning"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i></span>
-                            <small class="text-muted">(98 đánh giá)</small>
-                        </div>
-                        <a href="/tutors/tran-thi-b" class="btn btn-outline-warning btn-sm">Xem hồ sơ</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Tutor Card 3 -->
-            <div class="col-md-3">
-                <div class="card h-100 shadow-sm">
-                    <img src="/images/tutor3.png" class="card-img-top" alt="Lê Văn C">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">PGS. Lê Văn C</h5>
-                        <p class="text-muted">Giảng viên Toán học</p>
-                        <div class="mb-2">
-                            <span class="text-warning"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></span>
-                            <small class="text-muted">(143 đánh giá)</small>
-                        </div>
-                        <a href="/tutors/le-van-c" class="btn btn-outline-warning btn-sm">Xem hồ sơ</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Tutor Card 4 -->
-            <div class="col-md-3">
-                <div class="card h-100 shadow-sm">
-                    <img src="/images/tutor4.png" class="card-img-top" alt="Phạm Thị D">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">ThS. Phạm Thị D</h5>
-                        <p class="text-muted">Chuyên gia Marketing</p>
-                        <div class="mb-2">
-                            <span class="text-warning"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i></span>
-                            <small class="text-muted">(87 đánh giá)</small>
-                        </div>
-                        <a href="/tutors/pham-thi-d" class="btn btn-outline-warning btn-sm">Xem hồ sơ</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="text-center mt-4">
-            <a href="/account/listteachers" class="btn btn-warning text-white px-4">Xem tất cả gia sư</a>
-        </div>
-    </div>
-</section>
+            .hero-section h1 {
+                font-size: 3rem;
+                font-weight: 700;
+                line-height: 1.2;
+                animation: fadeInUp 1s ease-in-out;
+            }
 
-<!-- Testimonials Section -->
-<section class="py-5 bg-light">
-    <div class="container">
-        <div class="row mb-4">
-            <div class="col-12 text-center">
-                <h2 class="fw-bold">Học viên nói gì về E-tutor</h2>
-                <p class="lead text-muted">Trải nghiệm học tập từ cộng đồng học viên</p>
+            .hero-section p {
+                font-size: 1.25rem;
+                animation: fadeInUp 1.2s ease-in-out;
+            }
+
+            .hero-section img {
+                animation: float 6s ease-in-out infinite;
+            }
+
+        /* Animations */
+        @@keyframes fadeInUp {
+            from
+
+        {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        }
+
+        @@keyframes float {
+            0%, 100%
+
+        {
+            transform: translateY(0);
+        }
+
+        50% {
+            transform: translateY(-20px);
+        }
+
+        }
+
+        /* Card Styling */
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+            .card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            }
+
+        .card-img-top {
+            object-fit: cover;
+            height: 250px;
+        }
+
+        .badge {
+            font-size: 0.9rem;
+            padding: 8px 12px;
+            border-radius: 20px;
+        }
+
+        /* Buttons */
+        .btn-warning {
+            background-color: #ffc107;
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+
+            .btn-warning:hover {
+                background-color: #e0a800;
+            }
+
+        .btn-outline-warning {
+            border-color: #ffc107;
+            color: #ffc107;
+        }
+
+            .btn-outline-warning:hover {
+                background-color: #ffc107;
+                color: #fff;
+            }
+
+        /* Feature Icons */
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: #ffc107;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+
+            .feature-icon:hover {
+                transform: scale(1.1);
+            }
+
+        /* Feature Card Background */
+        .feature-card {
+            background-color: #fff;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Section Headers */
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+        }
+
+            .section-header h2::after {
+                content: '';
+                position: absolute;
+                bottom: -10px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 50px;
+                height: 4px;
+                background-color: #ffc107;
+                border-radius: 2px;
+            }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #ffc107, #ffca28);
+            padding: 80px 0;
+            border-radius: 20px;
+            margin: 50px 0;
+        }
+
+        /* Newsletter Form */
+        .newsletter-form .form-control {
+            border-radius: 30px 0 0 30px;
+            border: none;
+            padding: 15px;
+        }
+
+        .newsletter-form .btn {
+            border-radius: 0 30px 30px 0;
+            padding: 15px 30px;
+        }
+
+        /* Responsive Adjustments */
+        @@media (max-width: 992px) {
+            .hero-section
+
+        {
+            padding: 60px 0;
+        }
+
+        .hero-section h1 {
+            font-size: 2.5rem;
+        }
+
+        .hero-section p {
+            font-size: 1rem;
+        }
+
+        .hero-section img {
+            margin-top: 20px;
+        }
+
+        .section-header h2 {
+            font-size: 2rem;
+        }
+
+        .card-img-top {
+            height: 200px;
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+        }
+
+            .feature-icon i {
+                font-size: 1.5rem;
+            }
+
+        .cta-section {
+            padding: 60px 0;
+        }
+
+            .cta-section h2 {
+                font-size: 2rem;
+            }
+
+            .cta-section p {
+                font-size: 1rem;
+            }
+
+        }
+
+        @@media (max-width: 768px) {
+            .hero-section
+
+        {
+            padding: 40px 0;
+        }
+
+        .hero-section h1 {
+            font-size: 2rem;
+        }
+
+        .hero-section p {
+            font-size: 0.9rem;
+        }
+
+        .hero-section .btn {
+            padding: 10px 20px;
+            font-size: 0.9rem;
+        }
+
+        .section-header h2 {
+            font-size: 1.75rem;
+        }
+
+        .card-img-top {
+            height: 180px;
+        }
+
+        .card-body h5 {
+            font-size: 1.1rem;
+        }
+
+        .card-body p {
+            font-size: 0.9rem;
+        }
+
+        .feature-card {
+            padding: 15px;
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+        }
+
+            .feature-icon i {
+                font-size: 1.2rem;
+            }
+
+        .cta-section {
+            padding: 40px 0;
+        }
+
+            .cta-section h2 {
+                font-size: 1.75rem;
+            }
+
+            .cta-section p {
+                font-size: 0.9rem;
+            }
+
+        .newsletter-form .form-control {
+            font-size: 0.9rem;
+            padding: 10px;
+        }
+
+        .newsletter-form .btn {
+            font-size: 0.9rem;
+            padding: 10px 20px;
+        }
+
+        }
+
+        @@media (max-width: 576px) {
+            .hero-section
+
+        {
+            padding: 30px 0;
+        }
+
+        .hero-section h1 {
+            font-size: 1.5rem;
+        }
+
+        .hero-section p {
+            font-size: 0.85rem;
+        }
+
+        .hero-section .btn {
+            padding: 8px 15px;
+            font-size: 0.85rem;
+        }
+
+        .section-header h2 {
+            font-size: 1.5rem;
+        }
+
+        .card-img-top {
+            height: 150px;
+        }
+
+        .card-body h5 {
+            font-size: 1rem;
+        }
+
+        .card-body p {
+            font-size: 0.85rem;
+        }
+
+        .feature-card {
+            padding: 10px;
+        }
+
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+        }
+
+            .feature-icon i {
+                font-size: 1rem;
+            }
+
+        .cta-section {
+            padding: 30px 0;
+        }
+
+            .cta-section h2 {
+                font-size: 1.5rem;
+            }
+
+            .cta-section p {
+                font-size: 0.85rem;
+            }
+
+        .newsletter-form .form-control {
+            font-size: 0.85rem;
+            padding: 8px;
+        }
+
+        .newsletter-form .btn {
+            font-size: 0.85rem;
+            padding: 8px 15px;
+        }
+
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero-section text-white">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="mb-4">Learn with Experts, Achieve Success</h1>
+                    <p class="lead mb-4">E-tutor offers high-quality courses and connects you with top instructors in every field.</p>
+                    <div class="d-flex gap-3">
+                        <a href="/courses" class="btn btn-light btn-lg px-5">Explore Courses</a>
+                        <a href="/tutors" class="btn btn-outline-light btn-lg px-5">Find a Tutor</a>
+                    </div>
+                </div>
+                <div class="col-lg-6 text-center">
+                    <img src="~/image/Peer-tutoring.webp" alt="E-tutor Learning" class="img-fluid rounded shadow-lg">
+                </div>
             </div>
         </div>
-        <div class="row g-4">
-            <div class="col-md-4">
-                <div class="card h-100 shadow-sm">
-                    <div class="card-body">
-                        <div class="d-flex mb-3">
-                            <div class="flex-shrink-0">
-                                <img src="/images/student1.png" alt="Avatar" class="rounded-circle" width="60" height="60">
+    </section>
+
+    <!-- Featured Courses Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row mb-5 section-header text-center">
+                <div class="col-12">
+                    <h2>Featured Courses</h2>
+                    <p class="lead text-muted mt-3">Discover courses designed to elevate your skills</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <!-- Course Card 1 -->
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm">
+                        <img src="/image/maxresdefault.jpg" class="card-img-top" alt="Web Development">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="badge bg-warning text-white">Technology</span>
+                                <small class="text-muted">4.9 <i class="fa fa-star text-warning"></i></small>
                             </div>
-                            <div class="flex-grow-1 ms-3">
-                                <h5 class="mb-0">Nguyễn Minh Tuấn</h5>
-                                <p class="text-muted mb-0">Sinh viên Đại học</p>
-                                <div class="text-warning">
-                                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                            <h5 class="card-title">Fullstack Web Development</h5>
+                            <p class="card-text">Build web applications from scratch with HTML, CSS, JavaScript, and .NET Core.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="fw-bold text-warning">$50</span>
+                                <a href="/courses/web-fullstack" class="btn btn-outline-warning">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Course Card 2 -->
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm">
+                        <img src="/image/Screenshot%202025-04-11%20145115.png" class="card-img-top" alt="English Communication">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="badge bg-success">Language</span>
+                                <small class="text-muted">4.8 <i class="fa fa-star text-warning"></i></small>
+                            </div>
+                            <h5 class="card-title">English Communication</h5>
+                            <p class="card-text">Confidently communicate in English with native speakers through practical methods.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="fw-bold text-warning">$35</span>
+                                <a href="/courses/english-communication" class="btn btn-outline-warning">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Course Card 3 -->
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm">
+                        <img src="/image/Screenshot%202025-04-11%20161213.png" class="card-img-top" alt="Digital Marketing">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="badge bg-danger">Marketing</span>
+                                <small class="text-muted">4.7 <i class="fa fa-star text-warning"></i></small>
+                            </div>
+                            <h5 class="card-title">Comprehensive Digital Marketing</h5>
+                            <p class="card-text">Master digital marketing strategies from SEO, SEM to social media advertising.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="fw-bold text-warning">$60</span>
+                                <a href="/courses/digital-marketing" class="btn btn-outline-warning">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-5">
+                <a href="/courses/index" class="btn btn-warning text-white px-5 py-3">View All Courses</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row mb-5 section-header text-center">
+                <div class="col-12">
+                    <h2>Why Choose E-tutor?</h2>
+                    <p class="lead text-muted mt-3">An online learning platform designed just for you</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 bg-transparent text-center">
+                        <div class="feature-card">
+                            <div class="card-body">
+                                <div class="feature-icon text-white mb-4 mx-auto">
+                                    <i class="fa fa-user-check fa-2x"></i>
+                                </div>
+                                <h4>Quality Tutors</h4>
+                                <p>Experienced instructors, carefully selected and dedicated to your success.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 bg-transparent text-center">
+                        <div class="feature-card">
+                            <div class="card-body">
+                                <div class="feature-icon text-white mb-4 mx-auto">
+                                    <i class="fa fa-laptop fa-2x"></i>
+                                </div>
+                                <h4>Learn Anytime, Anywhere</h4>
+                                <p>Access courses on any device, study at your own pace, and review anytime.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 bg-transparent text-center">
+                        <div class="feature-card">
+                            <div class="card-body">
+                                <div class="feature-icon text-white mb-4 mx-auto">
+                                    <i class="fa fa-chart-line fa-2x"></i>
+                                </div>
+                                <h4>Track Your Progress</h4>
+                                <p>Smart system to monitor your learning progress with personalized recommendations.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Top Tutors Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row mb-5 section-header text-center">
+                <div class="col-12">
+                    <h2>Top Tutors</h2>
+                    <p class="lead text-muted mt-3">Learn from the best experts in the field</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <!-- Tutor Card 1 -->
+                <div class="col-md-3">
+                    <div class="card h-100 shadow-sm">
+                        <img src="/image/Screenshot%202025-04-11%20173730.png" class="card-img-top" alt="John Smith">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Dr. John Smith</h5>
+                            <p class="text-muted">Technology Expert</p>
+                            <div class="mb-3">
+                                <span class="text-warning"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span>
+                                <small class="text-muted">(126 reviews)</small>
+                            </div>
+                            <a href="/tutors/john-smith" class="btn btn-outline-warning btn-sm px-4">View Profile</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Tutor Card 2 -->
+                <div class="col-md-3">
+                    <div class="card h-100 shadow-sm">
+                        <img src="/image/Screenshot%202025-04-11%20173740.png" class="card-img-top" alt="Emily Johnson">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Prof. Emily Johnson</h5>
+                            <p class="text-muted">English Instructor</p>
+                            <div class="mb-3">
+                                <span class="text-warning"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-alt"></i></span>
+                                <small class="text-muted">(98 reviews)</small>
+                            </div>
+                            <a href="/tutors/emily-johnson" class="btn btn-outline-warning btn-sm px-4">View Profile</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Tutor Card 3 -->
+                <div class="col-md-3">
+                    <div class="card h-100 shadow-sm">
+                        <img src="/image/Screenshot%202025-04-11%20173803.png" class="card-img-top" alt="Michael Brown">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Assoc. Prof. Michael Brown</h5>
+                            <p class="text-muted">Mathematics Lecturer</p>
+                            <div class="mb-3">
+                                <span class="text-warning"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span>
+                                <small class="text-muted">(143 reviews)</small>
+                            </div>
+                            <a href="/tutors/michael-brown" class="btn btn-outline-warning btn-sm px-4">View Profile</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Tutor Card 4 -->
+                <div class="col-md-3">
+                    <div class="card h-100 shadow-sm">
+                        <img src="/image/Screenshot%202025-04-11%20173817.png" class="card-img-top" alt="Sarah Davis">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Prof. Sarah Davis</h5>
+                            <p class="text-muted">Marketing Expert</p>
+                            <div class="mb-3">
+                                <span class="text-warning"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span>
+                                <small class="text-muted">(87 reviews)</small>
+                            </div>
+                            <a href="/tutors/sarah-davis" class="btn btn-outline-warning btn-sm px-4">View Profile</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-5">
+                <a href="/account/listteachers" class="btn btn-warning text-white px-5 py-3">View All Tutors</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row mb-5 section-header text-center">
+                <div class="col-12">
+                    <h2>What Our Students Say About E-tutor</h2>
+                    <p class="lead text-muted mt-3">Feedback from our student community</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex mb-4 align-items-center">
+                                <img src="/image/Screenshot%202025-04-11%20174952.png" alt="Avatar" class="rounded-circle me-3" width="60" height="60">
+                                <div>
+                                    <h5 class="mb-0">Mark Wilson</h5>
+                                    <p class="text-muted mb-0">University Student</p>
+                                    <div class="text-warning">
+                                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                                    </div>
                                 </div>
                             </div>
+                            <p>"The Web Development course helped me land my dream job in IT. Thank you, E-tutor!"</p>
                         </div>
-                        <p>"Tôi đã hoàn thành khóa học Lập trình Web và kiến thức thu được đã giúp tôi tìm được công việc đầu tiên trong ngành IT. Cảm ơn E-tutor rất nhiều!"</p>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card h-100 shadow-sm">
-                    <div class="card-body">
-                        <div class="d-flex mb-3">
-                            <div class="flex-shrink-0">
-                                <img src="/images/student2.png" alt="Avatar" class="rounded-circle" width="60" height="60">
-                            </div>
-                            <div class="flex-grow-1 ms-3">
-                                <h5 class="mb-0">Trần Thị Mai</h5>
-                                <p class="text-muted mb-0">Nhân viên văn phòng</p>
-                                <div class="text-warning">
-                                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i>
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex mb-4 align-items-center">
+                                <img src="/image/Screenshot%202025-04-11%20174958.png" alt="Avatar" class="rounded-circle me-3" width="60" height="60">
+                                <div>
+                                    <h5 class="mb-0">Lisa Taylor</h5>
+                                    <p class="text-muted mb-0">Office Worker</p>
+                                    <div class="text-warning">
+                                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-alt"></i>
+                                    </div>
                                 </div>
                             </div>
+                            <p>"English communication is no longer a fear. The instructors are enthusiastic and the teaching method is very effective."</p>
                         </div>
-                        <p>"Khóa học tiếng Anh giao tiếp đã giúp tôi tự tin hơn rất nhiều khi làm việc với đối tác nước ngoài. Giáo viên rất nhiệt tình và phương pháp giảng dạy rất hiệu quả."</p>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card h-100 shadow-sm">
-                    <div class="card-body">
-                        <div class="d-flex mb-3">
-                            <div class="flex-shrink-0">
-                                <img src="/images/student3.png" alt="Avatar" class="rounded-circle" width="60" height="60">
-                            </div>
-                            <div class="flex-grow-1 ms-3">
-                                <h5 class="mb-0">Lê Hoàng Nam</h5>
-                                <p class="text-muted mb-0">Doanh nhân</p>
-                                <div class="text-warning">
-                                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex mb-4 align-items-center">
+                                <img src="/image/Screenshot%202025-04-11%20175003.png" alt="Avatar" class="rounded-circle me-3" width="60" height="60">
+                                <div>
+                                    <h5 class="mb-0">James Miller</h5>
+                                    <p class="text-muted mb-0">Entrepreneur</p>
+                                    <div class="text-warning">
+                                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                                    </div>
                                 </div>
                             </div>
+                            <p>"The Digital Marketing course helped me build an effective strategy for my business. Totally worth it!"</p>
                         </div>
-                        <p>"Khóa học Digital Marketing đã giúp tôi xây dựng chiến lược marketing hiệu quả cho doanh nghiệp của mình. Nội dung cập nhật và đội ngũ hỗ trợ rất chuyên nghiệp."</p>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- CTA Section -->
-<section class="py-5 bg-warning text-white">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-8 mx-auto text-center">
-                <h2 class="fw-bold mb-4">Sẵn sàng bắt đầu hành trình học tập của bạn?</h2>
-                <p class="lead mb-4">Đăng ký ngay hôm nay để nhận ưu đãi 20% cho khóa học đầu tiên</p>
-                <div class="d-flex justify-content-center gap-3">
-                    <a href="/register" class="btn btn-light btn-lg px-4">Đăng ký ngay</a>
-                    <a href="/courses" class="btn btn-outline-light btn-lg px-4">Khám phá khóa học</a>
+    <!-- CTA Section -->
+    <section class="cta-section text-white">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="fw-bold mb-4">Ready to Conquer Knowledge?</h2>
+                    <p class="lead mb-5">Sign up today to get a 20% discount on your first course!</p>
+                    <div class="d-flex justify-content-center gap-3">
+                        <a href="/register" class="btn btn-light btn-lg px-5">Sign Up Now</a>
+                        <a href="/courses" class="btn btn-outline-light btn-lg px-5">Explore Courses</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- Blog Section -->
-<section class="py-5">
-    <div class="container">
-        <div class="row mb-4">
-            <div class="col-12 text-center">
-                <h2 class="fw-bold">Bài viết mới nhất</h2>
-                <p class="lead text-muted">Cập nhật tin tức và kiến thức từ E-tutor</p>
+    <!-- Blog Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row mb-5 section-header text-center">
+                <div class="col-12">
+                    <h2>Latest Articles</h2>
+                    <p class="lead text-muted mt-3">Stay updated with knowledge and news from E-tutor</p>
+                </div>
             </div>
-        </div>
-        <div class="row g-4">
-            <!-- Blog post 1 -->
-            <div class="col-md-4">
-                <div class="card h-100 shadow-sm">
-                    <img src="/images/blog1.png" class="card-img-top" alt="Blog post">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center mb-2">
-                            <span class="badge bg-info">Học tập</span>
-                            <small class="text-muted">15/03/2025</small>
+            <div class="row g-4">
+                <!-- Blog post 1 -->
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm">
+                        <img src="/image/Screenshot%202025-04-11%20175609.png" class="card-img-top" alt="Blog post">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="badge bg-info">Learning</span>
+                                <small class="text-muted">03/15/2025</small>
+                            </div>
+                            <h5 class="card-title">5 Effective Learning Methods in the Digital Age</h5>
+                            <p class="card-text">Discover how to learn quickly and retain knowledge with modern methods...</p>
+                            <a href="/blog/learning-methods" class="btn btn-link text-warning p-0">Read More <i class="fa fa-arrow-right"></i></a>
                         </div>
-                        <h5 class="card-title">5 phương pháp học tập hiệu quả trong thời đại số</h5>
-                        <p class="card-text">Khám phá các phương pháp học tập hiện đại giúp bạn tiếp thu kiến thức nhanh và hiệu quả hơn...</p>
-                        <a href="/blog/phuong-phap-hoc-tap" class="btn btn-link text-warning p-0">Đọc tiếp <i class="bi bi-arrow-right"></i></a>
+                    </div>
+                </div>
+                <!-- Blog post 2 -->
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm">
+                        <img src="/image/Screenshot%202025-04-11%20175714.png" class="card-img-top" alt="Blog post">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="badge bg-info">Technology</span>
+                                <small class="text-muted">03/10/2025</small>
+                            </div>
+                            <h5 class="card-title">Top Technology Trends in 2025</h5>
+                            <p class="card-text">Technologies shaping the future that you can’t afford to miss...</p>
+                            <a href="/blog/tech-trends" class="btn btn-link text-warning p-0">Read More <i class="fa fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Blog post 3 -->
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm">
+                        <img src="/image/Screenshot%202025-04-11%20175921.png" class="card-img-top" alt="Blog post">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="badge bg-info">Skills</span>
+                                <small class="text-muted">03/05/2025</small>
+                            </div>
+                            <h5 class="card-title">Building an Effective Learning Roadmap</h5>
+                            <p class="card-text">A detailed guide to advancing your career through personalized learning...</p>
+                            <a href="/blog/learning-roadmap" class="btn btn-link text-warning p-0">Read More <i class="fa fa-arrow-right"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
-            <!-- Blog post 2 -->
-            <div class="col-md-4">
-                <div class="card h-100 shadow-sm">
-                    <img src="/images/blog2.png" class="card-img-top" alt="Blog post">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center mb-2">
-                            <span class="badge bg-info">Công nghệ</span>
-                            <small class="text-muted">10/03/2025</small>
-                        </div>
-                        <h5 class="card-title">Xu hướng công nghệ nổi bật năm 2025 cho lập trình viên</h5>
-                        <p class="card-text">Những công nghệ và ngôn ngữ lập trình đang được ưa chuộng trong năm 2025 mà các lập trình viên nên biết...</p>
-                        <a href="/blog/xu-huong-cong-nghe" class="btn btn-link text-warning p-0">Đọc tiếp <i class="bi bi-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
-            <!-- Blog post 3 -->
-            <div class="col-md-4">
-                <div class="card h-100 shadow-sm">
-                    <img src="/images/blog3.png" class="card-img-top" alt="Blog post">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center mb-2">
-                            <span class="badge bg-info">Kỹ năng</span>
-                            <small class="text-muted">05/03/2025</small>
-                        </div>
-                        <h5 class="card-title">Cách xây dựng lộ trình học tập để phát triển sự nghiệp</h5>
-                        <p class="card-text">Hướng dẫn chi tiết để xây dựng lộ trình học tập cá nhân phù hợp với mục tiêu nghề nghiệp của bạn...</p>
-                        <a href="/blog/lo-trinh-hoc-tap" class="btn btn-link text-warning p-0">Đọc tiếp <i class="bi bi-arrow-right"></i></a>
-                    </div>
-                </div>
+            <div class="text-center mt-5">
+                <a href="/blogs/index" class="btn btn-warning text-white px-5 py-3">View All Articles</a>
             </div>
         </div>
-        <div class="text-center mt-4">
-            <a href="/blogs/index" class="btn btn-warning text-white px-4">Xem tất cả bài viết</a>
-        </div>
-    </div>
-</section>
+    </section>
 
-<!-- Newsletter Section -->
-<section class="py-5 bg-light">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-6 text-center">
-                <h2 class="fw-bold mb-4">Đăng ký nhận thông tin mới nhất</h2>
-                <p class="mb-4">Nhận thông tin về khóa học mới, ưu đãi đặc biệt và các bài viết hữu ích.</p>
-                <form class="row g-2 justify-content-center">
-                    <div class="col-sm-8">
-                        <input type="email" class="form-control form-control-lg" placeholder="Email của bạn" required>
-                    </div>
-                    <div class="col-sm-4">
-                        <button type="submit" class="btn btn-warning text-white btn-lg w-100">Đăng ký</button>
-                    </div>
-                </form>
+    <!-- Newsletter Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 text-center">
+                    <h2 class="fw-bold mb-4">Subscribe to Our Newsletter</h2>
+                    <p class="mb-5">Get updates on new courses, promotions, and helpful articles from E-tutor.</p>
+                    <form class="newsletter-form row g-0 justify-content-center">
+                        <div class="col-sm-8">
+                            <input type="email" class="form-control form-control-lg" placeholder="Enter your email" required>
+                        </div>
+                        <div class="col-sm-4">
+                            <button type="submit" class="btn btn-warning text-white btn-lg w-100">Subscribe</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+
+    <!-- Bootstrap JS and Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- JavaScript for smooth scrolling and form validation -->
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Newsletter form validation
+        document.querySelector('.newsletter-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const email = this.querySelector('input[type="email"]').value;
+            if (email) {
+                alert('Thank you for subscribing! We will send you updates soon.');
+                this.reset();
+            }
+        });
+    </script>
+</body>
+</html>

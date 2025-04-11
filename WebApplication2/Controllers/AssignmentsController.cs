@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApplication2.Data;
@@ -25,28 +26,34 @@ public class AssignmentsController : Controller
         var assignments = await _context.Assignments
             .Where(a => a.CourseId == courseId)
             .ToListAsync();
+
+        ViewBag.CourseId = courseId;
         return View(assignments);
     }
 
-    // Tạo bài tập (chỉ dành cho giáo viên)
+    // Tạo bài tập (GET)
     [Authorize(Roles = "Teacher")]
     public IActionResult Create(int courseId)
     {
-        // Truyền courseId vào ViewBag để hiển thị
-        ViewBag.CourseId = courseId;
-        return View();
+        var assignment = new Assignment
+        {
+            CourseId = courseId
+        };
+
+        return View(assignment);
     }
 
+    // Tạo bài tập (POST)
     [HttpPost]
     [Authorize(Roles = "Teacher")]
     public async Task<IActionResult> Create(Assignment assignment)
     {
-        // Kiểm tra nếu CourseId hợp lệ
-        //if (assignment.CourseId == 0)
-        //{
+        // Kiểm tra nếu CourseId tồn tại
+        if (!_context.Courses.Any(c => c.Id == assignment.CourseId))
+        {
             ModelState.AddModelError("", "Invalid CourseId");
             return View(assignment);
-        //}
+        }
 
         // Chuyển DueDate sang UTC
         assignment.DueDate = DateTime.SpecifyKind(assignment.DueDate, DateTimeKind.Utc);
@@ -55,7 +62,7 @@ public class AssignmentsController : Controller
         _context.Assignments.Add(assignment);
         await _context.SaveChangesAsync();
 
-        // Chuyển hướng về danh sách bài tập của khóa học
+        // Chuyển hướng về danh sách bài tập
         return RedirectToAction("Index", new { courseId = assignment.CourseId });
     }
 }
