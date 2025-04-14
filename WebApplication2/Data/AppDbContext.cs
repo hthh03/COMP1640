@@ -13,7 +13,7 @@ namespace WebApplication2.Data
         public DbSet<Post> Posts { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Course> Courses { get; set; }
-        public DbSet<StudentCourse> StudentCourses { get; set; }
+        public DbSet<StudentCourses> StudentCourses { get; set; }
         public DbSet<Assignment> Assignments { get; set; }
         public DbSet<Submission> Submissions { get; set; }
         public DbSet<Meeting> Meetings { get; set; }
@@ -43,15 +43,15 @@ namespace WebApplication2.Data
                 .HasForeignKey(c => c.PostId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            builder.Entity<StudentCourse>()
+            builder.Entity<StudentCourses>()
             .HasKey(sc => new { sc.StudentId, sc.CourseId });
 
-            builder.Entity<StudentCourse>()
+            builder.Entity<StudentCourses>()
                 .HasOne(sc => sc.Student)
                 .WithMany(u => u.StudentCourses)
                 .HasForeignKey(sc => sc.StudentId);
 
-            builder.Entity<StudentCourse>()
+            builder.Entity<StudentCourses>()
                 .HasOne(sc => sc.Course)
                 .WithMany(c => c.StudentCourses)
                 .HasForeignKey(sc => sc.CourseId);        

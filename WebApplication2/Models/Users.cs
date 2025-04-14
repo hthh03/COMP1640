@@ -9,7 +9,7 @@ namespace WebApplication2.Models
         public string? ProfileImage { get; set; }
 
         // Quan hệ một-nhiều với StudentCourse
-        public ICollection<StudentCourse> StudentCourses { get; set; } = new List<StudentCourse>();
+        public ICollection<StudentCourses> StudentCourses { get; set; } = new List<StudentCourses>();
     }
 }
 

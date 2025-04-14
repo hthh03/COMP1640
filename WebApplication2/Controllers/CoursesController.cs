@@ -100,7 +100,7 @@ public class CoursesController : Controller
 
         if (existingEnrollment == null)
         {
-            var studentCourse = new StudentCourse
+            var studentCourse = new StudentCourses
             {
                 StudentId = student.Id,
                 CourseId = course.Id

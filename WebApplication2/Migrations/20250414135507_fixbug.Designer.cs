@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebApplication2.Data;
@@ -11,9 +12,11 @@ using WebApplication2.Data;
 namespace WebApplication2.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250414135507_fixbug")]
+    partial class fixbug
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -245,7 +248,7 @@ namespace WebApplication2.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("StudentCourses", b =>
+            modelBuilder.Entity("StudentCourse", b =>
                 {
                     b.Property<string>("StudentId")
                         .HasColumnType("text");
@@ -603,7 +606,7 @@ namespace WebApplication2.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("StudentCourses", b =>
+            modelBuilder.Entity("StudentCourse", b =>
                 {
                     b.HasOne("Course", "Course")
                         .WithMany("StudentCourses")

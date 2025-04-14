@@ -9,5 +9,5 @@ public class Course
     public Users Teacher { get; set; }
     //public List<StudentCourse> StudentCourses { get; set; } // Học sinh tham gia
     public bool IsApproved { get; set; } = false;
-    public ICollection<StudentCourse> StudentCourses { get; set; } = new List<StudentCourse>();
+    public ICollection<StudentCourses> StudentCourses { get; set; } = new List<StudentCourses>();
 }
