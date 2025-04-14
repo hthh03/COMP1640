@@ -1,46 +1,297 @@
-﻿@model List<Message>
+﻿@model List<WebApplication2.Models.Message>
 @{
     ViewData["Title"] = "Chat với " + ViewBag.ReceiverName;
 }
+<!-- Toggle Theme Button -->
+<button onclick="toggleTheme()" id="themeToggle" style="position: fixed; top: 95px; right: 460px; z-index: 999; padding: 10px; border: none; border-radius: 8px; cursor: pointer;">
+    🌙
+</button>
 
-<div class="container mt-4">
-    <div class="row">
-        <div class="col-md-8 offset-md-2">
-            <div class="card">
-                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                    <h5>Chat với @ViewBag.ReceiverName</h5>
-                    <a href="@Url.Action("Index", "Message")" class="btn btn-sm btn-light">
-                        <i class="bi bi-arrow-left"></i> Quay lại
-                    </a>
-                </div>
-                <div class="card-body" id="messageContainer" style="height: 400px; overflow-y: auto;">
-                    @foreach (var message in Model)
-                    {
-                        string messageAlign = message.SenderId == ViewBag.CurrentUserId ? "text-right" : "text-left";
-                        string messageClass = message.SenderId == ViewBag.CurrentUserId ? "alert-primary" : "alert-secondary";
+<style>
+    :root {
+        --bg-color: #1e1e2f;
+        --card-bg: #292c33;
+        --text-color: #fff;
+        --input-bg: #3a3d4d;
+        --sender-bg: #0084ff;
+        --receiver-bg: #e4e6eb;
+        --sender-text: #fff;
+        --receiver-text: #000;
+        --placeholder-color: #999;
+        --page-bg: #f0f2f5;
+        --send-button: #0084ff;
+        --send-button-hover: #0077e6;
+    }
+    [data-theme="light"] {
+        --bg-color: #f4f4f8;
+        --card-bg: #fff;
+        --text-color: #222;
+        --input-bg: #eee;
+        --sender-bg: #0084ff;
+        --receiver-bg: #e4e6eb;
+        --sender-text: #fff;
+        --receiver-text: #000;
+        --placeholder-color: #666;
+        --page-bg: #e9ebee;
+        --send-button: #0084ff;
+        --send-button-hover: #0077e6;
+    }
+    [data-theme="dark"] {
+        --page-bg: #121212;
+    }
 
-                        <div class="message @messageAlign" id="msg-@message.Id">
-                            <div class="alert @messageClass p-2 d-inline-block">
-                                @message.Content
-                                <small class="d-block">@message.SentDate.ToString("HH:mm dd/MM/yyyy")</small>
-                            </div>
+    body {
+        background-color: var(--page-bg);
+        color: var(--text-color);
+        font-family: "Segoe UI", sans-serif;
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+    }
+
+    .chat-wrapper {
+        max-width: 800px;
+        margin: 80px auto 20px;
+        padding: 0 15px;
+        position: relative;
+    }
+
+    .chat-card {
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 12px 28px rgba(0,0,0,0.25), 0 8px 10px rgba(0,0,0,0.22);
+        background-color: var(--card-bg);
+        transform: translateY(0);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        position: relative;
+        z-index: 10;
+    }
+
+    .chat-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 18px 35px rgba(0,0,0,0.3), 0 10px 15px rgba(0,0,0,0.22);
+    }
+
+    .chat-header {
+        background-color: #A9A9A9;
+        padding: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: var(--text-color);
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .chat-header h5 {
+        margin: 0;
+        font-size: 1.2rem;
+    }
+
+    .back-btn {
+        background: transparent;
+        border: none;
+        color: var(--text-color);
+        font-size: 1rem;
+        cursor: pointer;
+        padding: 5px 10px;
+        border-radius: 5px;
+        transition: background-color 0.2s;
+    }
+
+    .back-btn:hover {
+        background-color: rgba(255,255,255,0.1);
+    }
+
+    .message-container {
+        height: 400px;
+        overflow-y: auto;
+        padding: 20px;
+        background-color: var(--bg-color);
+        background-image: linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px);
+        background-size: 100% 20px;
+    }
+
+    .message {
+        display: flex;
+        margin-bottom: 16px;
+        animation: fadeIn 0.3s ease-in-out;
+    }
+
+     fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .message.sender {
+        justify-content: flex-end;
+    }
+
+    .message.receiver {
+        justify-content: flex-start;
+    }
+
+    .message-bubble {
+        max-width: 70%;
+        border-radius: 18px;
+        padding: 12px 16px;
+        position: relative;
+        word-wrap: break-word;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        transition: transform 0.2s ease;
+    }
+
+    .message-bubble:hover {
+        transform: translateY(-2px);
+    }
+
+    .message-bubble.sender {
+        background-color: var(--sender-bg);
+        color: var(--sender-text);
+        border-bottom-right-radius: 4px;
+    }
+
+    .message-bubble.receiver {
+        background-color: var(--receiver-bg);
+        color: var(--receiver-text);
+        border-bottom-left-radius: 4px;
+    }
+
+    .message-bubble small {
+        display: block;
+        font-size: 0.75rem;
+        opacity: 0.8;
+        margin-top: 5px;
+    }
+
+    .chat-footer {
+        padding: 15px;
+        background-color: var(--card-bg);
+        border-top: 1px solid rgba(0,0,0,0.1);
+    }
+
+    .input-group {
+        display: flex;
+        align-items: center;
+        position: relative;
+    }
+
+    .chat-input {
+        width: 100%;
+        padding: 12px 20px;
+        padding-right: 50px;
+        border: none;
+        border-radius: 24px;
+        background-color: var(--input-bg);
+        color: var(--text-color);
+        font-size: 14px;
+        transition: box-shadow 0.3s ease;
+    }
+
+    .chat-input:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(0,132,255,0.5);
+    }
+
+    .chat-input::placeholder {
+        color: var(--placeholder-color);
+    }
+
+    .send-button {
+        position: absolute;
+        right: 5px;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: var(--send-button);
+        color: white;
+        border: none;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .send-button:hover {
+        background-color: var(--send-button-hover);
+        transform: translateY(-50%) scale(1.1);
+    }
+
+    .send-button:active {
+        transform: translateY(-50%) scale(0.95);
+    }
+
+    .send-icon {
+        width: 18px;
+        height: 18px;
+        fill: white;
+    }
+
+    /* Creating a 3D elevation effect with pseudo-elements */
+    .chat-card::before {
+        content: "";
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        right: 10px;
+        bottom: 0;
+        border-radius: 12px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.3);
+        z-index: -1;
+    }
+
+    #themeToggle {
+        background-color: var(--card-bg);
+        color: var(--text-color);
+        box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        transition: transform 0.2s, background-color 0.3s;
+    }
+
+    #themeToggle:hover {
+        transform: scale(1.1);
+    }
+</style>
+
+<div class="chat-wrapper">
+    <div class="chat-card">
+        <div class="chat-header">
+            <h5>Chat with @ViewBag.ReceiverName</h5>
+            <form action="@Url.Action("Index", "Message")" method="get" style="display: inline;">
+                <button type="submit" class="back-btn">
+                    <i class="bi bi-arrow-left"></i> Return
+                </button>
+            </form>
+        </div>
+
+        <div class="message-container" id="messageContainer">
+            @foreach (var message in Model)
+            {
+                var isSender = message.SenderId == ViewBag.CurrentUserId.ToString();
+                var alignClass = isSender ? "sender" : "receiver";
+                    <div class="message @alignClass" id="msg-@message.Id">
+                        <div class="message-bubble @alignClass">
+                        @message.Content
+                            <small>@message.SentDate.ToString("HH:mm dd/MM/yyyy")</small>
                         </div>
-                    }
+                    </div>
+            }
+        </div>
+
+        <div class="chat-footer">
+            <form id="messageForm" method="post" asp-action="SendMessage">
+                <input type="hidden" name="userId" value="@ViewBag.UserId" />
+                <div class="input-group">
+                    <input type="text" class="chat-input" name="content" id="messageContent" placeholder="Nhập tin nhắn..." autocomplete="off" required />
+                    <button type="submit" class="send-button">
+                        <svg class="send-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
+                        </svg>
+                    </button>
                 </div>
-                <div class="card-footer">
-                    <form id="messageForm" method="post" asp-action="SendMessage">
-                        <input type="hidden" name="userId" value="@ViewBag.UserId" />
-                        <div class="input-group">
-                            <input type="text" class="form-control" name="content" id="messageContent" placeholder="Nhập tin nhắn..." autocomplete="off" required />
-                            <div class="input-group-append">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="bi bi-send"></i> Gửi
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>
@@ -48,92 +299,76 @@
 @section Scripts {
     <script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
     <script>
-        // Kết nối đến SignalR Hub
         const connection = new signalR.HubConnectionBuilder()
-            .withUrl("/chatHub") // Đảm bảo khớp với đường dẫn trong Program.cs
+            .withUrl("/chatHub")
             .withAutomaticReconnect()
             .build();
 
-        // Khởi tạo connection SignalR
         connection.start()
             .then(() => console.log("Kết nối SignalR thành công!"))
-            .catch(err => console.error("Lỗi kết nối SignalR: " + err));
+            .catch(err => console.error("Lỗi kết nối SignalR:", err));
 
-        // Lắng nghe sự kiện nhận tin nhắn mới
         connection.on("ReceiveMessage", (message, senderName, senderId) => {
-            // Chỉ xử lý tin nhắn từ người đang chat
             if (senderId === "@ViewBag.UserId") {
-                // Thêm tin nhắn vào giao diện
                 const messageContainer = document.getElementById("messageContainer");
                 const newMessage = document.createElement("div");
-                newMessage.className = "message text-left";
-
+                newMessage.className = "message receiver";
                 newMessage.innerHTML = `
-                    <div class="alert alert-secondary p-2 d-inline-block">
-                        ${message}
-                        <small class="d-block">${new Date().toLocaleTimeString()} ${new Date().toLocaleDateString()}</small>
-                    </div>
-                `;
-
+                            <div class="message-bubble receiver">
+                                ${message}
+                                <small>${new Date().toLocaleTimeString()} ${new Date().toLocaleDateString()}</small>
+                            </div>
+                        `;
                 messageContainer.appendChild(newMessage);
-
-                // Cuộn xuống dưới cùng
                 messageContainer.scrollTop = messageContainer.scrollHeight;
-
-                // Phát âm thanh thông báo nếu có
-                // const notification = new Audio('/sounds/notification.mp3');
-                // notification.play();
             }
         });
 
-        // Xử lý form gửi tin nhắn bằng Ajax
-        document.getElementById("messageForm").addEventListener("submit", function(e) {
+        // Đảm bảo không có sự kiện nào thay đổi theme trong form gửi tin nhắn
+        document.getElementById("messageForm").addEventListener("submit", function (e) {
             e.preventDefault();
+            const contentField = document.getElementById("messageContent");
+            const content = contentField.value.trim();
+            if (content === "") return;
 
-            const userId = "@ViewBag.UserId";
-            const content = document.getElementById("messageContent").value;
+            const formData = new FormData(this);
 
-            if (!content.trim()) return;
-
-            // Gửi tin nhắn bằng Ajax
-            fetch('@Url.Action("SendMessage")', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    'X-Requested-With': 'XMLHttpRequest'
-                },
-                body: `userId=${userId}&content=${encodeURIComponent(content)}`
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    // Thêm tin nhắn vào giao diện
+            fetch(this.action, {
+                method: "POST",
+                body: formData
+            }).then(response => {
+                if (response.ok) {
+                    // Thêm tin nhắn của người gửi vào UI
                     const messageContainer = document.getElementById("messageContainer");
                     const newMessage = document.createElement("div");
-                    newMessage.className = "message text-right";
-
+                    newMessage.className = "message sender";
                     newMessage.innerHTML = `
-                        <div class="alert alert-primary p-2 d-inline-block">
-                            ${content}
-                            <small class="d-block">${new Date().toLocaleTimeString()} ${new Date().toLocaleDateString()}</small>
-                        </div>
-                    `;
-
+                                <div class="message-bubble sender">
+                                    ${content}
+                                    <small>${new Date().toLocaleTimeString()} ${new Date().toLocaleDateString()}</small>
+                                </div>
+                            `;
                     messageContainer.appendChild(newMessage);
-
-                    // Xóa nội dung đã nhập
-                    document.getElementById("messageContent").value = "";
-
-                    // Cuộn xuống dưới cùng
                     messageContainer.scrollTop = messageContainer.scrollHeight;
+
+                    contentField.value = "";
                 }
             });
         });
 
-        // Cuộn xuống dưới cùng khi tải trang
-        window.onload = function() {
+        // Hàm chuyển đổi theme khi nhấn vào nút toggleTheme
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute("data-theme");
+            const newTheme = currentTheme === "light" ? "dark" : "light";
+            document.documentElement.setAttribute("data-theme", newTheme);
+            document.getElementById("themeToggle").textContent = newTheme === "light" ? "🌙" : "☀️";
+        }
+
+        // Cài đặt theme mặc định khi trang được tải
+        document.addEventListener("DOMContentLoaded", () => {
+            document.documentElement.setAttribute("data-theme", "dark");
             const messageContainer = document.getElementById("messageContainer");
             messageContainer.scrollTop = messageContainer.scrollHeight;
-        };
+        });
     </script>
 }

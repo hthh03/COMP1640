@@ -13,7 +13,7 @@ builder.Services.AddSignalR();
 
 // Cấu hình DbContext
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("Meeting")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("New")));
 
 // Cấu hình Identity
 builder.Services.AddIdentity<Users, IdentityRole>(options =>
@@ -32,7 +32,7 @@ builder.Services.AddIdentity<Users, IdentityRole>(options =>
 
 // Thêm Authorization
 builder.Services.AddAuthorization();
-
+builder.Services.AddScoped<MessageService>();
 // Thêm Controllers với Views
 builder.Services.AddControllersWithViews();
 
@@ -43,7 +43,7 @@ app.MapHub<MeetingHub>("/meetingHub");
 
 
 
-builder.Services.AddScoped<MessageService>();
+
 
 // Cấu hình Middleware
 if (!app.Environment.IsDevelopment())

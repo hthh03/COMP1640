@@ -1,36 +1,302 @@
 ﻿@model IEnumerable<WebApplication2.Models.Users>
 @{
-    ViewData["Title"] = "Danh sách người dùng";
+    ViewData["Title"] = "Messenger Clone";
 }
 
+<!-- Toggle Theme Button -->
+<button onclick="toggleTheme()" id="themeToggle" style="position: fixed; top: 80px; right: 20px; z-index: 999; padding: 10px; border: none; border-radius: 8px; cursor: pointer;">
+    🌙
+</button>
+
+<style>
+    :root {
+        --bg-color: #1e1e2f;
+        --sidebar-bg: #2c2f3e;
+        --text-color: #fff;
+        --hover-bg: #3c3f50;
+        --divider-color: #444;
+        --user-color: #ddd;
+        --chat-placeholder: #999;
+        --page-bg: #121212;
+    }
+
+    [data-theme="light"] {
+        --bg-color: #f4f4f8;
+        --sidebar-bg: #ffffff;
+        --text-color: #222;
+        --hover-bg: #e0e0e0;
+        --divider-color: #ccc;
+        --user-color: #333;
+        --chat-placeholder: #666;
+        --page-bg: #e9ebee;
+    }
+
+    body {
+        background-color: var(--page-bg);
+        color: var(--text-color);
+        font-family: "Segoe UI", sans-serif;
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        transition: background-color 0.3s ease;
+    }
+
+    .messenger-container {
+        display: flex;
+        height: 90vh;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 12px 28px rgba(0,0,0,0.25), 0 8px 10px rgba(0,0,0,0.22);
+        margin: 60px auto 0;
+        position: relative;
+        max-width: 1200px;
+        transform: translateY(0);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        z-index: 10;
+    }
+
+    .messenger-container:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 18px 35px rgba(0,0,0,0.3), 0 10px 15px rgba(0,0,0,0.22);
+    }
+
+    /* Creating a 3D elevation effect with pseudo-elements */
+    .messenger-container::before {
+        content: "";
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        right: 10px;
+        bottom: 0;
+        border-radius: 12px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.3);
+        z-index: -1;
+    }
+
+    .sidebar {
+        width: 300px;
+        background-color: var(--sidebar-bg);
+        border-right: 1px solid var(--divider-color);
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        z-index: 2;
+        box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    }
+
+    .sidebar-header {
+        padding: 18px;
+        font-weight: bold;
+        font-size: 18px;
+        color: var(--text-color);
+        border-bottom: 1px solid var(--divider-color);
+        background-color: rgba(0,0,0,0.05);
+    }
+
+    .user-list {
+        flex-grow: 1;
+        overflow-y: auto;
+        scrollbar-width: thin;
+        scrollbar-color: var(--divider-color) transparent;
+    }
+
+    .user-list::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .user-list::-webkit-scrollbar-thumb {
+        background-color: var(--divider-color);
+        border-radius: 3px;
+    }
+
+    .user-list::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .user-item {
+        padding: 14px 18px;
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid var(--divider-color);
+        text-decoration: none;
+        color: var(--user-color);
+        transition: all 0.2s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .user-item:hover {
+        background-color: var(--hover-bg);
+        transform: translateX(5px);
+    }
+
+    .user-item::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 3px;
+        background-color: transparent;
+        transition: background-color 0.2s ease;
+    }
+
+    .user-item:hover::after {
+        background-color: #0084ff;
+    }
+
+    .avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: 14px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        border: 2px solid rgba(255,255,255,0.2);
+        transition: transform 0.2s ease;
+    }
+
+    .user-item:hover .avatar {
+        transform: scale(1.1);
+    }
+
+    .username {
+        flex-grow: 1;
+        font-weight: 500;
+        letter-spacing: 0.2px;
+    }
+
+    .status-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: limegreen;
+        margin-left: 8px;
+        position: relative;
+        box-shadow: 0 0 5px rgba(50,205,50,0.5);
+    }
+
+    .status-dot::after {
+        content: "";
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        border-radius: 50%;
+        border: 1px solid limegreen;
+        opacity: 0.5;
+        animation: pulse 2s infinite;
+    }
+
+ pulse {
+        0% { transform: scale(1); opacity: 0.5; }
+        50% { transform: scale(1.5); opacity: 0; }
+        100% { transform: scale(1); opacity: 0.5; }
+    }
+
+    .chat-window {
+        flex-grow: 1;
+        background-color: var(--bg-color);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: var(--chat-placeholder);
+        font-style: italic;
+        background-image: 
+            radial-gradient(circle at 25% 25%, rgba(255,255,255,0.02) 5%, transparent 5%),
+            radial-gradient(circle at 75% 75%, rgba(255,255,255,0.02) 5%, transparent 5%);
+        background-size: 40px 40px;
+        position: relative;
+    }
+
+    .chat-window span {
+        padding: 20px;
+        background-color: rgba(0,0,0,0.1);
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        animation: float 4s ease-in-out infinite;
+        transform-origin: center;
+    }
+
+    float {
+        0% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+        100% { transform: translateY(0); }
+    }
+
+    #themeToggle {
+        background-color: var(--sidebar-bg);
+        color: var(--text-color);
+        box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        transition: transform 0.2s, background-color 0.3s;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+    }
+
+    #themeToggle:hover {
+        transform: scale(1.1) rotate(15deg);
+    }
+
+    .container {
+        max-width: 1200px;
+        padding: 0 15px;
+    }
+</style>
+
+<!-- Main layout -->
 <div class="container mt-4">
-    <div class="card">
-        <div class="card-header bg-primary text-white">
-            <h5>Chọn người dùng để bắt đầu chat</h5>
-        </div>
-        <div class="card-body">
-            <div class="list-group">
+    <div class="messenger-container">
+        <!-- Sidebar: Danh sách người dùng -->
+        <div class="sidebar">
+            <div class="sidebar-header">Đoạn chat</div>
+            <div class="user-list">
                 @if (Model.Any())
                 {
                     @foreach (var user in Model)
                     {
-                        <a href="@Url.Action("Chat", "Message", new { userId = user.Id })"
-                           class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                            <div>
-                                <i class="bi bi-person-circle me-2"></i>
-                                @user.UserName
-                            </div>
-                            <span class="badge bg-primary rounded-pill">
-                                <i class="bi bi-chat-dots"></i>
-                            </span>
+                        <a href="@Url.Action("Chat", "Message", new { userId = user.Id })" class="user-item">
+                            <!-- Sử dụng ảnh mặc định -->
+                            <img src="~/image/user.jpg" alt="Avatar" class="avatar" />
+                            <div class="username">@user.UserName</div>
+                            <div class="status-dot"></div>
                         </a>
                     }
                 }
                 else
                 {
-                    <div class="alert alert-info">Không tìm thấy người dùng nào.</div>
+                    <div class="p-3 text-muted">Không có người dùng nào.</div>
                 }
             </div>
         </div>
+
+        <!-- Khung chat: Placeholder -->
+        <div class="chat-window">
+            <span>Hãy chọn một đoạn chat để bắt đầu cuộc trò chuyện 💬</span>
+        </div>
     </div>
 </div>
+
+<!-- Theme toggle logic -->
+<script>
+    function toggleTheme() {
+        const html = document.documentElement;
+        const btn = document.getElementById("themeToggle");
+        const isDark = html.getAttribute("data-theme") !== "light";
+
+        html.setAttribute("data-theme", isDark ? "light" : "dark");
+        btn.innerText = isDark ? "☀️" : "🌙";
+        localStorage.setItem("theme", isDark ? "light" : "dark");
+    }
+
+    window.onload = () => {
+        const savedTheme = localStorage.getItem("theme") || "dark";
+        document.documentElement.setAttribute("data-theme", savedTheme);
+        document.getElementById("themeToggle").innerText = savedTheme === "light" ? "☀️" : "🌙";
+    };
+</script>
