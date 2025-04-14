@@ -704,15 +704,17 @@
                                 }
                                 @if (User.IsInRole("Student"))
                                 {
-                                    <div id="successPopup-@item.Id" class="popup hidden">
+                                    <div id="successPopup" class="popup hidden">
                                         Join Successful!
                                     </div>
-                                    <form asp-action="Join" asp-route-id="@item.Id" method="post" style="display:inline;" id="joinForm-@item.Id">
+                                    <form asp-action="Join" asp-route-id="@item.Id" method="post" style="display:inline;" id="joinForm">
                                         <button type="submit" class="join-btn">
                                             <i class="fas fa-sign-in-alt"></i>
                                             Join
                                         </button>
                                     </form>
+
+
                                 }
                             </td>
                         </tr>

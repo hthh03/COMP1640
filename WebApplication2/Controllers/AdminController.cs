@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
 
 namespace LoginDemo.Controllers
 {
@@ -19,11 +22,33 @@ namespace LoginDemo.Controllers
             this.roleManager = roleManager;
         }
 
-        // Hiển thị danh sách người dùng
-        public IActionResult Index()
+        // Hiển thị danh sách người dùng với tính năng tìm kiếm và lọc
+        public async Task<IActionResult> Index(string searchString, string roleFilter)
         {
-            var users = userManager.Users.ToList();
-            return View(users);
+            ViewData["CurrentFilter"] = searchString;
+            ViewData["CurrentRoleFilter"] = roleFilter;
+
+            var users = userManager.Users;
+
+            // Lọc theo từ khóa tìm kiếm
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                users = users.Where(u => u.UserName.Contains(searchString) ||
+                                        u.Email.Contains(searchString) ||
+                                        u.FullName.Contains(searchString));
+            }
+
+            // Lọc theo vai trò
+            if (!string.IsNullOrEmpty(roleFilter))
+            {
+                users = users.Where(u => u.Role == roleFilter);
+            }
+
+            // Lấy danh sách tất cả các vai trò
+            var roles = new List<string> { "Admin", "Teacher", "Student" };
+            ViewData["Roles"] = roles;
+
+            return View(await users.ToListAsync());
         }
 
         // Hiển thị form tạo người dùng mới

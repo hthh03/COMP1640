@@ -8,6 +8,6 @@ public class Course
     public string TeacherId { get; set; } // Giáo viên tạo khóa học
     public Users Teacher { get; set; }
     //public List<StudentCourse> StudentCourses { get; set; } // Học sinh tham gia
-
+    public bool IsApproved { get; set; } = false;
     public ICollection<StudentCourse> StudentCourses { get; set; } = new List<StudentCourse>();
 }

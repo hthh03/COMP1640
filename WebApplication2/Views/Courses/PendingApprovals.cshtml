@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Course>
+
+@{
+    ViewData["Title"] = "Pending Approvals";
+}
+
+<h2>Pending Course Approvals</h2>
+
+@if (!Model.Any())
+{
+    <p>Hiện không có khóa học nào đang chờ phê duyệt.</p>
+}
+else
+{
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Tên Khóa Học</th>
+                <th>Mô Tả</th>
+                <th>Giáo Viên</th>
+                <th>Hành Động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var course in Model)
+            {
+                <tr>
+                    <td>@course.Name</td>
+                    <td>@course.Description</td>
+                    <td>@course.Teacher?.UserName</td>
+                    <td>
+                        <form asp-action="Approve" asp-route-id="@course.Id" method="post" style="display:inline;">
+                            <button type="submit" class="btn btn-success btn-sm">Duyệt</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

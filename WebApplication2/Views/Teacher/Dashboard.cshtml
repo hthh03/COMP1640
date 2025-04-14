@@ -100,7 +100,9 @@
                 <!-- Header -->
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <div>
-                        <h4 class="mb-0">Hi, Teacher @currentUser?.FullName</h4>
+                        <h4 class="mb-0">
+                            Hi, @((currentUser?.Role == "Admin") ? "Admin" : $"Teacher {currentUser?.FullName}")
+                        </h4>
                         <h2 class="fw-bold">Welcome to Educatory!</h2>
                     </div>
                 </div>

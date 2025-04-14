@@ -24,11 +24,46 @@ public class CoursesController : Controller
         _hubContext = hubContext;
     }
 
+    /* public async Task<IActionResult> Index()
+     {
+         var courses = await _context.Courses.Include(c => c.Teacher).ToListAsync();
+         return View(courses);
+     } */
+
+
     public async Task<IActionResult> Index()
     {
-        var courses = await _context.Courses.Include(c => c.Teacher).ToListAsync();
+        var courses = await _context.Courses
+            .Include(c => c.Teacher)
+            .Where(c => c.IsApproved) // chỉ hiển thị khóa học đã được duyệt
+            .ToListAsync();
+
         return View(courses);
     }
+
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> Approve(int id)
+    {
+        var course = await _context.Courses.FindAsync(id);
+        if (course == null) return NotFound();
+
+        course.IsApproved = true;
+        await _context.SaveChangesAsync();
+
+        return RedirectToAction(nameof(PendingApprovals));
+    }
+
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> PendingApprovals()
+    {
+        var pendingCourses = await _context.Courses
+            .Include(c => c.Teacher)
+            .Where(c => !c.IsApproved)
+            .ToListAsync();
+
+        return View(pendingCourses);
+    }
+
 
     [Authorize(Roles = "Teacher")]
     public IActionResult Create()
@@ -44,6 +79,7 @@ public class CoursesController : Controller
         if (teacher == null) return Unauthorized();
 
         course.TeacherId = teacher.Id;
+        course.IsApproved = false; // Khóa học chưa được phê duyệt
         _context.Courses.Add(course);
         await _context.SaveChangesAsync();
         return RedirectToAction(nameof(Index));

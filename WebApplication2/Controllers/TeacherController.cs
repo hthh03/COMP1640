@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebApplication2.Controllers
 {
-    [Authorize(Roles = "Teacher")]
+    [Authorize(Roles = "Teacher, Admin")]
     public class TeacherController : Controller
     {
         public IActionResult Dashboard()
