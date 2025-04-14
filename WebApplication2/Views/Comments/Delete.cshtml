@@ -11,7 +11,6 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <style>
-    /* Main color variables */
     :root {
         --primary-orange: #FF7F24;
         --secondary-orange: #FFA07A;
@@ -194,7 +193,6 @@
             box-shadow: 0 5px 10px rgba(0,0,0,0.1);
         }
 
-    /* Warning alert */
     .warning-alert {
         background-color: rgba(220, 53, 69, 0.1);
         border: 1px solid rgba(220, 53, 69, 0.3);
@@ -250,22 +248,50 @@
         animation: pulse 2s infinite;
     }
 
-    /* Enhanced Responsive styles */
-    @@media (max-width: 900px) {
+    /* Responsive Design */
+    @@media (max-width: 991px) { /* Tablet */
         .delete-container
 
     {
-        margin: 30px 20px;
+        max-width: 90%;
+        margin: 30px auto;
+        padding: 25px;
     }
 
+    .delete-title {
+        font-size: 2rem;
     }
 
-    @@media (max-width: 768px) {
-        .delete-container
+    .delete-subtitle {
+        font-size: 1.2rem;
+    }
 
-    {
-        margin: 20px;
+    .comment-info {
         padding: 20px;
+    }
+
+    .comment-header {
+        font-size: 1.15rem;
+    }
+
+    .btn {
+        padding: 11px 22px;
+    }
+
+    }
+
+    @@media (max-width: 767px) { /* Mobile */
+        .delete-container
+
+    {
+        margin: 20px 15px;
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    .delete-header {
+        margin-bottom: 25px;
+        padding-bottom: 12px;
     }
 
     .delete-title {
@@ -278,15 +304,18 @@
 
     .comment-info {
         padding: 15px;
+        margin-bottom: 25px;
     }
 
     .comment-header {
         font-size: 1.1rem;
+        margin-bottom: 15px;
     }
 
     .info-row {
         flex-direction: column;
-        padding-bottom: 15px;
+        padding-bottom: 10px;
+        margin-bottom: 10px;
     }
 
     .info-label, .info-value {
@@ -294,27 +323,69 @@
     }
 
     .info-label {
-        margin-bottom: 8px;
+        margin-bottom: 6px;
+        font-size: 0.95rem;
+    }
+
+    .info-value {
+        font-size: 0.95rem;
+    }
+
+    .comment-content {
+        padding: 12px;
+    }
+
+    .warning-alert {
+        padding: 12px;
+    }
+
+    .warning-icon {
+        font-size: 1.4rem;
+        margin-right: 12px;
+    }
+
+    .warning-title {
+        font-size: 0.95rem;
+    }
+
+    .warning-message {
+        font-size: 0.9rem;
+    }
+
+    .actions-container {
+        flex-direction: column;
+        gap: 15px;
+        margin-top: 25px;
     }
 
     .btn {
+        width: 100%;
         padding: 10px 20px;
+        font-size: 0.95rem;
     }
 
     }
 
-    @@media (max-width: 576px) {
+    @@media (max-width: 400px) { /* Small Mobile */
         .delete-container
 
     {
-        margin: 15px;
+        margin: 15px 10px;
         padding: 15px;
-        border-radius: 10px;
+        border-radius: 8px;
+    }
+
+    .delete-header {
+        margin-bottom: 20px;
     }
 
     .delete-title {
         font-size: 1.7rem;
     }
+
+        .delete-title i {
+            margin-right: 10px;
+        }
 
     .delete-subtitle {
         font-size: 1rem;
@@ -322,7 +393,7 @@
 
     .comment-info {
         padding: 12px;
-        border-radius: 8px;
+        margin-bottom: 20px;
     }
 
     .comment-header {
@@ -337,68 +408,61 @@
         font-size: 0.9rem;
     }
 
+    .comment-content {
+        padding: 10px;
+        margin-bottom: 8px;
+    }
+
     .warning-alert {
-        padding: 12px;
+        padding: 10px;
+        margin-bottom: 20px;
+    }
+
+    .warning-icon {
+        font-size: 1.3rem;
+        margin-right: 10px;
     }
 
     .warning-title {
-        font-size: 0.95rem;
+        font-size: 0.9rem;
     }
 
     .warning-message {
         font-size: 0.85rem;
     }
 
-    .actions-container {
-        flex-direction: column;
-        gap: 12px;
-    }
-
     .btn {
-        width: 100%;
-        padding: 10px 15px;
-        font-size: 0.95rem;
+        padding: 9px 18px;
+        font-size: 0.9rem;
     }
 
     }
 
-    @@media (max-width: 400px) {
+    @@media (max-width: 320px) { /* Very Small Mobile (e.g., iPhone 5) */
         .delete-container
 
     {
-        margin: 10px;
+        margin: 10px 5px;
         padding: 12px;
+        border-radius: 8px;
     }
+
+    .delete-header {
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+    }
+
+        .delete-header:after {
+            width: 60px;
+        }
 
     .delete-title {
         font-size: 1.5rem;
     }
 
-    .delete-subtitle {
-        font-size: 0.95rem;
-    }
-
-    .comment-info {
-        padding: 10px;
-    }
-
-    }
-
-    @@media (max-width: 320px) {
-        .delete-container
-
-    {
-        margin: 5px;
-        padding: 10px;
-        border-radius: 8px;
-    }
-
-    .delete-title {
-        font-size: 1.3rem;
-    }
-
         .delete-title i {
             margin-right: 8px;
+            font-size: 1.2rem;
         }
 
     .delete-subtitle {
@@ -406,13 +470,18 @@
     }
 
     .comment-info {
-        padding: 8px;
-        margin-bottom: 20px;
+        padding: 10px;
+        margin-bottom: 15px;
     }
 
     .comment-header {
         font-size: 0.95rem;
-        margin-bottom: 15px;
+        margin-bottom: 12px;
+    }
+
+    .info-row {
+        padding-bottom: 8px;
+        margin-bottom: 8px;
     }
 
     .info-label {
@@ -424,32 +493,37 @@
     }
 
     .comment-content {
-        padding: 10px;
+        padding: 8px;
         margin-top: 3px;
         margin-bottom: 5px;
     }
 
     .warning-alert {
-        padding: 10px;
-        margin-bottom: 20px;
+        padding: 8px;
+        margin-bottom: 15px;
     }
 
     .warning-icon {
         font-size: 1.2rem;
-        margin-right: 10px;
+        margin-right: 8px;
     }
 
     .warning-title {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
     }
 
     .warning-message {
         font-size: 0.8rem;
     }
 
+    .actions-container {
+        gap: 10px;
+        margin-top: 20px;
+    }
+
     .btn {
-        padding: 8px 12px;
-        font-size: 0.9rem;
+        padding: 8px 15px;
+        font-size: 0.85rem;
     }
 
     .info-label i {

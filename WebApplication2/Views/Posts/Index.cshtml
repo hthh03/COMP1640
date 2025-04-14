@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<WebApplication2.Models.Post>
 
 @{
-    ViewData["Title"] = "Danh sách bài đăng";
+    ViewData["Title"] = "List of Posts";
 }
 
 <!-- Font Awesome -->
@@ -30,42 +30,42 @@
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         margin: 0;
         padding: 0;
+        overflow-x: hidden;
     }
 
     .page-container {
         max-width: 1200px;
-        margin: 30px auto;
-        padding: 0 20px;
+        margin: 2rem auto;
+        padding: 0 1.25rem;
     }
 
     .header-container {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 25px;
+        margin-bottom: 1.5rem;
         position: relative;
     }
 
     .page-title {
-        font-size: 2.2rem;
+        font-size: clamp(1.6rem, 4vw, 2.2rem);
         color: var(--dark-orange);
         font-weight: 700;
-        position: relative;
         display: inline-flex;
         align-items: center;
         margin: 0;
     }
 
         .page-title i {
-            margin-right: 15px;
+            margin-right: 0.75rem;
             color: var(--primary-orange);
-            font-size: 1.8rem;
+            font-size: clamp(1.4rem, 3vw, 1.8rem);
         }
 
         .page-title::after {
             content: '';
             position: absolute;
-            bottom: -8px;
+            bottom: -0.5rem;
             left: 0;
             width: 60px;
             height: 3px;
@@ -79,7 +79,7 @@
         }
 
     .create-btn {
-        padding: 12px 24px;
+        padding: 0.75rem 1.5rem;
         background-color: var(--primary-orange);
         color: var(--text-light);
         border-radius: 30px;
@@ -92,7 +92,7 @@
     }
 
         .create-btn i {
-            margin-right: 8px;
+            margin-right: 0.5rem;
             transition: transform 0.3s ease;
         }
 
@@ -140,7 +140,7 @@
         }
 
         .posts-table th {
-            padding: 15px 20px;
+            padding: 0.75rem 1.25rem;
             font-weight: 600;
             color: var(--dark-orange);
             text-align: left;
@@ -152,13 +152,13 @@
         }
 
             .posts-table th i.fa-sort {
-                margin-left: 5px;
+                margin-left: 0.25rem;
                 font-size: 0.9rem;
                 opacity: 0.7;
             }
 
             .posts-table th i:first-child {
-                margin-right: 5px;
+                margin-right: 0.25rem;
                 opacity: 0.9;
             }
 
@@ -167,7 +167,7 @@
             }
 
         .posts-table td {
-            padding: 15px 20px;
+            padding: 0.75rem 1.25rem;
             vertical-align: middle;
             border-top: 1px solid #eee;
             color: var(--text-dark);
@@ -188,7 +188,6 @@
                 box-shadow: 0 3px 10px rgba(0,0,0,0.05);
             }
 
-    /* Title column styling */
     .title-cell {
         font-weight: 600;
         color: var(--dark-orange);
@@ -199,7 +198,7 @@
     }
 
         .title-cell i {
-            margin-right: 8px;
+            margin-right: 0.5rem;
             color: var(--primary-orange);
             transition: transform 0.3s ease;
         }
@@ -208,7 +207,6 @@
         transform: rotate(15deg);
     }
 
-    /* Content cell styling */
     .content-cell {
         max-width: 300px;
         overflow: hidden;
@@ -218,7 +216,6 @@
         color: #555;
     }
 
-    /* Date styling */
     .date-cell {
         font-size: 0.9rem;
         display: flex;
@@ -227,20 +224,19 @@
     }
 
         .date-cell i {
-            margin-right: 8px;
+            margin-right: 0.5rem;
             color: var(--secondary-orange);
             font-size: 0.9rem;
         }
 
-    /* Status indicator */
     .status-indicator {
         display: inline-flex;
         align-items: center;
-        padding: 4px 10px;
+        padding: 0.25rem 0.5rem;
         border-radius: 12px;
         font-size: 0.85rem;
         font-weight: 600;
-        margin-left: 5px;
+        margin-left: 0.25rem;
     }
 
     .status-updated {
@@ -253,11 +249,10 @@
         color: #388E3C;
     }
 
-    /* Badge styling */
     .blog-badge {
         background-color: var(--light-orange);
         color: var(--dark-orange);
-        padding: 5px 10px;
+        padding: 0.25rem 0.5rem;
         border-radius: 12px;
         font-size: 0.85rem;
         display: inline-flex;
@@ -267,7 +262,7 @@
     }
 
         .blog-badge i {
-            margin-right: 5px;
+            margin-right: 0.25rem;
             font-size: 0.8rem;
         }
 
@@ -277,11 +272,10 @@
             transform: translateY(-2px);
         }
 
-    /* Date group styling */
     .date-group {
         display: flex;
         flex-direction: column;
-        gap: 5px;
+        gap: 0.25rem;
     }
 
     .date-primary {
@@ -293,16 +287,15 @@
         color: #777;
     }
 
-    /* Actions styling */
     .actions-cell {
         display: flex;
-        gap: 10px;
+        gap: 0.5rem;
         justify-content: flex-end;
         white-space: nowrap;
     }
 
     .action-btn {
-        padding: 8px 12px;
+        padding: 0.5rem 0.75rem;
         border-radius: 8px;
         text-decoration: none;
         font-weight: 600;
@@ -313,7 +306,7 @@
     }
 
         .action-btn i {
-            margin-right: 5px;
+            margin-right: 0.25rem;
         }
 
     .edit-btn {
@@ -350,24 +343,20 @@
             box-shadow: 0 3px 8px rgba(255, 107, 107, 0.3);
         }
 
-    /* Stats bar */
     .stats-bar {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 15px;
-        margin-bottom: 20px;
-        justify-content: space-between;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 1rem;
+        margin-bottom: 1.25rem;
     }
 
     .stat-card {
         background-color: white;
-        padding: 15px 20px;
+        padding: 0.75rem 1.25rem;
         border-radius: 12px;
         box-shadow: var(--shadow-sm);
         display: flex;
         align-items: center;
-        flex: 1;
-        min-width: 180px;
         transition: all 0.3s ease;
         border-left: 4px solid var(--primary-orange);
     }
@@ -385,7 +374,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-right: 15px;
+        margin-right: 0.75rem;
         font-size: 1.3rem;
         color: var(--primary-orange);
     }
@@ -406,22 +395,21 @@
         color: #777;
     }
 
-    /* Search bar */
     .search-container {
-        margin-bottom: 20px;
+        margin-bottom: 1.25rem;
         display: flex;
-        gap: 10px;
+        gap: 0.5rem;
     }
 
     .search-input {
         flex: 1;
-        padding: 12px 15px;
+        padding: 0.75rem 1rem;
         border-radius: 30px;
         border: 1px solid #ddd;
         font-size: 1rem;
         transition: all 0.3s ease;
         box-shadow: var(--shadow-sm);
-        padding-left: 40px;
+        padding-left: 2.5rem;
         position: relative;
     }
 
@@ -432,7 +420,7 @@
 
         .search-box i {
             position: absolute;
-            left: 15px;
+            left: 0.75rem;
             top: 50%;
             transform: translateY(-50%);
             color: #aaa;
@@ -446,7 +434,7 @@
     }
 
     .filter-btn {
-        padding: 0 20px;
+        padding: 0 1.25rem;
         border-radius: 30px;
         background-color: var(--light-gray);
         border: 1px solid #ddd;
@@ -460,9 +448,8 @@
             background-color: var(--light-orange);
         }
 
-    /* Empty state */
     .empty-state {
-        padding: 40px 20px;
+        padding: 2rem 1.25rem;
         text-align: center;
         color: #777;
     }
@@ -470,20 +457,19 @@
     .empty-icon {
         font-size: 3rem;
         color: var(--light-orange);
-        margin-bottom: 15px;
+        margin-bottom: 0.75rem;
     }
 
     .empty-message {
         font-size: 1.2rem;
-        margin-bottom: 20px;
+        margin-bottom: 1.25rem;
     }
 
-    /* Pagination */
     .pagination {
         display: flex;
         justify-content: center;
-        gap: 8px;
-        margin-top: 25px;
+        gap: 0.5rem;
+        margin-top: 1.5rem;
     }
 
     .page-item {
@@ -517,15 +503,11 @@
         .posts-table th, .posts-table td
 
     {
-        padding: 12px;
+        padding: 0.75rem 1rem;
     }
 
     .stats-bar {
-        flex-wrap: wrap;
-    }
-
-    .stat-card {
-        min-width: 150px;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     }
 
     }
@@ -536,11 +518,7 @@
     {
         flex-direction: column;
         align-items: flex-start;
-        gap: 15px;
-    }
-
-    .page-title {
-        font-size: 1.8rem;
+        gap: 1rem;
     }
 
     .content-cell, .date-cell, .blog-badge {
@@ -549,11 +527,11 @@
 
     .actions-cell {
         flex-direction: column;
-        gap: 5px;
+        gap: 0.25rem;
     }
 
     .action-btn {
-        padding: 6px 10px;
+        padding: 0.4rem 0.6rem;
         font-size: 0.85rem;
     }
 
@@ -563,16 +541,12 @@
         .page-container
 
     {
-        margin: 20px auto;
-        padding: 0 15px;
+        margin: 1.25rem auto;
+        padding: 0 0.75rem;
     }
 
     .card-container {
         border-radius: 12px;
-    }
-
-    .page-title {
-        font-size: 1.6rem;
     }
 
     .posts-table {
@@ -581,17 +555,57 @@
     }
 
         .posts-table th, .posts-table td {
-            padding: 10px;
+            padding: 0.5rem 0.75rem;
             font-size: 0.9rem;
         }
 
-    .stat-card {
-        min-width: 100%;
+    .stats-bar {
+        grid-template-columns: 1fr;
     }
 
     .action-btn {
         width: 100%;
         justify-content: center;
+    }
+
+    .search-container {
+        flex-direction: column;
+    }
+
+    .filter-btn {
+        padding: 0.5rem 1rem;
+        width: 100%;
+        justify-content: center;
+    }
+
+    }
+
+    @@media (max-width: 320px) {
+        .page-title
+
+    {
+        font-size: 1.4rem;
+    }
+
+    .page-title i {
+        font-size: 1.2rem;
+    }
+
+    .posts-table th, .posts-table td {
+        padding: 0.4rem 0.5rem;
+        font-size: 0.85rem;
+    }
+
+    .content-cell, .date-cell, .blog-badge {
+        max-width: 100px;
+    }
+
+    .stat-value {
+        font-size: 1.2rem;
+    }
+
+    .stat-label {
+        font-size: 0.8rem;
     }
 
     }
@@ -601,11 +615,11 @@
     <div class="header-container">
         <h1 class="page-title">
             <i class="fas fa-clipboard-list"></i>
-            Danh sách bài đăng
+            List of Posts
         </h1>
         <a asp-action="Create" class="create-btn">
             <i class="fas fa-plus"></i>
-            Tạo bài đăng mới
+            Create New Post
         </a>
     </div>
 
@@ -616,7 +630,7 @@
             </div>
             <div class="stat-content">
                 <div class="stat-value">@Model.Count()</div>
-                <div class="stat-label">Tổng bài đăng</div>
+                <div class="stat-label">Total Posts</div>
             </div>
         </div>
 
@@ -626,7 +640,7 @@
             </div>
             <div class="stat-content">
                 <div class="stat-value">@Model.Count(p => p.CreatedAt.Month == DateTime.Now.Month)</div>
-                <div class="stat-label">Bài đăng tháng này</div>
+                <div class="stat-label">Posts This Month</div>
             </div>
         </div>
 
@@ -636,7 +650,7 @@
             </div>
             <div class="stat-content">
                 <div class="stat-value">@Model.Count(p => p.UpdatedAt != null)</div>
-                <div class="stat-label">Bài đăng đã cập nhật</div>
+                <div class="stat-label">Updated Posts</div>
             </div>
         </div>
 
@@ -646,7 +660,7 @@
             </div>
             <div class="stat-content">
                 <div class="stat-value">1,234</div>
-                <div class="stat-label">Lượt xem</div>
+                <div class="stat-label">Views</div>
             </div>
         </div>
     </div>
@@ -654,7 +668,7 @@
     <div class="search-container">
         <div class="search-box">
             <i class="fas fa-search"></i>
-            <input type="text" id="searchInput" class="search-input" placeholder="Tìm kiếm bài đăng...">
+            <input type="text" id="searchInput" class="search-input" placeholder="Search posts...">
         </div>
         <button class="filter-btn" id="filterBtn">
             <i class="fas fa-filter"></i>
@@ -678,7 +692,7 @@
                         </th>
                         <th>
                             <i class="fas fa-calendar-alt"></i>
-                            Thời gian
+                            Time
                             <i class="fas fa-sort"></i>
                         </th>
                         <th>
@@ -687,7 +701,7 @@
                         </th>
                         <th>
                             <i class="fas fa-cogs"></i>
-                            Thao tác
+                            Actions
                         </th>
                     </tr>
                 </thead>
@@ -719,11 +733,11 @@
                                     {
                                         <div class="date-secondary">
                                             <i class="fas fa-sync-alt"></i>
-                                            Cập nhật: @item.UpdatedAt?.ToString("dd/MM/yyyy HH:mm")
+                                            Updated: @item.UpdatedAt?.ToString("dd/MM/yyyy HH:mm")
                                             @if (item.UpdatedAt?.Date == DateTime.Now.Date)
                                             {
                                                 <span class="status-indicator status-updated">
-                                                    <i class="fas fa-clock"></i> Hôm nay
+                                                    <i class="fas fa-clock"></i> Today
                                                 </span>
                                             }
                                         </div>
@@ -732,7 +746,7 @@
                                     {
                                         <div class="date-secondary">
                                             <span class="status-indicator status-new">
-                                                <i class="fas fa-star"></i> Mới
+                                                <i class="fas fa-star"></i> New
                                             </span>
                                         </div>
                                     }
@@ -747,15 +761,15 @@
                             <td class="actions-cell">
                                 <a asp-action="Edit" asp-route-id="@item.PostId" class="action-btn edit-btn">
                                     <i class="fas fa-edit"></i>
-                                    Sửa
+                                    Edit
                                 </a>
                                 <a asp-action="Details" asp-route-id="@item.PostId" class="action-btn details-btn">
                                     <i class="fas fa-info-circle"></i>
-                                    Chi tiết
+                                    Details
                                 </a>
                                 <a asp-action="Delete" asp-route-id="@item.PostId" class="action-btn delete-btn">
                                     <i class="fas fa-trash-alt"></i>
-                                    Xóa
+                                    Delete
                                 </a>
                             </td>
                         </tr>
@@ -769,10 +783,10 @@
                 <div class="empty-icon">
                     <i class="fas fa-inbox"></i>
                 </div>
-                <div class="empty-message">Không có bài đăng nào</div>
+                <div class="empty-message">No posts available</div>
                 <a asp-action="Create" class="create-btn">
                     <i class="fas fa-plus"></i>
-                    Tạo bài đăng đầu tiên
+                    Create your first post
                 </a>
             </div>
         }
@@ -792,7 +806,6 @@
 </div>
 
 <script>
-    // Simple search functionality
     document.addEventListener('DOMContentLoaded', function() {
         const searchInput = document.getElementById('searchInput');
         const tableRows = document.querySelectorAll('.posts-table tbody tr');

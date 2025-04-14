@@ -7,7 +7,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
-    /* Main color variables */
     :root {
         --primary-color: rgb(255, 127, 80);
         --primary-hover: rgb(235, 107, 60);
@@ -336,11 +335,53 @@
         padding: 0 20px 20px;
     }
 
-    /* Responsive Design for iPhone 5 (320px) and up */
-    @@media (max-width: 576px) {
+    /* Responsive Design */
+    @@media (max-width: 991px) { /* Tablet */
         .delete-container
 
     {
+        max-width: 90%;
+        margin: 15px auto;
+        padding: 15px;
+    }
+
+    .page-title {
+        font-size: 1.6rem;
+    }
+
+    .page-subtitle {
+        font-size: 1rem;
+        padding: 8px 12px;
+    }
+
+    .info-label {
+        flex: 0 0 100px;
+    }
+
+    .btn {
+        padding: 7px 18px;
+        font-size: 0.95rem;
+    }
+
+    .modal-content {
+        max-width: 450px;
+    }
+
+    .modal-title {
+        font-size: 1.2rem;
+    }
+
+    .trash-animation {
+        font-size: 2.8rem;
+    }
+
+    }
+
+    @@media (max-width: 767px) { /* Mobile */
+        .delete-container
+
+    {
+        max-width: 100%;
         margin: 10px;
         padding: 15px;
     }
@@ -352,8 +393,9 @@
 
     .page-subtitle {
         font-size: 0.95rem;
-        padding: 8px 12px;
-        margin: 10px 0;
+        padding: 8px 10px;
+        flex-wrap: wrap;
+        text-align: center;
     }
 
     .blog-info-container {
@@ -364,31 +406,77 @@
         font-size: 1.1rem;
     }
 
+    .info-row {
+        flex-direction: column;
+        margin-bottom: 8px;
+        padding-bottom: 8px;
+    }
+
     .info-label {
-        flex: 0 0 100px;
+        flex: none;
+        width: 100%;
+        margin-bottom: 4px;
         font-size: 0.9rem;
     }
 
     .info-value {
+        padding: 0;
         font-size: 0.9rem;
+    }
+
+    .actions-container {
+        flex-direction: column;
+        gap: 8px;
     }
 
     .btn {
         padding: 7px 15px;
         font-size: 0.9rem;
+        width: 100%;
+    }
+
+    .modal-content {
+        width: 95%;
+        max-width: 350px;
+    }
+
+    .modal-header {
+        padding: 12px 15px;
     }
 
     .modal-title {
         font-size: 1.1rem;
     }
 
+    .modal-close {
+        font-size: 1rem;
+    }
+
+    .modal-body {
+        padding: 15px;
+    }
+
+    .danger-zone-title {
+        font-size: 1rem;
+    }
+
     .trash-animation {
         font-size: 2.5rem;
     }
 
+    .modal-footer {
+        flex-direction: column;
+        gap: 10px;
+        padding: 0 15px 15px;
     }
 
-    @@media (max-width: 320px) {
+        .modal-footer .btn {
+            width: 100%;
+        }
+
+    }
+
+    @@media (max-width: 320px) { /* Small Mobile (e.g., iPhone 5) */
         .delete-container
 
     {
@@ -405,72 +493,38 @@
 
     .page-subtitle {
         font-size: 0.85rem;
-        padding: 6px 10px;
-        flex-wrap: wrap;
-        text-align: center;
+        padding: 6px 8px;
     }
 
     .blog-info-header h4 {
         font-size: 1rem;
     }
 
-    .info-row {
-        flex-direction: column;
-        margin-bottom: 8px;
-        padding-bottom: 8px;
-    }
-
-    .info-label {
-        flex: none;
-        width: 100%;
-        margin-bottom: 4px;
-        font-size: 0.85rem;
-    }
-
-    .info-value {
-        padding: 0;
+    .info-label, .info-value {
         font-size: 0.85rem;
     }
 
     .btn {
         padding: 6px 12px;
         font-size: 0.8rem;
-        width: 100%;
     }
 
-    .actions-container {
-        flex-direction: column;
-        gap: 8px;
-    }
-
-    .modal-body {
-        padding: 15px;
+    .modal-content {
+        max-width: 300px;
     }
 
     .modal-title {
         font-size: 1rem;
     }
 
-    .modal-close {
-        font-size: 1rem;
-    }
-
-    .danger-zone-title {
-        font-size: 0.95rem;
-    }
-
     .trash-animation {
         font-size: 2rem;
     }
 
-    .modal-footer {
-        flex-direction: column;
-        gap: 10px;
+    .modal-warning {
+        padding: 8px;
+        font-size: 0.9rem;
     }
-
-        .modal-footer .btn {
-            width: 100%;
-        }
 
     }
 </style>
@@ -592,7 +646,6 @@
 </div>
 
 <script>
-    // Get modal elements
     const modal = document.getElementById('confirmationModal');
     const openModalBtn = document.getElementById('openConfirmationBtn');
     const closeModalBtn = document.getElementById('closeModalBtn');
@@ -600,27 +653,22 @@
     const confirmBtn = document.getElementById('confirmDeleteBtn');
     const deleteForm = document.getElementById('deleteForm');
 
-    // Open modal when Delete button is clicked
     openModalBtn.addEventListener('click', function() {
         modal.style.display = 'flex';
     });
 
-    // Close modal when X button is clicked
     closeModalBtn.addEventListener('click', function() {
         modal.style.display = 'none';
     });
 
-    // Close modal when Cancel button is clicked
     cancelBtn.addEventListener('click', function() {
         modal.style.display = 'none';
     });
 
-    // Submit form when confirmation button is clicked
     confirmBtn.addEventListener('click', function() {
         deleteForm.submit();
     });
 
-    // Close modal when clicking outside the modal content
     window.addEventListener('click', function(event) {
         if (event.target === modal) {
             modal.style.display = 'none';

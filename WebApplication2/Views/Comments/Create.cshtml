@@ -7,7 +7,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
-    /* Main color variables */
     :root {
         --primary-orange: #FF7F24;
         --secondary-orange: #FFA07A;
@@ -45,15 +44,15 @@
         padding-bottom: 15px;
     }
 
-    .comment-header:after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 2px;
-        background: linear-gradient(to right, var(--primary-orange), var(--light-orange), transparent);
-    }
+        .comment-header:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, var(--primary-orange), var(--light-orange), transparent);
+        }
 
     .icon-container {
         background-color: var(--primary-orange);
@@ -67,10 +66,10 @@
         box-shadow: 0 4px 10px rgba(210, 105, 30, 0.2);
     }
 
-    .icon-container i {
-        color: var(--text-light);
-        font-size: 1.2rem;
-    }
+        .icon-container i {
+            color: var(--text-light);
+            font-size: 1.2rem;
+        }
 
     .title-container {
         flex: 1;
@@ -92,10 +91,10 @@
         align-items: center;
     }
 
-    .comment-subtitle i {
-        margin-right: 6px;
-        font-size: 0.8rem;
-    }
+        .comment-subtitle i {
+            margin-right: 6px;
+            font-size: 0.8rem;
+        }
 
     .form-group {
         margin-bottom: 20px;
@@ -111,10 +110,10 @@
         font-size: 1rem;
     }
 
-    .control-label i {
-        margin-right: 6px;
-        color: var(--primary-orange);
-    }
+        .control-label i {
+            margin-right: 6px;
+            color: var(--primary-orange);
+        }
 
     .form-control {
         width: 100%;
@@ -127,12 +126,12 @@
         box-sizing: border-box;
     }
 
-    .form-control:focus {
-        border-color: var(--primary-orange);
-        outline: none;
-        box-shadow: 0 0 0 3px rgba(255, 127, 36, 0.15);
-        background-color: #ffffff;
-    }
+        .form-control:focus {
+            border-color: var(--primary-orange);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 127, 36, 0.15);
+            background-color: #ffffff;
+        }
 
     .input-icon {
         position: absolute;
@@ -169,7 +168,6 @@
         padding-left: 5px;
     }
 
-    /* Button styles */
     .btn {
         padding: 10px 20px;
         border-radius: 25px;
@@ -186,20 +184,20 @@
         font-size: 0.9rem;
     }
 
-    .btn i {
-        margin-right: 8px;
-    }
+        .btn i {
+            margin-right: 8px;
+        }
 
     .btn-primary {
         background-color: var(--primary-orange);
         color: var(--text-light);
     }
 
-    .btn-primary:hover {
-        background-color: var(--dark-orange);
-        transform: translateY(-2px);
-        box-shadow: 0 6px 12px rgba(210, 105, 30, 0.2);
-    }
+        .btn-primary:hover {
+            background-color: var(--dark-orange);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(210, 105, 30, 0.2);
+        }
 
     .btn-secondary {
         background-color: var(--light-gray);
@@ -207,11 +205,11 @@
         border: 1px solid #ddd;
     }
 
-    .btn-secondary:hover {
-        background-color: #e6e6e6;
-        transform: translateY(-2px);
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
-    }
+        .btn-secondary:hover {
+            background-color: #e6e6e6;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+        }
 
     .action-buttons {
         display: flex;
@@ -226,25 +224,24 @@
         align-items: center;
     }
 
-    .action-links a {
-        color: var(--primary-orange);
-        text-decoration: none;
-        font-weight: 500;
-        transition: all 0.3s ease;
-        display: flex;
-        align-items: center;
-    }
+        .action-links a {
+            color: var(--primary-orange);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
 
-    .action-links a i {
-        margin-right: 6px;
-    }
+            .action-links a i {
+                margin-right: 6px;
+            }
 
-    .action-links a:hover {
-        color: var(--dark-orange);
-        transform: translateX(-3px);
-    }
+            .action-links a:hover {
+                color: var(--dark-orange);
+                transform: translateX(-3px);
+            }
 
-    /* Form enhancements */
     .form-card {
         background-color: #ffffff;
         border-radius: 10px;
@@ -264,11 +261,10 @@
         align-items: center;
     }
 
-    .form-card-title i {
-        margin-right: 8px;
-    }
+        .form-card-title i {
+            margin-right: 8px;
+        }
 
-    /* Checkbox styling */
     .form-check {
         display: flex;
         align-items: center;
@@ -287,190 +283,327 @@
         color: var(--text-dark);
     }
 
-    /* Enhanced Responsive adjustments */
-    @@media (max-width: 768px) {
-        .comment-container {
-            margin: 15px;
-        }
+    /* Responsive Design */
+    @@media (max-width: 991px) { /* Tablet */
+        .comment-container
+
+    {
+        max-width: 90%;
+        margin: 15px auto;
+        padding: 12px;
     }
 
-    @@media (max-width: 576px) {
-        .comment-container {
-            padding: 12px;
-            margin: 10px;
-            border-radius: 10px;
-        }
+    .comment-title {
+        font-size: 1.5rem;
+    }
 
-        .comment-title {
-            font-size: 1.4rem;
-        }
+    .comment-subtitle {
+        font-size: 0.95rem;
+    }
 
-        .comment-subtitle {
-            font-size: 0.9rem;
-        }
+    .form-control {
+        padding: 9px 11px 9px 32px;
+        font-size: 0.9rem;
+    }
 
-        .icon-container {
-            width: 35px;
-            height: 35px;
-        }
+    .input-icon {
+        top: 37px;
+        left: 11px;
+    }
+
+    .btn {
+        padding: 9px 18px;
+        min-width: 110px;
+    }
+
+    }
+
+    @@media (max-width: 767px) { /* Mobile */
+        .comment-container
+
+    {
+        max-width: 100%;
+        margin: 10px;
+        padding: 12px;
+        border-radius: 10px;
+    }
+
+    .comment-header {
+        padding-bottom: 12px;
+        margin-bottom: 15px;
+    }
+
+    .comment-title {
+        font-size: 1.4rem;
+    }
+
+    .comment-subtitle {
+        font-size: 0.9rem;
+    }
+
+    .icon-container {
+        width: 35px;
+        height: 35px;
+    }
 
         .icon-container i {
             font-size: 1rem;
         }
 
-        .form-control {
-            font-size: 0.85rem;
-            padding: 8px 10px 8px 30px;
-        }
-
-        .input-icon {
-            top: 36px;
-            left: 10px;
-            font-size: 0.85rem;
-        }
-
-        .btn {
-            padding: 8px 16px;
-            min-width: 100%;
-            font-size: 0.85rem;
-        }
-
-        .action-buttons {
-            flex-direction: column;
-        }
+    .form-card {
+        padding: 12px;
     }
 
-    @@media (max-width: 420px) {
-        .comment-container {
-            margin: 8px;
-            padding: 10px;
-            border-radius: 8px;
-        }
-
-        .form-card {
-            padding: 12px;
-        }
-        
-        .form-card-title {
-            font-size: 1rem;
-        }
-        
-        .comment-title {
-            font-size: 1.3rem;
-        }
+    .form-card-title {
+        font-size: 1rem;
     }
 
-    @@media (max-width: 320px) {
-        .comment-container {
-            margin: 5px;
-            padding: 8px;
-            border-radius: 8px;
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .control-label {
+        font-size: 0.95rem;
+    }
+
+    .form-control {
+        padding: 8px 10px 8px 30px;
+        font-size: 0.85rem;
+    }
+
+    .input-icon {
+        top: 36px;
+        left: 10px;
+        font-size: 0.85rem;
+    }
+
+    textarea.form-control {
+        min-height: 100px;
+    }
+
+    .btn {
+        padding: 8px 16px;
+        min-width: 100%;
+        font-size: 0.85rem;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .form-check-input {
+        width: 14px;
+        height: 14px;
+    }
+
+    .form-check-label {
+        font-size: 0.85rem;
+    }
+
+    }
+
+    @@media (max-width: 420px) { /* Small Mobile */
+        .comment-container
+
+    {
+        margin: 8px;
+        padding: 10px;
+        border-radius: 8px;
+    }
+
+    .comment-header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding-bottom: 10px;
+    }
+
+    .icon-container {
+        margin-right: 0;
+        margin-bottom: 10px;
+        width: 32px;
+        height: 32px;
+    }
+
+        .icon-container i {
+            font-size: 0.95rem;
         }
 
-        .comment-header {
-            flex-direction: column;
-            align-items: flex-start;
-            padding-bottom: 10px;
-            margin-bottom: 15px;
-        }
+    .comment-title {
+        font-size: 1.3rem;
+    }
 
-        .icon-container {
-            width: 30px;
-            height: 30px;
-            margin-right: 0;
-            margin-bottom: 10px;
-        }
+    .comment-subtitle {
+        font-size: 0.85rem;
+    }
+
+    .form-card {
+        padding: 10px;
+    }
+
+    .form-card-title {
+        font-size: 0.95rem;
+    }
+
+    .control-label {
+        font-size: 0.9rem;
+    }
+
+    .form-control {
+        padding: 7px 9px 7px 28px;
+        font-size: 0.8rem;
+    }
+
+    .input-icon {
+        top: 35px;
+        left: 9px;
+        font-size: 0.8rem;
+    }
+
+    .btn {
+        padding: 7px 14px;
+        font-size: 0.8rem;
+    }
+
+    .text-danger {
+        font-size: 0.75rem;
+    }
+
+    .action-links {
+        margin-top: 15px;
+    }
+
+    }
+
+    @@media (max-width: 320px) { /* Very Small Mobile (e.g., iPhone 5) */
+        .comment-container
+
+    {
+        margin: 5px;
+        padding: 8px;
+        border-radius: 8px;
+    }
+
+    .comment-header {
+        padding-bottom: 8px;
+        margin-bottom: 12px;
+    }
+
+    .icon-container {
+        width: 30px;
+        height: 30px;
+    }
 
         .icon-container i {
             font-size: 0.9rem;
         }
 
-        .comment-title {
-            font-size: 1.2rem;
-        }
+    .comment-title {
+        font-size: 1.2rem;
+    }
 
-        .comment-subtitle {
-            font-size: 0.8rem;
-        }
+    .comment-subtitle {
+        font-size: 0.8rem;
+    }
 
-        .form-card {
-            padding: 10px;
-        }
+    .form-card {
+        padding: 8px;
+    }
 
-        .form-card-title {
-            font-size: 1rem;
-        }
+    .form-card-title {
+        font-size: 0.9rem;
+        padding-bottom: 6px;
+    }
 
-        .form-group {
-            margin-bottom: 15px;
-        }
+    .form-group {
+        margin-bottom: 12px;
+    }
 
-        .control-label {
-            font-size: 0.9rem;
-        }
+    .control-label {
+        font-size: 0.85rem;
+    }
 
-        .form-control {
-            padding: 6px 8px 6px 25px;
-            font-size: 0.8rem;
-        }
+    .form-control {
+        padding: 6px 8px 6px 25px;
+        font-size: 0.75rem;
+    }
 
-        .input-icon {
-            top: 34px;
-            left: 8px;
-            font-size: 0.8rem;
-        }
+    .input-icon {
+        top: 34px;
+        left: 8px;
+        font-size: 0.75rem;
+    }
 
-        textarea.form-control {
-            min-height: 100px;
-        }
+    textarea.form-control {
+        min-height: 90px;
+    }
 
-        .btn {
-            padding: 8px 12px;
-            font-size: 0.8rem;
-            border-radius: 20px;
-        }
+    .btn {
+        padding: 6px 12px;
+        font-size: 0.75rem;
+        border-radius: 20px;
+    }
 
-        .text-danger {
-            font-size: 0.75rem;
-            margin-top: 4px;
-        }
+    .text-danger {
+        font-size: 0.7rem;
+        margin-top: 4px;
+    }
 
-        .action-links {
-            margin-top: 15px;
-        }
+    .form-check-input {
+        width: 12px;
+        height: 12px;
+        margin-right: 6px;
+    }
 
-        .form-check-input {
-            width: 14px;
-            height: 14px;
-            margin-right: 6px;
-        }
+    .form-check-label {
+        font-size: 0.75rem;
+    }
 
-        .form-check-label {
-            font-size: 0.8rem;
-        }
+    .action-links a {
+        font-size: 0.8rem;
+    }
+
     }
 
     /* Animation */
     @@keyframes fadeIn {
-        from {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        from
+
+    {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
     }
 
     .form-group {
         animation: fadeIn 0.4s ease forwards;
     }
 
-    .form-group:nth-child(1) { animation-delay: 0.1s; }
-    .form-group:nth-child(2) { animation-delay: 0.2s; }
-    .form-group:nth-child(3) { animation-delay: 0.3s; }
-    .form-group:nth-child(4) { animation-delay: 0.4s; }
-    .form-group:nth-child(5) { animation-delay: 0.5s; }
+        .form-group:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .form-group:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .form-group:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .form-group:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .form-group:nth-child(5) {
+            animation-delay: 0.5s;
+        }
 </style>
 
 <div class="comment-container">

@@ -29,114 +29,108 @@
         color: var(--text-dark);
         margin: 0;
         padding: 0;
+        overflow-x: hidden;
     }
 
     .page-header {
         text-align: center;
-        margin-bottom: 1.5rem;
-        position: relative;
+        margin: 2rem 0 1.5rem;
         padding-bottom: 1rem;
+        position: relative;
     }
 
-    .page-header h1 {
-        color: var(--dark-orange);
-        font-size: 2.2rem;
-        font-weight: 700;
-        margin-bottom: 0.5rem;
-        display: inline-block;
-    }
+        .page-header h1 {
+            color: var(--dark-orange);
+            font-size: clamp(1.6rem, 4vw, 2.2rem);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
 
-    .page-header h4 {
-        color: var(--secondary-orange);
-        font-size: 1.2rem;
-        font-weight: 500;
-        margin-top: 0.3rem;
-    }
+        .page-header h4 {
+            color: var(--secondary-orange);
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            font-weight: 500;
+            margin-top: 0.3rem;
+        }
 
-    .page-header::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 70px;
-        height: 3px;
-        background-color: var(--primary-orange);
-        border-radius: 3px;
-    }
+        .page-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 3px;
+            background-color: var(--primary-orange);
+            border-radius: 3px;
+        }
 
     .form-container {
-        max-width: 1000px;
+        max-width: 1200px;
         margin: 0 auto 2rem;
         background-color: white;
         border-radius: 16px;
         box-shadow: 0 8px 25px rgba(210, 105, 30, 0.15);
-        padding: 1.5rem;
+        padding: 2rem;
         border-top: 5px solid var(--primary-orange);
         position: relative;
         overflow: hidden;
     }
 
-    .form-container::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 120px;
-        height: 120px;
-        background: var(--light-orange);
-        opacity: 0.3;
-        border-radius: 0 0 0 100%;
-        z-index: 0;
-    }
+        .form-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 120px;
+            height: 120px;
+            background: var(--light-orange);
+            opacity: 0.3;
+            border-radius: 0 0 0 100%;
+            z-index: 0;
+        }
 
     .row {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1.5rem;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        align-items: stretch;
     }
 
-    .form-col {
-        flex: 1;
-        min-width: 300px;
+    .form-col, .preview-col {
         position: relative;
         z-index: 1;
+        min-width: 0;
     }
 
     .preview-col {
-        flex: 1;
-        min-width: 300px;
         background: var(--gradient-bg);
         border-radius: 12px;
         padding: 1.5rem;
         box-shadow: 0 5px 15px rgba(0,0,0,0.07);
         border-left: 4px solid var(--secondary-orange);
-        position: relative;
-        z-index: 1;
     }
 
     .form-group {
-        margin-bottom: 1.25rem;
-        position: relative;
+        margin-bottom: 1.5rem;
     }
 
     .control-label {
-        display: block;
-        margin-bottom: 0.5rem;
         font-weight: 600;
         color: var(--dark-orange);
         display: flex;
         align-items: center;
+        margin-bottom: 0.5rem;
     }
 
-    .control-label i {
-        margin-right: 8px;
-        color: var(--primary-orange);
-    }
+        .control-label i {
+            margin-right: 8px;
+            color: var(--primary-orange);
+        }
 
     .form-control {
         width: 100%;
-        padding: 10px 15px;
+        padding: 12px 15px;
         font-size: 1rem;
         border: 1px solid #ddd;
         border-radius: 8px;
@@ -145,11 +139,11 @@
         box-sizing: border-box;
     }
 
-    .form-control:focus {
-        border-color: var(--primary-orange);
-        box-shadow: 0 0 0 3px rgba(255, 127, 36, 0.2);
-        outline: none;
-    }
+        .form-control:focus {
+            border-color: var(--primary-orange);
+            box-shadow: 0 0 0 3px rgba(255, 127, 36, 0.2);
+            outline: none;
+        }
 
     textarea.form-control {
         min-height: 150px;
@@ -164,13 +158,13 @@
         align-items: center;
     }
 
-    .text-danger::before {
-        content: '\f071';
-        font-family: 'Font Awesome 6 Free';
-        font-weight: 900;
-        margin-right: 5px;
-        font-size: 0.8rem;
-    }
+        .text-danger::before {
+            content: '\f071';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            margin-right: 5px;
+            font-size: 0.8rem;
+        }
 
     select.form-control {
         appearance: none;
@@ -184,25 +178,15 @@
     .btn {
         padding: 10px 20px;
         border-radius: 30px;
-        cursor: pointer;
         font-weight: 600;
         transition: all 0.3s ease;
-        text-decoration: none;
         display: inline-flex;
         align-items: center;
         justify-content: center;
         border: none;
         box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         font-size: 0.95rem;
-    }
-
-    .btn i {
-        margin-right: 8px;
-        transition: transform 0.3s ease;
-    }
-
-    .btn:hover i {
-        transform: translateY(-2px);
+        cursor: pointer;
     }
 
     .btn-primary {
@@ -211,11 +195,11 @@
         min-width: 120px;
     }
 
-    .btn-primary:hover {
-        background-color: var(--dark-orange);
-        transform: translateY(-2px);
-        box-shadow: 0 6px 15px rgba(210, 105, 30, 0.3);
-    }
+        .btn-primary:hover {
+            background-color: var(--dark-orange);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(210, 105, 30, 0.3);
+        }
 
     .btn-secondary {
         background-color: var(--light-gray);
@@ -223,43 +207,33 @@
         border: 1px solid #ddd;
     }
 
-    .btn-secondary:hover {
-        background-color: #e6e6e6;
-        transform: translateY(-2px);
-        box-shadow: 0 6px 15px rgba(0,0,0,0.1);
-    }
+        .btn-secondary:hover {
+            background-color: #e6e6e6;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
 
     .form-actions {
         display: flex;
         gap: 1rem;
-        margin-top: 1.5rem;
+        margin-top: 2rem;
         flex-wrap: wrap;
     }
 
     .back-link {
-        display: inline-flex;
-        align-items: center;
         color: var(--dark-orange);
         text-decoration: none;
         font-weight: 600;
         margin-top: 1.5rem;
+        display: inline-flex;
+        align-items: center;
         transition: all 0.3s ease;
     }
 
-    .back-link i {
-        margin-right: 8px;
-        transition: transform 0.3s ease;
-    }
+        .back-link:hover {
+            color: var(--primary-orange);
+        }
 
-    .back-link:hover {
-        color: var(--primary-orange);
-    }
-
-    .back-link:hover i {
-        transform: translateX(-3px);
-    }
-
-    /* Preview styles */
     .preview-title {
         font-size: 1.4rem;
         color: var(--dark-orange);
@@ -268,35 +242,23 @@
         align-items: center;
     }
 
-    .preview-title i {
-        margin-right: 10px;
-        color: var(--primary-orange);
-    }
-
     .preview-box {
         background-color: white;
         border-radius: 10px;
         padding: 1.5rem;
         box-shadow: 0 3px 10px rgba(0,0,0,0.05);
-        margin-bottom: 1rem;
         transition: all 0.3s ease;
     }
 
-    .preview-box.empty {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 2rem;
-        color: #aaa;
-        font-style: italic;
-    }
-
-    .preview-box.empty i {
-        font-size: 2.5rem;
-        margin-bottom: 1rem;
-        color: var(--light-orange);
-    }
+        .preview-box.empty {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            color: #aaa;
+            font-style: italic;
+        }
 
     .preview-post-title {
         font-size: 1.3rem;
@@ -308,12 +270,10 @@
     .preview-post-content {
         color: var(--text-dark);
         line-height: 1.6;
-        margin-bottom: 1rem;
     }
 
     .preview-meta {
         display: flex;
-        align-items: center;
         gap: 1rem;
         font-size: 0.9rem;
         color: #666;
@@ -321,16 +281,6 @@
         margin-top: 1rem;
         padding-top: 1rem;
         border-top: 1px solid #eee;
-    }
-
-    .preview-meta-item {
-        display: flex;
-        align-items: center;
-    }
-
-    .preview-meta-item i {
-        margin-right: 6px;
-        color: var(--secondary-orange);
     }
 
     .form-tip {
@@ -344,20 +294,6 @@
         align-items: flex-start;
     }
 
-    .form-tip i {
-        color: var(--primary-orange);
-        margin-right: 10px;
-        margin-top: 3px;
-    }
-
-    /* File upload styling */
-    .file-upload-container {
-        position: relative;
-        overflow: hidden;
-        display: inline-block;
-        cursor: pointer;
-    }
-
     .file-upload-btn {
         padding: 10px 15px;
         background-color: var(--light-orange);
@@ -365,20 +301,15 @@
         border-radius: 8px;
         display: flex;
         align-items: center;
-        justify-content: center;
         cursor: pointer;
         transition: all 0.3s ease;
         border: 1px dashed var(--secondary-orange);
     }
 
-    .file-upload-btn i {
-        margin-right: 8px;
-    }
-
-    .file-upload-btn:hover {
-        background-color: var(--secondary-orange);
-        color: white;
-    }
+        .file-upload-btn:hover {
+            background-color: var(--secondary-orange);
+            color: white;
+        }
 
     .file-upload-input {
         position: absolute;
@@ -388,16 +319,6 @@
         width: 100%;
         height: 100%;
         cursor: pointer;
-    }
-
-    .file-name {
-        margin-top: 0.5rem;
-        font-size: 0.9rem;
-        color: #666;
-    }
-
-    .input-with-icon {
-        position: relative;
     }
 
     .input-with-icon .form-control {
@@ -410,117 +331,133 @@
         top: 50%;
         transform: translateY(-50%);
         color: #aaa;
-        transition: all 0.3s ease;
     }
 
-    .input-with-icon .form-control:focus + i {
-        color: var(--primary-orange);
-    }
-
-    /* Responsive styles */
     .date-row {
-        display: flex;
-        gap: 10px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
     }
-    
+
+    /* Responsive Design */
+    @@media (max-width: 1024px) {
+        .row
+
+    {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .form-container {
+        max-width: 90%;
+        padding: 1.5rem;
+    }
+
+    }
+
     @@media (max-width: 768px) {
-        .form-container {
-            padding: 1.5rem;
-        }
+        .form-container
 
-        .row {
-            flex-direction: column;
-            gap: 1.5rem;
-        }
+    {
+        padding: 1.5rem;
+        margin: 0 15px;
+    }
 
-        .page-header h1 {
-            font-size: 1.8rem;
-        }
+    .date-row {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+    }
 
-        .page-header h4 {
-            font-size: 1.1rem;
-        }
-        
-        .date-row {
-            flex-direction: column;
-            gap: 1.25rem;
-        }
+    .page-header h1 {
+        font-size: 1.8rem;
+    }
+
+    .page-header h4 {
+        font-size: 1.1rem;
+    }
+
+    .form-actions {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .btn {
+        width: 100%;
+    }
+
     }
 
     @@media (max-width: 480px) {
-        .form-container {
-            padding: 1.2rem;
-            border-radius: 12px;
-            margin: 0 10px 1.5rem;
-        }
+        .form-container
 
-        .page-header h1 {
-            font-size: 1.6rem;
-        }
-        
-        .page-header h4 {
-            font-size: 1rem;
-        }
-
-        .preview-col {
-            padding: 1rem;
-        }
-
-        .form-actions {
-            flex-direction: column;
-        }
-
-        .btn {
-            width: 100%;
-            margin-bottom: 0.5rem;
-        }
-        
-        .preview-box {
-            padding: 1rem;
-        }
-        
-        .form-tip {
-            padding: 0.8rem;
-            font-size: 0.9rem;
-        }
+    {
+        padding: 1rem;
+        margin: 0 10px;
+        border-radius: 12px;
     }
-    
-    /* iPhone 5 specific optimizations */
+
+    .page-header h1 {
+        font-size: 1.6rem;
+    }
+
+    .page-header h4 {
+        font-size: 1rem;
+    }
+
+    .preview-col {
+        padding: 1rem;
+    }
+
+    .preview-box {
+        padding: 1rem;
+    }
+
+    .form-control {
+        padding: 10px 12px;
+        font-size: 0.95rem;
+    }
+
+    .form-tip {
+        padding: 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    }
+
     @@media (max-width: 320px) {
-        .form-container {
-            padding: 1rem 0.8rem;
-            margin: 0 5px 1rem;
-        }
-        
-        .page-header h1 {
-            font-size: 1.4rem;
-        }
-        
-        .page-header h4 {
-            font-size: 0.9rem;
-        }
-        
-        .preview-col {
-            padding: 0.8rem;
-        }
-        
-        .preview-title {
-            font-size: 1.2rem;
-        }
-        
-        .control-label {
-            font-size: 0.9rem;
-        }
-        
-        .form-control {
-            padding: 8px 12px;
-            font-size: 0.95rem;
-        }
-        
-        .form-tip {
-            font-size: 0.85rem;
-            padding: 0.7rem;
-        }
+        .form-container
+
+    {
+        padding: 0.8rem;
+        margin: 0 5px;
+    }
+
+    .page-header h1 {
+        font-size: 1.4rem;
+    }
+
+    .page-header h4 {
+        font-size: 0.9rem;
+    }
+
+    .preview-title {
+        font-size: 1.2rem;
+    }
+
+    .control-label {
+        font-size: 0.9rem;
+    }
+
+    .form-control {
+        padding: 8px 10px;
+        font-size: 0.9rem;
+    }
+
+    .form-tip {
+        font-size: 0.85rem;
+        padding: 0.7rem;
+    }
+
     }
 </style>
 
@@ -574,7 +511,7 @@
                 </div>
 
                 <div class="date-row">
-                    <div class="form-group" style="flex: 1; min-width: 0;">
+                    <div class="form-group">
                         <label asp-for="CreatedAt" class="control-label">
                             <i class="far fa-calendar-plus"></i> Created Date
                         </label>
@@ -585,7 +522,7 @@
                         <span asp-validation-for="CreatedAt" class="text-danger"></span>
                     </div>
 
-                    <div class="form-group" style="flex: 1; min-width: 0;">
+                    <div class="form-group">
                         <label asp-for="UpdatedAt" class="control-label">
                             <i class="far fa-calendar-check"></i> Updated Date
                         </label>
@@ -678,11 +615,7 @@
             });
 
             const previewBox = document.getElementById("previewBox");
-
-            // Remove empty class if exists
             previewBox.classList.remove('empty');
-
-            // Generate preview HTML
             previewBox.innerHTML = `
                 <div class="preview-post-title">${title}</div>
                 <div class="preview-post-content">${content}</div>
@@ -702,16 +635,13 @@
 
         // Form submission handling
         document.getElementById("postForm").addEventListener("submit", function(event) {
-            event.preventDefault(); // Prevent form from submitting immediately
-
-            // Get data from form
+            event.preventDefault();
             const title = document.getElementById("Title").value;
             const content = document.getElementById("Content").value;
             const createdAt = document.getElementById("CreatedAt").value;
             const updatedAt = document.getElementById("UpdatedAt").value;
             const blogId = document.getElementById("BlogId").value;
 
-            // Simple validation
             let isValid = true;
             const errorMessages = [];
 
@@ -734,19 +664,16 @@
             }
 
             if (!isValid) {
-                // Display error messages
                 alert(errorMessages.join('\n'));
                 return;
             }
 
-            // Log data to browser console
             console.log("Title:", title);
             console.log("Content:", content);
             console.log("CreatedAt:", createdAt);
             console.log("UpdatedAt:", updatedAt);
             console.log("BlogId:", blogId);
 
-            // Submit the form if validation passes
             this.submit();
         });
     </script>
