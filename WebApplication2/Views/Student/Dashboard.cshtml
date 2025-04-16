@@ -10,17 +10,7 @@
 @{
     var currentUser = await UserManager.GetUserAsync(User);
 }
-@if (TempData["Success"] != null)
-{
-    <div style="color: green;">@TempData["Success"]</div>
-}
 
-<form asp-controller="Student" asp-action="RequestMeeting" method="post">
-    <input type="email" name="email" placeholder="Email giáo viên" required /><br />
-    <textarea name="message" placeholder="Lời nhắn" required></textarea><br />
-    <input type="datetime-local" name="meetingTime" required /><br />
-    <button type="submit">Gửi yêu cầu họp</button>
-</form>
 
 <div class="container-fluid p-0">
     <div class="row g-0">
@@ -112,7 +102,7 @@
                         <i class="bi bi-book me-3"></i>
                         <span>Courses</span>
                     </a>
-                    <a href="#" class="list-group-item list-group-item-action d-flex align-items-center py-3"
+                    <a href="@Url.Action("listteachers", "account")" class="list-group-item list-group-item-action d-flex align-items-center py-3"
                        style="border: none; color: #6c757d;">
                         <i class="bi bi-person-video3 me-3"></i>
                         <span>Teachers</span>

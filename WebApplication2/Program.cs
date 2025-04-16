@@ -14,7 +14,7 @@ builder.Services.AddSignalR();
 
 // Cấu hình DbContext
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("New")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("Clone")));
 
 // Cấu hình Identity
 builder.Services.AddIdentity<Users, IdentityRole>(options =>

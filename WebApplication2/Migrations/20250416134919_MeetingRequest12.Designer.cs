@@ -12,8 +12,8 @@ using WebApplication2.Data;
 namespace WebApplication2.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250416080757_meetingRequest")]
-    partial class meetingRequest
+    [Migration("20250416134919_MeetingRequest12")]
+    partial class MeetingRequest12
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

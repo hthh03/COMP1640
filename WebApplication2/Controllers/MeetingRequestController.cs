@@ -43,7 +43,9 @@ namespace WebApplication2.Controllers
                     Time = preferredTime.ToString("g")
                 });
 
-            return RedirectToAction("StudentDashboard");
+            // Chuyển hướng về trang Courses/Index thay vì StudentDashboard
+            return RedirectToAction("Index", "Courses");
+
         }
     }
 }

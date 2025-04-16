@@ -583,8 +583,111 @@
         .stat-label {
             font-size: 0.8rem;
         }
+            /* Form đặt lịch họp */
+    .meeting-card {
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 127, 36, 0.2);
+    }
+    
+    .meeting-header {
+        background-color: rgba(255, 228, 196, 0.7);
+        padding: 15px;
+        border-bottom: 1px solid rgba(255, 127, 36, 0.2);
+    }
+    
+    .meeting-title {
+        color: #D2691E;
+        font-size: 1.1rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+    }
+    
+    .meeting-title i {
+        color: #FF7F24;
+        margin-right: 10px;
+        font-size: 1.2rem;
+    }
+    
+    .meeting-body {
+        padding: 15px;
+    }
+    
+    .meeting-form-group {
+        margin-bottom: 15px;
+    }
+    
+    .meeting-form-group label {
+        display: flex;
+        align-items: center;
+        margin-bottom: 6px;
+        color: #555;
+        font-weight: 500;
+        font-size: 0.95rem;
+    }
+    
+    .meeting-form-group label i {
+        color: #FF7F24;
+        margin-right: 8px;
+        width: 20px;
+    }
+    
+    .meeting-form-group input,
+    .meeting-form-group textarea {
+        width: 100%;
+        padding: 8px 12px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        background-color: #f9f9f9;
+        font-size: 0.95rem;
+    }
+    
+    .meeting-form-group input:focus,
+    .meeting-form-group textarea:focus {
+        outline: none;
+        border-color: #FFA07A;
+        box-shadow: 0 0 0 2px rgba(255, 160, 122, 0.2);
+    }
+    
+    .meeting-submit-btn {
+        background-color: #FF7F24;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        padding: 8px 16px;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        transition: background-color 0.2s ease;
+    }
+    
+    .meeting-submit-btn i {
+        margin-right: 8px;
+    }
+    
+    .meeting-submit-btn:hover {
+        background-color: #D2691E;
+    }
+    
+    /* Responsive styling */
+  {
+        .meeting-card {
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
     }
 </style>
+
+
 
 <div class="page-container">
     <div class="header-container">
@@ -742,7 +845,56 @@
         }
     </div>
 </div>
+@if (User.IsInRole("Student"))
+{
+    @if (TempData["Success"] != null)
+    {
+        <div style="color: green;">@TempData["Success"]
+        </div>
+    }
+    <form asp-controller="Student" asp-action="RequestMeeting" method="post" class="meeting-request-form">
+        <div class="meeting-card">
+            <div class="meeting-header">
+                <div class="meeting-title">
+                    <i class="fas fa-calendar-alt"></i>
+                    Đặt lịch họp với giáo viên
+                </div>
+            </div>
+            <div class="meeting-body">
+                <form asp-controller="Student" asp-action="RequestMeeting" method="post">
+                    <div class="meeting-form-group">
+                        <label>
+                            <i class="fas fa-envelope"></i>
+                            Email giáo viên
+                        </label>
+                        <input type="email" name="email" placeholder="Nhập email của giáo viên" required />
+                    </div>
 
+                    <div class="meeting-form-group">
+                        <label>
+                            <i class="fas fa-comment-alt"></i>
+                            Lời nhắn
+                        </label>
+                        <textarea name="message" placeholder="Nội dung bạn muốn trao đổi" rows="3" required></textarea>
+                    </div>
+
+                    <div class="meeting-form-group">
+                        <label>
+                            <i class="fas fa-clock"></i>
+                            Thời gian
+                        </label>
+                        <input type="datetime-local" name="meetingTime" required />
+                    </div>
+
+                    <button type="submit" class="meeting-submit-btn">
+                        <i class="fas fa-paper-plane"></i>
+                        Gửi yêu cầu
+                    </button>
+                </form>
+            </div>
+        </div>
+    </form>
+}
 @section Scripts {
     <script>
         document.addEventListener('DOMContentLoaded', function () {
