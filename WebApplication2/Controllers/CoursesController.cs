@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebApplication2.Data;
 using WebApplication2.Models;
+using WebApplication2.Service;
 using WebApplication2.Utilities;
 
 [Authorize]
@@ -15,13 +16,17 @@ public class CoursesController : Controller
     private readonly AppDbContext _context;
     private readonly UserManager<Users> _userManager;
     private readonly IHubContext<NotificationHub> _hubContext;
+    private readonly IEmailService _emailService;
+    private readonly ILogger<CoursesController> _logger;
 
 
-    public CoursesController(AppDbContext context, UserManager<Users> userManager, IHubContext<NotificationHub> hubContext)
+    public CoursesController(AppDbContext context, UserManager<Users> userManager, IHubContext<NotificationHub> hubContext, IEmailService emailService, ILogger<CoursesController> logger)
     {
         _context = context;
         _userManager = userManager;
         _hubContext = hubContext;
+        _emailService = emailService;
+        _logger = logger;
     }
 
     /* public async Task<IActionResult> Index()
@@ -85,13 +90,48 @@ public class CoursesController : Controller
         return RedirectToAction(nameof(Index));
     }
 
+    //[Authorize(Roles = "Student")]
+    //public async Task<IActionResult> Join(int id)
+    //{
+    //    var student = await _userManager.GetUserAsync(User);
+    //    if (student == null) return Unauthorized();
+
+    //    var course = await _context.Courses.FindAsync(id);
+    //    if (course == null) return NotFound();
+
+    //    // Kiểm tra xem sinh viên đã tham gia khóa học chưa
+    //    var existingEnrollment = await _context.StudentCourses
+    //        .FirstOrDefaultAsync(sc => sc.StudentId == student.Id && sc.CourseId == id);
+
+    //    if (existingEnrollment == null)
+    //    {
+    //        var studentCourse = new StudentCourses
+    //        {
+    //            StudentId = student.Id,
+    //            CourseId = course.Id
+    //        };
+
+    //        _context.StudentCourses.Add(studentCourse);
+    //        await _context.SaveChangesAsync();
+    //    }
+    //    else
+    //    {
+    //        TempData["Message"] = "You have already joined this course.";
+    //    }
+
+    //    return RedirectToAction(nameof(Index));
+    //}
+
     [Authorize(Roles = "Student")]
     public async Task<IActionResult> Join(int id)
     {
         var student = await _userManager.GetUserAsync(User);
         if (student == null) return Unauthorized();
 
-        var course = await _context.Courses.FindAsync(id);
+        var course = await _context.Courses
+            .Include(c => c.Teacher)
+            .FirstOrDefaultAsync(c => c.Id == id);
+
         if (course == null) return NotFound();
 
         // Kiểm tra xem sinh viên đã tham gia khóa học chưa
@@ -108,6 +148,40 @@ public class CoursesController : Controller
 
             _context.StudentCourses.Add(studentCourse);
             await _context.SaveChangesAsync();
+
+            // Lấy thông tin giáo viên từ AspNetUsers để gửi email
+            var teacher = await _userManager.FindByIdAsync(course.TeacherId);
+            if (teacher != null && !string.IsNullOrEmpty(teacher.Email))
+            {
+                // Tạo nội dung email
+                string subject = $"Thông báo: Học viên mới tham gia khóa học {course.Name}";
+                string body = $@"
+                <h2>Thông báo từ hệ thống quản lý khóa học</h2>
+                <p>Xin chào {teacher.UserName},</p>
+                <p>Học viên <strong>{student.UserName}</strong> (Email: {student.Email}) vừa đăng ký tham gia khóa học <strong>{course.Name}</strong> của bạn.</p>
+                <p>Thời gian đăng ký: {DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss")}</p>
+                <p>Vui lòng đăng nhập vào hệ thống để xem chi tiết.</p>
+                <p>Trân trọng,<br>Hệ thống quản lý khóa học</p>
+            ";
+
+                // Gửi email thông báo cho giáo viên
+                bool emailSent = await _emailService.SendEmailAsync(teacher.Email, subject, body);
+
+                if (emailSent)
+                {
+                    _logger.LogInformation($"Notification email sent to teacher {teacher.UserName} for course {course.Name}");
+                }
+                else
+                {
+                    _logger.LogWarning($"Failed to send notification email to teacher {teacher.UserName}");
+                }
+
+                // Thêm thông báo SignalR (giữ nguyên chức năng thông báo realtime)
+                var message = $"Học viên {student.UserName} vừa tham gia khóa học {course.Name} của bạn!";
+                await _hubContext.Clients.User(course.TeacherId).SendAsync("ReceiveNotification", message);
+            }
+
+            TempData["Message"] = "You have successfully joined this course.";
         }
         else
         {
