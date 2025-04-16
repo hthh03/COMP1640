@@ -1,41 +1,108 @@
 ﻿@model IEnumerable<WebApplication2.Models.CourseRequests>
 
 @{
-    ViewData["Title"] = "Yêu cầu tham gia khóa học chờ phê duyệt";
+    ViewData["Title"] = "Pending Requests";
 }
 
-<h1>@ViewData["Title"]</h1>
+<style>
 
-@if (Model.Any())
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Học viên</th>
-                <th>Khóa học</th>
-                <th>Ngày yêu cầu</th>
-                <th>Hành động</th>
-            </tr>
-        </thead>
-        <tbody>
+.card {
+    max-width: 900px;
+    margin: 40px auto;
+    background: #fffaf7;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    padding: 25px 30px;
+    font-family: 'Segoe UI', sans-serif;
+    color: #5a2e13;
+}
+
+.header h2 {
+    font-size: 26px;
+    margin-bottom: 25px;
+    color: #d35400;
+}
+
+.student-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.list-header,
+.student-row {
+    display: grid;
+    grid-template-columns: 2fr 2fr 2fr 2fr;
+    background: #ffe6cc;
+    border-radius: 10px;
+    padding: 12px 18px;
+    font-weight: 600;
+}
+
+.student-row {
+    background: #fff1e6;
+    font-weight: normal;
+    align-items: center;
+}
+
+.btn {
+    padding: 6px 14px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    color: white;
+    margin: 0 4px;
+    display: inline-block;
+}
+
+.btn.accept {
+    background-color: #27ae60;
+}
+
+.btn.reject {
+    background-color: #e74c3c;
+}
+
+.no-request {
+    text-align: center;
+    font-style: italic;
+    color: #b34d00;
+    margin-top: 20px;
+}
+
+</style>
+
+<div class="card">
+    <div class="header">
+        <h2>📄 Pending Join Requests</h2>
+    </div>
+
+    @if (Model.Any())
+    {
+        <div class="student-list">
+            <div class="list-header">
+                <span>👤 Student</span>
+                <span>📘 Course</span>
+                <span>📅 Date</span>
+                <span>✅ Action</span>
+            </div>
+
             @foreach (var item in Model)
             {
-                <tr>
-                    <td>@item.Student.UserName</td>
-                    <td>@item.Course.Name</td>
-                    <td>@item.CreatedAt.ToString("dd/MM/yyyy HH:mm:ss")</td>
-                    <td>
-                        <div class="btn-group">
-                            <a asp-action="ApproveRequest" asp-route-id="@item.Id" class="btn btn-success">Chấp nhận</a>
-                            <a asp-action="RejectRequest" asp-route-id="@item.Id" class="btn btn-danger">Từ chối</a>
-                        </div>
-                    </td>
-                </tr>
+                <div class="student-row">
+                    <span>@item.Student.UserName</span>
+                    <span>@item.Course.Name</span>
+                    <span>@item.CreatedAt.ToString("dd/MM/yyyy HH:mm:ss")</span>
+                    <span>
+                        <a asp-action="ApproveRequest" asp-route-id="@item.Id" class="btn accept">Accept</a>
+                        <a asp-action="RejectRequest" asp-route-id="@item.Id" class="btn reject">Refuse</a>
+                    </span>
+                </div>
             }
-        </tbody>
-    </table>
-}
-else
-{
-    <p>Không có yêu cầu tham gia nào đang chờ xử lý.</p>
-}
+        </div>
+    }
+    else
+    {
+        <p class="no-request">There are no pending join requests.</p>
+    }
+</div>

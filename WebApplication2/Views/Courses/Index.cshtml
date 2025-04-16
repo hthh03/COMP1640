@@ -24,6 +24,8 @@
         --gradient-bg: linear-gradient(135deg, var(--light-orange) 0%, #ffffff 100%);
         --meeting-blue: #4A90E2;
         --meeting-blue-dark: #357ABD;
+        --pending-yellow: #FFC107;
+        --pending-dark: #FF9800;
     }
 
     body {
@@ -310,15 +312,46 @@
         cursor: pointer;
     }
 
-        .join-btn i {
-            margin-right: 0.25rem;
-        }
+    .join-form {
+        display: inline-block;
+        width: 100%;
+    }
 
-        .join-btn:hover {
-            background-color: var(--dark-orange);
-            transform: translateY(-2px);
-            box-shadow: 0 3px 8px rgba(255, 127, 36, 0.3);
-        }
+    .actions-cell {
+        position: relative;
+        z-index: 5;
+    }
+
+    .join-btn i {
+        margin-right: 0.25rem;
+    }
+
+    .join-btn:hover {
+        background-color: var(--dark-orange);
+        transform: translateY(-2px);
+        box-shadow: 0 3px 8px rgba(255, 127, 36, 0.3);
+    }
+
+    .approve-btn {
+    background-color:  #6f42c1;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    }
+
+    .approve-btn i {
+    font-size: 14px;
+    }
+
+   .approve-btn:hover {
+    background-color: #0056b3;
+    }
 
     .meeting-btn {
         padding: 0.5rem 0.75rem;
@@ -343,20 +376,72 @@
             box-shadow: 0 3px 8px rgba(74, 144, 226, 0.3);
         }
 
-    .popup {
+    .toast {
+        visibility: hidden;
         position: fixed;
-        top: 50%;
+        top: 50px;
         left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: var(--light-orange);
-        color: var(--dark-orange);
-        padding: 20px;
-        border: 1px solid var(--secondary-orange);
-        border-radius: 5px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-        text-align: center;
+        transform: translate(-50%, -50%); /* Giữa cả ngang và dọc */
+        background-color: var(--pending-yellow, #FFC107);
+        color: var(--text-dark, #333);
+        padding: 16px 20px;
+        border-radius: 10px;
         z-index: 1000;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
         font-weight: 600;
+        min-width: 280px;
+        max-width: 90%;
+        gap: 12px;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+        .toast.show {
+            visibility: visible;
+            opacity: 1;
+        }
+
+    .toast-icon {
+        font-size: 1.2rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .toast-message {
+        flex: 1;
+        text-align: left;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .toast-close {
+        background: none;
+        border: none;
+        font-size: 1.2rem;
+        cursor: pointer;
+        color: #333;
+        padding: 0;
+        margin-left: 10px;
+    }
+
+    @@keyframes fadein {
+        from {
+            opacity: 0;
+            transform: translate(-50%, -55%);
+        }
+
+        to {
+            opacity: 1;
+            transform: translate(-50%, -50%);
+        }
+    }
+
+    .toast.show {
+        animation: fadein 0.4s ease-out;
     }
 
     .hidden {
@@ -587,6 +672,13 @@
 </style>
 
 <div class="page-container">
+    <!-- Toast notification that will appear when Join is clicked -->
+    <div id="notificationToast" class="toast">
+        <span class="toast-icon"><i class="fas fa-clock"></i></span>
+        <span class="toast-message">Waiting for approval...</span>
+        <button class="toast-close" onclick="closeNotification()">×</button>
+    </div>
+
     <div class="header-container">
         <h1 class="page-title">
             <i class="fas fa-book"></i>
@@ -689,6 +781,10 @@
                                 </a>
                                 @if (User.IsInRole("Teacher"))
                                 {
+                                    <a asp-action="PendingRequests" asp-route-id="@item.Id" class="approve-btn">
+                                         <i class="fas fa-user-check"></i> 
+                                         Approve
+                                    </a>
                                     <a asp-action="Edit" asp-route-id="@item.Id" class="action-btn edit-btn">
                                         <i class="fas fa-edit"></i>
                                         Edit
@@ -704,17 +800,12 @@
                                 }
                                 @if (User.IsInRole("Student"))
                                 {
-                                    <div id="successPopup" class="popup hidden">
-                                        Join Successful!
-                                    </div>
-                                    <form asp-action="Join" asp-route-id="@item.Id" method="post" style="display:inline;" id="joinForm">
+                                    <form asp-action="Join" asp-route-id="@item.Id" method="post" class="join-form" id="joinForm-@item.Id">
                                         <button type="submit" class="join-btn">
                                             <i class="fas fa-sign-in-alt"></i>
                                             Join
                                         </button>
                                     </form>
-
-
                                 }
                             </td>
                         </tr>
@@ -743,7 +834,7 @@
 
 @section Scripts {
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+            document.addEventListener('DOMContentLoaded', function () {
             const searchInput = document.getElementById('searchInput');
             const tableRows = document.querySelectorAll('.courses-table tbody tr');
 
@@ -763,7 +854,7 @@
                 });
             });
 
-            // Handle join form submissions
+                     // Handle join form submissions
             document.querySelectorAll('form[id^="joinForm-"]').forEach(form => {
                 form.addEventListener("submit", (e) => {
                     e.preventDefault(); // Prevent actual form submission
@@ -783,6 +874,43 @@
                     }
                 });
             });
+
+            // Handle join button click
+            document.querySelectorAll('.join-btn').forEach(button => {
+                button.addEventListener('click', function(event) {
+                    const courseId = this.closest('form').id.split('-').pop();
+                    showNotification(event, this, courseId);
+                });
+            });
         });
+
+                function showNotification(event, button, courseId) {
+            // Prevent the default form submission
+            event.preventDefault();
+
+            console.log('Notification shown'); // Debugging line
+
+            // Show the toast notification
+            const toast = document.getElementById('notificationToast');
+            toast.classList.add('show'); // Ensure 'show' is added to make it visible
+
+            // Change button text to "Pending"
+            button.disabled = true;
+            button.innerHTML = '<i class="fas fa-clock"></i> Pending';
+            button.style.backgroundColor = '#FFC107';
+
+            // Get the form and submit it manually after delay
+            const form = button.closest('form');
+
+            setTimeout(function() {
+                form.submit();
+            }, 1500); // Show notification for 1.5 seconds before submitting
+        }
+
+        // Function to close the notification toast
+               function closeNotification() {
+            const toast = document.getElementById('notificationToast');
+            toast.classList.remove('show');
+        }
     </script>
 }
