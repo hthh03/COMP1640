@@ -1,0 +1,69 @@
+﻿@model List<WebApplication2.Models.MeetingRequest>
+@{
+    ViewData["Title"] = "Kiểm Tra Yêu Cầu Họp";
+    Layout = "_Layout";
+}
+
+<h2>Kiểm Tra Yêu Cầu Họp</h2>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Success"]
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+}
+
+@if (Model.Any())
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Teacher</th>
+                <th>Topic</th>
+                <th>Message</th>
+                <th>Time</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var request in Model)
+            {
+                <tr>
+                    <td>@request.StudentEmail</td>
+                    <td>@request.Topic</td>
+                    <td>@request.Message</td>
+                    <td>@request.MeetingTime.ToLocalTime()</td>
+                    <td>@request.Status</td>
+                    <td>
+                        @if (request.Status == "Pending")
+                        {
+                            <form asp-action="UpdateMeetingRequest" method="post" style="display:inline;">
+                                <input type="hidden" name="id" value="@request.Id" />
+                                <button type="submit" name="status" value="Accepted" class="btn btn-success btn-sm">Accept</button>
+                                <button type="submit" name="status" value="Rejected" class="btn btn-danger btn-sm">Denied</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <span>Done</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Không có yêu cầu họp nào.</p>
+}
+
+<a asp-action="Dashboard" class="btn btn-primary">Return Dashboard</a>

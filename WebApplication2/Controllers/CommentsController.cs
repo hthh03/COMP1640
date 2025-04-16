@@ -89,6 +89,7 @@ namespace WebApplication2.Controllers
         }
 
         // GET: Comments/Edit/5
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -102,7 +103,7 @@ namespace WebApplication2.Controllers
                 return NotFound();
             }
             ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "Content", comment.PostId);
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", comment.UserId);
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "FullName", comment.UserId);
             return View(comment);
         }
 
