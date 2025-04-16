@@ -288,7 +288,7 @@
         <div class="col-lg-8 col-md-10 col-sm-12">
             <div class="page-header">
                 <i class="fas fa-pen-fancy header-icon"></i>
-                <h1 class="fw-bold" style="color: var(--text-dark);">Create New Post</h1>
+                <h1 class="fw-bold" style="color: var(--text-dark);">Create New Blog</h1>
             </div>
 
             <div class="form-card card shadow border-0">
@@ -297,7 +297,7 @@
 
                 <div class="card-header bg-soft-orange text-center">
                     <h2 class="card-title text-dark mb-0 fw-bold" style="color: var(--primary-color);">
-                        <i class="fas fa-file-alt me-2"></i>Post Information
+                        <i class="fas fa-file-alt me-2"></i>Blog Information
                     </h2>
                 </div>
 
@@ -314,7 +314,7 @@
                                     <i class="fas fa-pencil-alt"></i>
                                 </span>
                                 <input asp-for="Title" class="form-control form-control-lg"
-                                       placeholder="Enter post title..." maxlength="100" />
+                                       placeholder="Enter Blog title..." maxlength="100" />
                             </div>
                             <div class="field-hint">
                                 <i class="fas fa-info-circle me-1"></i>The title should be concise and engaging
@@ -334,10 +334,10 @@
                                     <i class="fas fa-quote-right"></i>
                                 </span>
                                 <textarea asp-for="Description" class="form-control form-control-lg"
-                                          rows="4" placeholder="Short description of the post..." maxlength="1000"></textarea>
+                                          rows="4" placeholder="Short description of the Blog..." maxlength="1000"></textarea>
                             </div>
                             <div class="field-hint">
-                                <i class="fas fa-lightbulb me-1"></i>Summarize the main content of the post
+                                <i class="fas fa-lightbulb me-1"></i>Summarize the main content of the Blog
                             </div>
                             <div class="character-count">
                                 <span id="descCount">0/1000</span> characters
@@ -361,7 +361,7 @@
                             </a>
                             <button type="submit" class="btn btn-primary">
                                 <i class="fas fa-paper-plane"></i>
-                                <span>Publish Post</span>
+                                <span>Publish Blog</span>
                             </button>
                         </div>
                     </form>

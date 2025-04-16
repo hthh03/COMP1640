@@ -949,9 +949,9 @@
                                     <div class="user-avatar">
                                         <i class="far fa-user"></i>
                                     </div>
-                                    @if (item.User != null && item.User.Id != null && item.User.Id.Length > 5)
+                                    @if (item.User != null && item.User.Id != null && item.User.Id.Length > 10)
                                     {
-                                        <span class="user-id">@item.User.Id.Substring(0, 5)...</span>
+                                        <span class="user-id">@item.User.FullName.Substring(0, 10)...</span>
                                     }
                                     else
                                     {

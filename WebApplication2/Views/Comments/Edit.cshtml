@@ -628,6 +628,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="CommentId" />
 
+            <!-- Content -->
             <div class="form-group">
                 <label asp-for="Content">
                     <i class="fas fa-comment"></i> Comment Content
@@ -640,6 +641,7 @@
                 <span asp-validation-for="Content" class="text-danger"></span>
             </div>
 
+            <!-- Post -->
             <div class="form-group">
                 <label asp-for="PostId">
                     <i class="fas fa-file-alt"></i> Post
@@ -650,6 +652,7 @@
                 <span asp-validation-for="PostId" class="text-danger"></span>
             </div>
 
+            <!-- User -->
             <div class="form-group">
                 <label asp-for="UserId">
                     <i class="fas fa-user"></i> User
@@ -660,31 +663,30 @@
                 <span asp-validation-for="UserId" class="text-danger"></span>
             </div>
 
+            <!-- CreatedAt -->
             <div class="form-group">
                 <label asp-for="CreatedAt">
                     <i class="fas fa-calendar-plus"></i> Created Date
                 </label>
-                <div class="date-input-wrapper">
-                    <input asp-for="CreatedAt" class="form-control" type="datetime-local" />
-
-                </div>
+                <input asp-for="CreatedAt" class="form-control" type="datetime-local" />
                 <span asp-validation-for="CreatedAt" class="text-danger"></span>
             </div>
 
+            <!-- UpdatedAt -->
             <div class="form-group">
                 <label asp-for="UpdatedAt">
                     <i class="fas fa-calendar-check"></i> Updated Date
                 </label>
-                <div class="date-input-wrapper">
-                    <input asp-for="UpdatedAt" class="form-control" type="datetime-local" />
-                </div>
+                <input asp-for="UpdatedAt" class="form-control" type="datetime-local" />
                 <span asp-validation-for="UpdatedAt" class="text-danger"></span>
             </div>
 
+            <!-- Help Text -->
             <div class="form-help">
                 <i class="fas fa-info-circle"></i> Comment content cannot exceed 500 words. Fields with (*) are required.
             </div>
 
+            <!-- Action Buttons -->
             <div class="form-actions">
                 <button type="submit" class="btn btn-primary">
                     <i class="fas fa-save"></i> Save Changes
@@ -696,7 +698,7 @@
         </form>
     </div>
 
-    <div class="text-center" style="margin-top: 20px;">
+    <div class="text-center mt-3">
         <a asp-action="Index" class="back-link">
             <i class="fas fa-arrow-left"></i> Back to List
         </a>
@@ -737,13 +739,11 @@
             }
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const textArea = document.getElementById('commentContent');
             updateWordCounter();
             textArea.addEventListener('input', updateWordCounter);
-            textArea.addEventListener('paste', function() {
-                setTimeout(updateWordCounter, 0);
-            });
+            textArea.addEventListener('paste', () => setTimeout(updateWordCounter, 0));
         });
     </script>
 }
