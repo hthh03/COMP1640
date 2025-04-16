@@ -1,0 +1,41 @@
+﻿@model IEnumerable<WebApplication2.Models.CourseRequests>
+
+@{
+    ViewData["Title"] = "Yêu cầu tham gia khóa học chờ phê duyệt";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@if (Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Học viên</th>
+                <th>Khóa học</th>
+                <th>Ngày yêu cầu</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Student.UserName</td>
+                    <td>@item.Course.Name</td>
+                    <td>@item.CreatedAt.ToString("dd/MM/yyyy HH:mm:ss")</td>
+                    <td>
+                        <div class="btn-group">
+                            <a asp-action="ApproveRequest" asp-route-id="@item.Id" class="btn btn-success">Chấp nhận</a>
+                            <a asp-action="RejectRequest" asp-route-id="@item.Id" class="btn btn-danger">Từ chối</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Không có yêu cầu tham gia nào đang chờ xử lý.</p>
+}

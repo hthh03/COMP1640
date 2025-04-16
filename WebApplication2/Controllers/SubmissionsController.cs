@@ -11,12 +11,12 @@ using WebApplication2.Models;
 using Microsoft.AspNetCore.Http;
 
 [Authorize(Roles = "Student")]
-public class SubmissionController : Controller
+public class SubmissionsController : Controller
 {
     private readonly AppDbContext _context;
     private readonly UserManager<Users> _userManager;
 
-    public SubmissionController(AppDbContext context, UserManager<Users> userManager)
+    public SubmissionsController(AppDbContext context, UserManager<Users> userManager)
     {
         _context = context;
         _userManager = userManager;
