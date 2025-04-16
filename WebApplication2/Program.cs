@@ -6,6 +6,7 @@ using WebApplication2.Utilities;
 using WebApplication2.Hubs;
 using Microsoft.AspNetCore.Http.Features;
 using WebApplication2.Services;
+using WebApplication2.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSignalR();
@@ -33,6 +34,8 @@ builder.Services.AddIdentity<Users, IdentityRole>(options =>
 // Thêm Authorization
 builder.Services.AddAuthorization();
 builder.Services.AddScoped<MessageService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
+
 // Thêm Controllers với Views
 builder.Services.AddControllersWithViews();
 
