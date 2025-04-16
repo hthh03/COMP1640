@@ -8,18 +8,22 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 
-namespace LoginDemo.Controllers
+using WebApplication2.Service;
+
+namespace WebApplication2.Controllers
 {
     // [Authorize(Roles = "Admin")] // Chỉ Admin mới truy cập được
     public class AdminController : Controller
     {
         private readonly UserManager<Users> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
+        private readonly IEmailService _emailService;
 
-        public AdminController(UserManager<Users> userManager, RoleManager<IdentityRole> roleManager)
+        public AdminController(UserManager<Users> userManager, RoleManager<IdentityRole> roleManager, IEmailService emailService)
         {
             this.userManager = userManager;
             this.roleManager = roleManager;
+            _emailService = emailService;
         }
 
         // Hiển thị danh sách người dùng với tính năng tìm kiếm và lọc
@@ -98,10 +102,62 @@ namespace LoginDemo.Controllers
         }
 
         // Tạo người dùng mới với Role Student/Teacher
+        //[HttpPost]
+        //public async Task<IActionResult> CreateUser(string FullName, string Email, string Password, string Role)
+        //{
+        //    // Kiểm tra dữ liệu đầu vào
+        //    if (string.IsNullOrWhiteSpace(FullName) || string.IsNullOrWhiteSpace(Email) ||
+        //        string.IsNullOrWhiteSpace(Password) || string.IsNullOrWhiteSpace(Role))
+        //    {
+        //        TempData["Error"] = "All fields are required!";
+        //        return RedirectToAction("Index");
+        //    }
+
+        //    // Kiểm tra xem Email đã tồn tại chưa
+        //    var existingUser = await userManager.FindByEmailAsync(Email);
+        //    if (existingUser != null)
+        //    {
+        //        TempData["Error"] = $"Email {Email} already exists!";
+        //        return RedirectToAction("Index");
+        //    }
+
+        //    // Kiểm tra Role hợp lệ trước khi tạo
+        //    if (!await roleManager.RoleExistsAsync(Role))
+        //    {
+        //        var newRole = new IdentityRole(Role);
+        //        await roleManager.CreateAsync(newRole);
+        //    }
+
+        //    var user = new Users
+        //    {
+        //        UserName = Email,
+        //        Email = Email,
+        //        FullName = FullName,
+        //        Role = Role // Gán Role vào User
+        //    };
+
+        //    var result = await userManager.CreateAsync(user, Password);
+
+        //    if (result.Succeeded)
+        //    {
+        //        await userManager.AddToRoleAsync(user, Role);
+        //        await userManager.UpdateAsync(user);
+
+        //        TempData["Success"] = "User created successfully!";
+        //    }
+        //    else
+        //    {
+        //        TempData["Error"] = string.Join(", ", result.Errors.Select(e => e.Description));
+        //    }
+
+        //    return RedirectToAction("Index");
+        //}
+
+        // Tạo người dùng mới với Role Student/Teacher
+
         [HttpPost]
         public async Task<IActionResult> CreateUser(string FullName, string Email, string Password, string Role)
         {
-            // Kiểm tra dữ liệu đầu vào
             if (string.IsNullOrWhiteSpace(FullName) || string.IsNullOrWhiteSpace(Email) ||
                 string.IsNullOrWhiteSpace(Password) || string.IsNullOrWhiteSpace(Role))
             {
@@ -109,7 +165,6 @@ namespace LoginDemo.Controllers
                 return RedirectToAction("Index");
             }
 
-            // Kiểm tra xem Email đã tồn tại chưa
             var existingUser = await userManager.FindByEmailAsync(Email);
             if (existingUser != null)
             {
@@ -117,7 +172,6 @@ namespace LoginDemo.Controllers
                 return RedirectToAction("Index");
             }
 
-            // Kiểm tra Role hợp lệ trước khi tạo
             if (!await roleManager.RoleExistsAsync(Role))
             {
                 var newRole = new IdentityRole(Role);
@@ -129,7 +183,7 @@ namespace LoginDemo.Controllers
                 UserName = Email,
                 Email = Email,
                 FullName = FullName,
-                Role = Role // Gán Role vào User
+                Role = Role
             };
 
             var result = await userManager.CreateAsync(user, Password);
@@ -139,7 +193,11 @@ namespace LoginDemo.Controllers
                 await userManager.AddToRoleAsync(user, Role);
                 await userManager.UpdateAsync(user);
 
-                TempData["Success"] = "User created successfully!";
+                // ✅ Gửi email thông báo
+                await _emailService.SendEmailAsync(user.Email, "Tài khoản đã được tạo",
+                    $"Chào {FullName},<br/><br/>Tài khoản của bạn đã được tạo thành công với vai trò <b>{Role}</b>.<br/><br/>Thông tin đăng nhập:<br/>Email: {Email}<br/>Mật khẩu: (đã được đặt khi tạo)<br/><br/>Vui lòng đăng nhập để bắt đầu.");
+
+                TempData["Success"] = "User created and email sent successfully!";
             }
             else
             {
