@@ -278,6 +278,9 @@ namespace WebApplication2.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int?>("Grade")
+                        .HasColumnType("integer");
+
                     b.Property<string>("StudentId")
                         .IsRequired()
                         .HasColumnType("text");

@@ -12,13 +12,8 @@ using WebApplication2.Data;
 namespace WebApplication2.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-<<<<<<<< HEAD:WebApplication2/Migrations/20250416134919_MeetingRequest12.Designer.cs
-    [Migration("20250416134919_MeetingRequest12")]
-    partial class MeetingRequest12
-========
-    [Migration("20250416135218_UpdateMeetingRequests")]
-    partial class UpdateMeetingRequests
->>>>>>>> 863482963130725ae7979d5e392c5f8cd6d8a4f5:WebApplication2/Migrations/20250416135218_UpdateMeetingRequests.Designer.cs
+    [Migration("20250417005429_AddScore")]
+    partial class AddScore
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -285,6 +280,9 @@ namespace WebApplication2.Migrations
                     b.Property<string>("FilePath")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<int?>("Grade")
+                        .HasColumnType("integer");
 
                     b.Property<string>("StudentId")
                         .IsRequired()
