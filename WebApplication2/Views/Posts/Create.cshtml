@@ -1,50 +1,68 @@
 ﻿@model WebApplication2.Models.Post
-
 @{
     ViewData["Title"] = "Create New Post";
 }
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-<link rel="stylesheet" href="~/css/post-create.css" />
-
-<div class="container mt-5">
-    <div class="card shadow-lg">
-        <div class="card-header bg-primary text-white">
-            <h2 class="mb-0">Create New Post</h2>
-        </div>
-        <div class="card-body">
-            <form asp-action="Create" method="post" id="createPostForm">
-                <div class="mb-3">
-                    <label asp-for="Title" class="form-label">Title</label>
-                    <input asp-for="Title" class="form-control" placeholder="Enter post title" />
-                    <span asp-validation-for="Title" class="text-danger"></span>
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-white">
+                    <h3 style="color: #ff7846;">
+                        <i class="fa fa-pen" style="color: #ff7846;"></i> Create New Post
+                    </h3>
                 </div>
-
-                <div class="mb-3">
-                    <label asp-for="Content" class="form-label">Content</label>
-                    <textarea asp-for="Content" class="form-control" rows="5" placeholder="Write your post content here..."></textarea>
-                    <span asp-validation-for="Content" class="text-danger"></span>
+                <div class="card-body">
+                    <form asp-action="Create" method="post" id="createPostForm">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="mb-3">
+                            <label class="form-label" style="color: #ff7846;">Post Title</label>
+                            <div class="input-group">
+                                <span class="input-group-text" style="color: #ff7846;">T</span>
+                                <input asp-for="Title" class="form-control" placeholder="Enter post title" />
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <span asp-validation-for="Title" class="text-danger"></span>
+                                <small class="text-muted">0/100</small>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" style="color: #ff7846;">Post Content</label>
+                            <div class="input-group">
+                                <span class="input-group-text" style="color: #ff7846;">≡</span>
+                                <textarea asp-for="Content" class="form-control" rows="5" placeholder="Write your post content here..."></textarea>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <span asp-validation-for="Content" class="text-danger"></span>
+                                <small class="text-muted">0/1000</small>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" style="color: #ff7846;">Select Blog</label>
+                            <div class="input-group">
+                                <span class="input-group-text" style="color: #ff7846;"><i class="fa fa-book"></i></span>
+                                <select asp-for="BlogId" class="form-select" asp-items="ViewBag.BlogId">
+                                    <option value="">-- Select Blog --</option>
+                                </select>
+                            </div>
+                            <span asp-validation-for="BlogId" class="text-danger"></span>
+                        </div>
+                        <div class="d-flex justify-content-between mt-4">
+                            <a asp-action="Index" class="btn btn-outline-secondary">
+                                <i class="fa-solid fa-arrow-left me-2"></i> Back to List
+                            </a>
+                            <button type="submit" class="btn text-white" style="background-color: #ff7846;">
+                                <i class="fa-solid fa-plus me-2"></i> Create Post
+                            </button>
+                        </div>
+                    </form>
                 </div>
-
-                <div class="mb-3">
-                    <label asp-for="BlogId" class="form-label">Blog</label>
-                    <select asp-for="BlogId" class="form-select" asp-items="ViewBag.BlogId">
-                        <option value="">-- Select Blog --</option>
-                    </select>
-                    <span asp-validation-for="BlogId" class="text-danger"></span>
-                </div>
-
-                <button type="submit" class="btn btn-success">Create</button>
-                <a asp-action="Index" class="btn btn-secondary">Cancel</a>
-            </form>
+            </div>
         </div>
     </div>
 </div>
-
 @section Scripts {
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/4.0.0/jquery.validate.unobtrusive.min.js"></script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
     <script src="~/js/post-create.js"></script>
 }

@@ -4,7 +4,8 @@
 }
 
 <!-- Font Awesome -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
 
 <style>
     /* Main color variables (aligned with Blog Posts page) */
@@ -570,6 +571,71 @@
         margin-bottom: 1.25rem;
     }
 
+    .meeting-form-card {
+        background: #fffaf5; /* same as card above */
+        padding: 30px 35px;
+        border-radius: 16px;
+        max-width: 1000px;
+        margin: 40px auto;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05); /* mềm như card phía trên */
+        font-family: 'Segoe UI', sans-serif;
+        border-top: 5px solid #ff7a59; /* line top cam đậm */
+    }
+
+    .form-header {
+        font-size: 22px;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 25px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    input[type="email"],
+    textarea,
+    input[type="datetime-local"] {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 10px 14px;
+        width: 100%;
+        font-size: 15px;
+    }
+
+        input:focus,
+        textarea:focus {
+            border-color: #ff7a59;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(255, 122, 89, 0.2);
+        }
+
+    .form-actions {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 25px;
+    }
+
+    .btn-back {
+        background-color: #f6f6f6;
+        color: #555;
+        padding: 10px 20px;
+        border-radius: 8px;
+        border: none;
+    }
+
+    .btn-submit {
+        background-color: #ff7a59;
+        color: white;
+        padding: 10px 24px;
+        border-radius: 8px;
+        border: none;
+        font-weight: 600;
+    }
+
+        .btn-submit:hover {
+            background-color: #ff5722;
+        }
+
     /* Responsive styles */
     @@media (max-width: 992px) {
         .courses-table th, .courses-table td {
@@ -936,56 +1002,50 @@
         }
     </div>
 </div>
+
 @if (User.IsInRole("Student"))
 {
     @if (TempData["Success"] != null)
     {
-        <div style="color: green;">@TempData["Success"]
-        </div>
+        <div style="color: green;">@TempData["Success"]</div>
     }
-    <form asp-controller="Student" asp-action="RequestMeeting" method="post" class="meeting-request-form">
-        <div class="meeting-card">
-            <div class="meeting-header">
-                <div class="meeting-title">
-                    <i class="fas fa-calendar-alt"></i>
-                    Đặt lịch họp với giáo viên
+
+    <div class="meeting-form-card">
+        <h2 class="form-header">
+            <i class="fas fa-calendar-check"></i> Meeting Request
+        </h2>
+
+        <form asp-controller="Student" asp-action="RequestMeeting" method="post" class="meeting-form">
+            <div class="form-field">
+                <label for="email"><i class="fas fa-envelope"></i> Teacher's Email</label>
+                <div class="input-wrapper">
+                    <input type="email" name="email" id="email" placeholder="Enter teacher's email..." required />
                 </div>
+                <small class="form-hint">Make sure the email is correct</small>
             </div>
-            <div class="meeting-body">
-                <form asp-controller="Student" asp-action="RequestMeeting" method="post">
-                    <div class="meeting-form-group">
-                        <label>
-                            <i class="fas fa-envelope"></i>
-                            Email giáo viên
-                        </label>
-                        <input type="email" name="email" placeholder="Nhập email của giáo viên" required />
-                    </div>
 
-                    <div class="meeting-form-group">
-                        <label>
-                            <i class="fas fa-comment-alt"></i>
-                            Lời nhắn
-                        </label>
-                        <textarea name="message" placeholder="Nội dung bạn muốn trao đổi" rows="3" required></textarea>
-                    </div>
-
-                    <div class="meeting-form-group">
-                        <label>
-                            <i class="fas fa-clock"></i>
-                            Thời gian
-                        </label>
-                        <input type="datetime-local" name="meetingTime" required />
-                    </div>
-
-                    <button type="submit" class="meeting-submit-btn">
-                        <i class="fas fa-paper-plane"></i>
-                        Gửi yêu cầu
-                    </button>
-                </form>
+            <div class="form-field">
+                <label for="message"><i class="fas fa-comment-dots"></i> Message</label>
+                <div class="textarea-wrapper">
+                    <textarea name="message" id="message" placeholder="What would you like to discuss?" rows="4" required></textarea>
+                </div>
+                <small class="form-hint">Provide some context for the meeting</small>
             </div>
-        </div>
-    </form>
+
+            <div class="form-field">
+                <label for="meetingTime"><i class="fas fa-clock"></i> Meeting Time</label>
+                <input type="datetime-local" name="meetingTime" id="meetingTime" required />
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-submit">
+                    <i class="fas fa-paper-plane"></i> Send Request
+                </button>
+            </div>
+        </form>
+    </div>
 }
+
 @section Scripts {
     <script>
             document.addEventListener('DOMContentLoaded', function () {
