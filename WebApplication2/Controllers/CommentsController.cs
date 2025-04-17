@@ -64,7 +64,7 @@ namespace WebApplication2.Controllers
         public IActionResult Create()
         {
             ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "Content");
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "FullName");
             return View();
         }
 

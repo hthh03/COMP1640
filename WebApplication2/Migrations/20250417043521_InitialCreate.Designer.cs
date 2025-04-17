@@ -12,8 +12,8 @@ using WebApplication2.Data;
 namespace WebApplication2.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250409093523_UpdateTable2")]
-    partial class UpdateTable2
+    [Migration("20250417043521_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -65,6 +65,9 @@ namespace WebApplication2.Migrations
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<bool>("IsApproved")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -245,7 +248,7 @@ namespace WebApplication2.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("StudentCourse", b =>
+            modelBuilder.Entity("StudentCourses", b =>
                 {
                     b.Property<string>("StudentId")
                         .HasColumnType("text");
@@ -277,6 +280,9 @@ namespace WebApplication2.Migrations
                     b.Property<string>("FilePath")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<int?>("Grade")
+                        .HasColumnType("integer");
 
                     b.Property<string>("StudentId")
                         .IsRequired()
@@ -393,6 +399,76 @@ namespace WebApplication2.Migrations
                     b.HasIndex("TeacherId");
 
                     b.ToTable("CourseRequests");
+                });
+
+            modelBuilder.Entity("WebApplication2.Models.MeetingRequest", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("MeetingTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("PreferredTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("RequestDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("StudentEmail")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("TeacherEmail")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Topic")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MeetingRequests");
+                });
+
+            modelBuilder.Entity("WebApplication2.Models.Message", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ReceiverId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("SenderId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("SentDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("WebApplication2.Models.Post", b =>
@@ -575,7 +651,7 @@ namespace WebApplication2.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("StudentCourse", b =>
+            modelBuilder.Entity("StudentCourses", b =>
                 {
                     b.HasOne("Course", "Course")
                         .WithMany("StudentCourses")

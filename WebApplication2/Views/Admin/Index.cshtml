@@ -5,13 +5,22 @@
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h2><i class="fas fa-user-shield"></i> Admin Dashboard</h2>
-        <a asp-controller="Courses" asp-action="pendingapprovals" class="btn btn-primary me-2">
-            <i class="fas fa-check-circle"></i> Approve Courses
-        </a>
-        <a asp-action="CreateUser" class="btn btn-success">
-            <i class="fas fa-user-plus"></i> Add New User
-        </a>
+        <div>
+            <a asp-controller="Courses" asp-action="pendingapprovals" class="btn btn-primary me-2">
+                <i class="fas fa-check-circle"></i> Approve Courses
+            </a>
+            <a asp-action="CreateUser" class="btn btn-success me-2">
+                <i class="fas fa-user-plus"></i> Add New User
+            </a>
+            <a asp-controller="Student" asp-action="Dashboard" class="btn btn-info me-2">
+                <i class="fas fa-user-graduate"></i> View Student Dashboard
+            </a>
+            <a asp-controller="Teacher" asp-action="Dashboard" class="btn btn-warning">
+                <i class="fas fa-chalkboard-teacher"></i> View Teacher Dashboard
+            </a>
+        </div>
     </div>
+
 
     @if (TempData["Success"] != null)
     {
