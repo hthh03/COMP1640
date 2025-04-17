@@ -10,7 +10,7 @@ using WebApplication2.Data;
 using WebApplication2.Models;
 using Microsoft.AspNetCore.Http;
 
-[Authorize(Roles = "Student")]
+//[Authorize(Roles = "Student")]
 public class SubmissionsController : Controller
 {
     private readonly AppDbContext _context;
@@ -62,6 +62,37 @@ public class SubmissionsController : Controller
         _context.Submissions.Add(submission);
         await _context.SaveChangesAsync();
 
-        return RedirectToAction("Index", "Assignment", new { courseId = assignmentId });
+        return RedirectToAction("Index", "Assignments", new { courseId = assignmentId });
     }
+
+    //Xem các nộp bài
+
+    [Authorize(Roles = "Teacher")]
+    public async Task<IActionResult> ViewSubmissions(int assignmentId)
+    {
+        var submissions = await _context.Submissions
+            .Include(s => s.Student)
+            .Where(s => s.AssignmentId == assignmentId)
+            .ToListAsync();
+
+        ViewBag.AssignmentId = assignmentId;
+        return View(submissions);
+    }
+
+    //Chấm điểm
+
+    [HttpPost]
+    [Authorize(Roles = "Teacher")]
+    public async Task<IActionResult> Grade(int submissionId, int grade)
+    {
+        var submission = await _context.Submissions.FindAsync(submissionId);
+        if (submission == null) return NotFound();
+
+        submission.Grade = grade;
+        await _context.SaveChangesAsync();
+
+        return RedirectToAction("ViewSubmissions", new { assignmentId = submission.AssignmentId });
+    }
+
+
 }

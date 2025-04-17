@@ -1,0 +1,38 @@
+﻿@using WebApplication2.Models
+@model IEnumerable<Submission>
+
+@{
+    ViewData["Title"] = "Danh sách bài nộp";
+}
+
+<h2>Bài nộp cho Assignment @ViewBag.AssignmentId</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Sinh viên</th>
+            <th>File</th>
+            <th>Thời gian nộp</th>
+            <th>Điểm</th>
+            <th>Chấm điểm</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Student.UserName</td>
+                <td><a href="@item.FilePath" target="_blank">Tải file</a></td>
+                <td>@item.SubmittedAt.ToLocalTime().ToString("g")</td>
+                <td>@(item.Grade.HasValue ? item.Grade.ToString() : "Chưa chấm")</td>
+                <td>
+                    <form asp-action="Grade" method="post">
+                        <input type="hidden" name="submissionId" value="@item.Id" />
+                        <input type="number" name="grade" min="0" max="100" class="form-control" style="width: 80px; display: inline-block;" />
+                        <button type="submit" class="btn btn-sm btn-primary">Lưu</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

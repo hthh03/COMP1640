@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace WebApplication2.Migrations
 {
     /// <inheritdoc />
-    public partial class UpdateMeetingRequests : Migration
+    public partial class MeetingRequest : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

@@ -9,4 +9,6 @@ public class Submission
     public Assignment Assignment { get; set; }
     public string FilePath { get; set; } // Lưu đường dẫn file nộp bài
     public DateTime SubmittedAt { get; set; }
+
+    public int? Grade { get; set; } // Điểm bài nộp
 }

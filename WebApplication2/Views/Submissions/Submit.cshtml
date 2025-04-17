@@ -1,0 +1,159 @@
+﻿@model Submission
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nộp Bài</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+
+        h2 {
+            color: #3a3a3a;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eaeaea;
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .file-upload {
+            border: 2px dashed #ddd;
+            border-radius: 6px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .file-upload:hover {
+            border-color: #007bff;
+            background-color: #f8f9ff;
+        }
+
+        .upload-icon {
+            font-size: 40px;
+            color: #007bff;
+            margin-bottom: 15px;
+        }
+
+        .file-input {
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .file-name {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .btn-submit {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .btn-submit:hover {
+            background-color: #0069d9;
+        }
+
+        .validation-error {
+            color: #dc3545;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .info-box {
+            background-color: #e9f7fe;
+            border-left: 4px solid #007bff;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+
+        .info-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Nộp Bài Tập</h2>
+
+        <div class="info-box">
+            <div class="info-title">Thông tin bài tập</div>
+            <p>Mã bài tập: @ViewBag.AssignmentId</p>
+        </div>
+
+        <form asp-action="Submit" asp-controller="Submissions" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="assignmentId" value="@ViewBag.AssignmentId" />
+
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div class="validation-error">
+                    @Html.ValidationSummary()
+                </div>
+            }
+
+            <div class="form-group">
+                <label for="file">Chọn file để nộp</label>
+                <div class="file-upload">
+                    <div class="upload-icon">📎</div>
+                    <p>Kéo thả file vào đây hoặc nhấn để chọn file</p>
+                    <input type="file" name="file" id="file" class="file-input" onchange="updateFileName(this)" />
+                    <div class="file-name" id="fileName"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn-submit">Nộp Bài</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function updateFileName(input) {
+            const fileName = input.files[0] ? input.files[0].name : '';
+            document.getElementById('fileName').textContent = fileName;
+        }
+    </script>
+</body>
+</html>
