@@ -2,37 +2,145 @@
 @model IEnumerable<Submission>
 
 @{
-    ViewData["Title"] = "Danh sách bài nộp";
+    ViewData["Title"] = "List Submit";
 }
 
-<h2> Assignment @ViewBag.AssignmentId</h2>
+<div class="submission-list-container">
+    <h2 class="page-title"><i class="fas fa-list-alt"></i> Assignment @ViewBag.AssignmentId</h2>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Student</th>
-            <th>File</th>
-            <th>DeadLine</th>
-            <th>Score</th>
-            <th>Mark Score</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+    <table class="submission-table">
+        <thead>
             <tr>
-                <td>@item.Student.UserName</td>
-                <td><a href="@item.FilePath" target="_blank">Up file</a></td>
-                <td>@item.SubmittedAt.ToLocalTime().ToString("g")</td>
-                <td>@(item.Grade.HasValue ? item.Grade.ToString() : "Chưa chấm")</td>
-                <td>
-                    <form asp-action="Grade" method="post">
-                        <input type="hidden" name="submissionId" value="@item.Id" />
-                        <input type="number" name="grade" min="0" max="100" class="form-control" style="width: 80px; display: inline-block;" />
-                        <button type="submit" class="btn btn-sm btn-primary">Save</button>
-                    </form>
-                </td>
+                <th>👤 Student</th>
+                <th>📎 File</th>
+                <th>🕒 Submitted At</th>
+                <th>📝 Score</th>
+                <th>🎯 Mark</th>
             </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Student.UserName</td>
+                    <td><a href="@item.FilePath" target="_blank" class="file-link">View File</a></td>
+                    <td>@item.SubmittedAt.ToLocalTime().ToString("g")</td>
+                    <td>@(item.Grade.HasValue ? item.Grade.ToString() : "Not Graded")</td>
+                    <td>
+                        <form asp-action="Grade" method="post" class="grade-form">
+                            <input type="hidden" name="submissionId" value="@item.Id" />
+                            <input type="number" name="grade" min="0" max="100" class="score-input" />
+                            <button type="submit" class="btn-grade">
+                                <i class="fas fa-check-circle"></i> Save
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<style>
+    .submission-list-container {
+        max-width: 1000px;
+        margin: 40px auto;
+        padding: 30px;
+        background: #fffaf5;
+        border-radius: 12px;
+        box-shadow: 0 6px 25px rgba(0, 0, 0, 0.07);
+        border-top: 6px solid #ff7e5f;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .page-title {
+        font-size: 24px;
+        margin-bottom: 25px;
+        color: #333;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .submission-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .submission-table thead th {
+        background-color: #fff1e6;
+        color: #333;
+        padding: 12px;
+        text-align: left;
+        font-weight: 600;
+        border-bottom: 2px solid #ffd6c4;
+    }
+
+    .submission-table tbody td {
+        padding: 12px;
+        border-bottom: 1px solid #f0e0d6;
+        vertical-align: middle;
+    }
+
+    .submission-table tbody tr:hover {
+        background-color: #fff5f0;
+    }
+
+    .file-link {
+        color: #ff7e5f;
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    .file-link:hover {
+        text-decoration: underline;
+    }
+
+    .grade-form {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .score-input {
+        width: 70px;
+        padding: 6px 8px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        background: #fff;
+    }
+
+    .btn-grade {
+        background-color: #ff7e5f;
+        color: white;
+        border: none;
+        padding: 8px 14px;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-grade:hover {
+        background-color: #ff6243;
+    }
+
+    @@media (max-width: 768px) {
+        .submission-list-container {
+            padding: 20px;
         }
-    </tbody>
-</table>
+
+        .grade-form {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .btn-grade {
+            margin-top: 6px;
+        }
+    }
+</style>

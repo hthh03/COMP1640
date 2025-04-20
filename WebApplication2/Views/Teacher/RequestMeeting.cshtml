@@ -1,69 +1,176 @@
 ﻿@model List<WebApplication2.Models.MeetingRequest>
 @{
-    ViewData["Title"] = "Kiểm Tra Yêu Cầu Họp";
+    ViewData["Title"] = "Check Meeting Request";
     Layout = "_Layout";
 }
+<style>
+    .card {
+        max-width: 900px;
+        margin: 40px auto;
+        background: #fffaf7;
+        border-radius: 20px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        padding: 25px 30px;
+        font-family: 'Segoe UI', sans-serif;
+        color: #5a2e13;
+    }
 
-<h2>Kiểm Tra Yêu Cầu Họp</h2>
+    .header h2 {
+        font-size: 26px;
+        margin-bottom: 25px;
+        color: #d35400;
+    }
 
-@if (TempData["Success"] != null)
-{
-    <div class="alert alert-success">
-        @TempData["Success"]
+    .meeting-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .list-header,
+    .meeting-row {
+        display: grid;
+        grid-template-columns: 2fr 2fr 2fr 2fr;
+        background: #ffe6cc;
+        border-radius: 10px;
+        padding: 12px 18px;
+        font-weight: 600;
+    }
+
+    .meeting-row {
+        background: #fff1e6;
+        font-weight: normal;
+        align-items: center;
+    }
+
+    .btn {
+        padding: 6px 14px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        color: white;
+        margin: 0 4px;
+        display: inline-block;
+        border: none;
+        cursor: pointer;
+    }
+
+        .btn.accept {
+            background-color: #27ae60;
+        }
+
+        .btn.reject {
+            background-color: #e74c3c;
+        }
+
+    .no-request {
+        text-align: center;
+        font-style: italic;
+        color: #b34d00;
+        margin-top: 20px;
+    }
+
+    .alert {
+        padding: 10px 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+
+    .alert-success {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+    }
+
+    .alert-danger {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+    }
+
+    .action-buttons {
+        display: flex;
+        justify-content: flex-start;
+        margin-top: 25px;
+    }
+
+    .dashboard-btn {
+        background-color: #3498db;
+        color: white;
+        padding: 8px 16px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        display: inline-block;
+    }
+
+    .status-badge {
+        background-color: #7f8c8d;
+        color: white;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 0.9em;
+    }
+</style>
+
+<div class="card">
+    <div class="header">
+        <h2>📄 Check Meeting Requests</h2>
     </div>
-}
 
-@if (TempData["Error"] != null)
-{
-    <div class="alert alert-danger">
-        @TempData["Error"]
-    </div>
-}
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["Success"]
+        </div>
+    }
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["Error"]
+        </div>
+    }
 
-@if (Model.Any())
-{
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Teacher</th>
-                <th>Topic</th>
-                <th>Message</th>
-                <th>Time</th>
-                <th>Status</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
+    @if (Model.Any())
+    {
+        <div class="meeting-list">
+            <div class="list-header">
+                <span>👤 Student</span>
+                <span>📘 Topic</span>
+                <span>📅 Date</span>
+                <span>✅ Action</span>
+            </div>
+
             @foreach (var request in Model)
             {
-                <tr>
-                    <td>@request.StudentEmail</td>
-                    <td>@request.Topic</td>
-                    <td>@request.Message</td>
-                    <td>@request.MeetingTime.ToLocalTime()</td>
-                    <td>@request.Status</td>
-                    <td>
+                <div class="meeting-row">
+                    <span>@request.StudentEmail</span>
+                    <span>@request.Topic</span>
+                    <span>@request.MeetingTime.ToLocalTime().ToString("dd/MM/yyyy HH:mm:ss")</span>
+                    <span>
                         @if (request.Status == "Pending")
                         {
-                            <form asp-action="UpdateMeetingRequest" method="post" style="display:inline;">
+                            <form asp-action="UpdateMeetingRequest" method="post" style="display: inline;">
                                 <input type="hidden" name="id" value="@request.Id" />
-                                <button type="submit" name="status" value="Accepted" class="btn btn-success btn-sm">Accept</button>
-                                <button type="submit" name="status" value="Rejected" class="btn btn-danger btn-sm">Denied</button>
+                                <button type="submit" name="status" value="Accepted" class="btn accept">Accept</button>
+                                <button type="submit" name="status" value="Rejected" class="btn reject">Refuse</button>
                             </form>
                         }
                         else
                         {
-                            <span>Done</span>
+                            <span class="status-badge">@request.Status</span>
                         }
-                    </td>
-                </tr>
+                    </span>
+                </div>
             }
-        </tbody>
-    </table>
-}
-else
-{
-    <p>Không có yêu cầu họp nào.</p>
-}
+        </div>
+    }
+    else
+    {
+        <p class="no-request">No meeting requests.</p>
+    }
 
-<a asp-action="Dashboard" class="btn btn-primary">Return Dashboard</a>
+    <div class="action-buttons">
+        <a asp-action="Dashboard" class="dashboard-btn">Return Dashboard</a>
+    </div>
+</div>

@@ -181,13 +181,13 @@ public class CoursesController : Controller
 
         if (existingEnrollment != null)
         {
-            TempData["Message"] = "Bạn đã tham gia khóa học này rồi.";
+            TempData["Message"] = "You have already taken this course.";
             return RedirectToAction(nameof(Index));
         }
 
         if (existingRequest != null)
         {
-            TempData["Message"] = "Bạn đã gửi yêu cầu tham gia khóa học này. Vui lòng chờ giáo viên phê duyệt.";
+            TempData["Message"] = "You have submitted a request to join this course. Please wait for the teacher to approve.";
             return RedirectToAction(nameof(Index));
         }
 
@@ -209,14 +209,14 @@ public class CoursesController : Controller
         if (teacher != null && !string.IsNullOrEmpty(teacher.Email))
         {
             // Tạo nội dung email
-            string subject = $"Thông báo: Học viên yêu cầu tham gia khóa học {course.Name}";
+            string subject = $"Notice: Students request to join the course {course.Name}";
             string body = $@"
-        <h2>Thông báo từ hệ thống quản lý khóa học</h2>
-        <p>Xin chào {teacher.UserName},</p>
-        <p>Học viên <strong>{student.UserName}</strong> (Email: {student.Email}) vừa gửi yêu cầu tham gia khóa học <strong>{course.Name}</strong> của bạn.</p>
-        <p>Thời gian yêu cầu: {DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss")}</p>
-        <p>Vui lòng đăng nhập vào hệ thống để xem chi tiết và phê duyệt.</p>
-        <p>Trân trọng,<br>Hệ thống quản lý khóa học</p>
+        <h2>Notifications from the course management system</h2>
+        <p>Hello {teacher.UserName},</p>
+        <p>Student <strong>{student.UserName}</strong> (Email: {student.Email}) just sent a request to join the course<strong> {course.Name}</strong> your.</p>
+        <p>Time required: {DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss")}</p>
+        <p>Please log in to the system to view details and approve.</p>
+        <p>Best regards,<br>Course Management System</p>
         ";
 
             // Gửi email thông báo cho giáo viên
@@ -232,11 +232,11 @@ public class CoursesController : Controller
             }
 
             // Thêm thông báo SignalR
-            var message = $"Học viên {student.UserName} vừa gửi yêu cầu tham gia khóa học {course.Name} của bạn!";
+            var message = $"Student {student.UserName} just sent a request to join the course {course.Name} your!";
             await _hubContext.Clients.User(course.TeacherId).SendAsync("ReceiveNotification", message);
         }
 
-        TempData["Message"] = "Yêu cầu tham gia khóa học đã được gửi. Vui lòng chờ giáo viên phê duyệt.";
+        TempData["Message"] = "Your course request has been submitted. Please wait for instructor approval.";
         return RedirectToAction(nameof(Index));
     }
 
@@ -290,19 +290,19 @@ public class CoursesController : Controller
         var student = await _userManager.FindByIdAsync(request.StudentId);
         if (student != null && !string.IsNullOrEmpty(student.Email))
         {
-            string subject = $"Thông báo: Yêu cầu tham gia khóa học {request.Course.Name} đã được chấp nhận";
+            string subject = $"Notice: Request to join the course {request.Course.Name} has been accepted";
             string body = $@"
-        <h2>Thông báo từ hệ thống quản lý khóa học</h2>
-        <p>Xin chào {student.UserName},</p>
-        <p>Yêu cầu tham gia khóa học <strong>{request.Course.Name}</strong> của bạn đã được chấp nhận.</p>
-        <p>Bạn có thể bắt đầu học ngay bây giờ.</p>
-        <p>Trân trọng,<br>Hệ thống quản lý khóa học</p>
+        <h2>Notifications from the course management system</h2>
+        <p>Hello {student.UserName},</p>
+        <p>Course Requirements <strong>{request.Course.Name}</strong> Yours has been accepted.</p>
+        <p>You can start learning now.</p>
+        <p>Best regards,<br>Course Management System</p>
         ";
 
             await _emailService.SendEmailAsync(student.Email, subject, body);
 
             // Gửi thông báo realtime
-            var message = $"Yêu cầu tham gia khóa học {request.Course.Name} của bạn đã được chấp nhận!";
+            var message = $"Course requirements {request.Course.Name} yours has been accepted.!";
             await _hubContext.Clients.User(request.StudentId).SendAsync("ReceiveNotification", message);
         }
 
@@ -331,19 +331,19 @@ public class CoursesController : Controller
         var student = await _userManager.FindByIdAsync(request.StudentId);
         if (student != null && !string.IsNullOrEmpty(student.Email))
         {
-            string subject = $"Thông báo: Yêu cầu tham gia khóa học {request.Course.Name} đã bị từ chối";
+            string subject = $"Notice: Request to join the course {request.Course.Name} has been rejected";
             string body = $@"
-        <h2>Thông báo từ hệ thống quản lý khóa học</h2>
-        <p>Xin chào {student.UserName},</p>
-        <p>Yêu cầu tham gia khóa học <strong>{request.Course.Name}</strong> của bạn đã bị từ chối.</p>
-        <p>Vui lòng liên hệ với giáo viên để biết thêm chi tiết.</p>
-        <p>Trân trọng,<br>Hệ thống quản lý khóa học</p>
+        <h2>Notifications from the course management system</h2>
+        <p>Hello {student.UserName},</p>
+        <p>Course Requirements <strong>{request.Course.Name}</strong> your request has been rejected.</p>
+        <p>Please contact the teacher for more details.</p>
+        <p>Best regards,<br>Course Management System!</p>
         ";
 
             await _emailService.SendEmailAsync(student.Email, subject, body);
 
             // Gửi thông báo realtime
-            var message = $"Yêu cầu tham gia khóa học {request.Course.Name} của bạn đã bị từ chối.";
+            var message = $"Course Requirements {request.Course.Name} your request has been rejected.";
             await _hubContext.Clients.User(request.StudentId).SendAsync("ReceiveNotification", message);
         }
 

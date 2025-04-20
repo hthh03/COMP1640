@@ -14,7 +14,7 @@ builder.Services.AddSignalR();
 
 // Cấu hình DbContext
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("Pullcode")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("Fix")));
 
 // Cấu hình Identity
 builder.Services.AddIdentity<Users, IdentityRole>(options =>

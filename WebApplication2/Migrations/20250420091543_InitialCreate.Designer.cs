@@ -12,11 +12,7 @@ using WebApplication2.Data;
 namespace WebApplication2.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-<<<<<<<< HEAD:WebApplication2/Migrations/20250417043521_InitialCreate.Designer.cs
-    [Migration("20250417043521_InitialCreate")]
-========
-    [Migration("20250417044059_InitialCreate")]
->>>>>>>> d8100615db334eed13421c0fa068793966f372a7:WebApplication2/Migrations/20250417044059_InitialCreate.Designer.cs
+    [Migration("20250420091543_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
