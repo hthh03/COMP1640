@@ -2,151 +2,179 @@
 @{
     ViewData["Title"] = "Admin Dashboard";
 }
-<div class="container mt-4">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2><i class="fas fa-user-shield"></i> Admin Dashboard</h2>
-        <div>
-            <a asp-controller="Courses" asp-action="pendingapprovals" class="btn btn-primary me-2">
-                <i class="fas fa-check-circle"></i> Approve Courses
-            </a>
-            <a asp-action="CreateUser" class="btn btn-success me-2">
-                <i class="fas fa-user-plus"></i> Add New User
-            </a>
-            <a asp-controller="Student" asp-action="Dashboard" class="btn btn-info me-2">
-                <i class="fas fa-user-graduate"></i> View Student Dashboard
-            </a>
-            <a asp-controller="Teacher" asp-action="Dashboard" class="btn btn-warning">
-                <i class="fas fa-chalkboard-teacher"></i> View Teacher Dashboard
-            </a>
-        </div>
-    </div>
 
-
-    @if (TempData["Success"] != null)
-    {
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <i class="fas fa-check-circle"></i> @TempData["Success"]
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    }
-
-    @if (TempData["Error"] != null)
-    {
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <i class="fas fa-exclamation-circle"></i> @TempData["Error"]
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    }
-
-    <div class="card shadow-sm mb-4">
-        <div class="card-header bg-light">
-            <h5 class="mb-0"><i class="fas fa-filter"></i> Search & Filter</h5>
-        </div>
-        <div class="card-body">
-            <form asp-controller="Admin" asp-action="Index" method="get">
-                <div class="row g-3">
-                    <div class="col-md-5">
-                        <div class="input-group">
-                            <span class="input-group-text"><i class="fas fa-search"></i></span>
-                            <input type="text" name="searchString" class="form-control" placeholder="Search by name or email..." value="@ViewData["CurrentFilter"]" />
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="input-group">
-                            <span class="input-group-text"><i class="fas fa-user-tag"></i></span>
-                            <select name="roleFilter" class="form-select">
-                                <option value="">All Roles</option>
-                                @foreach (var role in (IEnumerable<string>)ViewData["Roles"])
-                                {
-                                    <option value="@role" selected="@(ViewData["CurrentRoleFilter"]?.ToString() == role)">@role</option>
-                                }
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <button type="submit" class="btn btn-primary w-100">
-                            <i class="fas fa-filter"></i> Apply Filters
-                        </button>
-                    </div>
-                </div>
-                <div class="mt-2">
-                    <a asp-controller="Admin" asp-action="Index" class="btn btn-outline-secondary">
-                        <i class="fas fa-undo"></i> Reset Filters
+<div class="d-flex">
+    <!-- Sidebar -->
+    <div class="sidebar bg-light border-end" style="width: 250px; min-height: 100vh;">
+        <div class="p-3">
+            <h5 class="sidebar-heading d-flex align-items-center px-2 mb-4">
+                <i class="fas fa-cogs me-2"></i> Admin Controls
+            </h5>
+            <ul class="nav nav-pills flex-column">
+                <li class="nav-item mb-2">
+                    <a class="nav-link active d-flex align-items-center" asp-controller="Admin" asp-action="Index">
+                        <i class="fas fa-tachometer-alt me-2"></i> Dashboard
                     </a>
-                </div>
-            </form>
+                </li>
+                <li class="nav-item mb-2">
+                    <a class="nav-link d-flex align-items-center" asp-controller="Courses" asp-action="pendingapprovals">
+                        <i class="fas fa-check-circle me-2"></i> Approve Courses
+                    </a>
+                </li>
+                <li class="nav-item mb-2">
+                    <a class="nav-link d-flex align-items-center" asp-action="CreateUser">
+                        <i class="fas fa-user-plus me-2"></i> Add New User
+                    </a>
+                </li>
+                <li class="nav-item mb-2">
+                    <a class="nav-link d-flex align-items-center" asp-controller="Student" asp-action="Dashboard">
+                        <i class="fas fa-user-graduate me-2"></i> View Student Dashboard
+                    </a>
+                </li>
+                <li class="nav-item mb-2">
+                    <a class="nav-link d-flex align-items-center" asp-controller="Teacher" asp-action="Dashboard">
+                        <i class="fas fa-chalkboard-teacher me-2"></i> View Teacher Dashboard
+                    </a>
+                </li>
+            </ul>
         </div>
     </div>
 
-    <div class="table-responsive">
-        <table class="table table-hover table-bordered text-center shadow-sm">
-            <thead class="table-dark">
-                <tr>
-                    <th><i class="fas fa-user"></i> Name</th>
-                    <th><i class="fas fa-envelope"></i> Email</th>
-                    <th><i class="fas fa-user-tag"></i> Role</th>
-                    <th><i class="fas fa-cogs"></i> Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @if (Model.Any())
-                {
-                    @foreach (var user in Model)
-                    {
-                        <tr>
-                            <td>@user.FullName</td>
-                            <td>@user.Email</td>
-                            <td>
-                                @if (user.Role == "Admin")
-                                {
-                                    <span class="badge bg-danger p-2">@user.Role</span>
-                                }
-                                else if (user.Role == "Teacher")
-                                {
-                                    <span class="badge bg-primary p-2">@user.Role</span>
-                                }
-                                else
-                                {
-                                    <span class="badge bg-info text-dark p-2">@user.Role</span>
-                                }
-                            </td>
-                            <td>
-                                <form method="post" asp-action="ChangeRole" class="d-inline">
-                                    <input type="hidden" name="userId" value="@user.Id" />
-                                    <div class="input-group mb-2">
-                                        <select name="newRole" class="form-select">
-                                            <option value="Student" selected="@(user.Role == "Student")">Student</option>
-                                            <option value="Teacher" selected="@(user.Role == "Teacher")">Teacher</option>
-                                            <option value="Admin" selected="@(user.Role == "Admin")">Admin</option>
-                                        </select>
-                                        <button type="submit" class="btn btn-primary">
-                                            <i class="fas fa-sync"></i> Update
-                                        </button>
-                                    </div>
-                                </form>
-                                <a asp-action="DeleteUser" asp-route-id="@user.Id" class="btn btn-danger w-100"
-                                   onclick="return confirm('Are you sure you want to delete this user?')">
-                                    <i class="fas fa-trash-alt"></i> Delete
-                                </a>
-                            </td>
-                        </tr>
-                    }
-                }
-                else
-                {
-                    <tr>
-                        <td colspan="4" class="text-center py-4">
-                            <div class="alert alert-info mb-0">
-                                <i class="fas fa-info-circle fa-lg"></i> No users found matching your criteria.
+    <!-- Main content -->
+    <div class="flex-grow-1 p-4">
+        <h2 class="mb-4 d-flex align-items-center">
+            <i class="fas fa-user-shield me-2"></i> Admin Dashboard
+        </h2>
+
+        @if (TempData["Success"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="fas fa-check-circle me-2"></i> @TempData["Success"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="fas fa-exclamation-circle me-2"></i> @TempData["Error"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-light d-flex align-items-center">
+                <i class="fas fa-filter me-2"></i>
+                <h5 class="mb-0">Search & Filter</h5>
+            </div>
+            <div class="card-body">
+                <form asp-controller="Admin" asp-action="Index" method="get">
+                    <div class="row g-3">
+                        <div class="col-md-5">
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-search"></i></span>
+                                <input type="text" name="searchString" class="form-control" placeholder="Search by name or email..." value="@ViewData["CurrentFilter"]" />
                             </div>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-user-tag"></i></span>
+                                <select name="roleFilter" class="form-select">
+                                    <option value="">All Roles</option>
+                                    @foreach (var role in (IEnumerable<string>)ViewData["Roles"])
+                                    {
+                                        <option value="@role" selected="@(ViewData["CurrentRoleFilter"]?.ToString() == role)">@role</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <button type="submit" class="btn btn-primary w-100 d-flex align-items-center justify-content-center">
+                                <i class="fas fa-filter me-2"></i> Apply Filters
+                            </button>
+                        </div>
+                    </div>
+                    <div class="mt-2">
+                        <a asp-controller="Admin" asp-action="Index" class="btn btn-outline-secondary d-flex align-items-center" style="width: fit-content;">
+                            <i class="fas fa-undo me-2"></i> Reset Filters
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="card shadow">
+            <div class="table-responsive">
+                <table class="table table-hover table-bordered text-center mb-0">
+                    <thead class="table-dark">
+                        <tr>
+                            <th><i class="fas fa-user me-2"></i>Name</th>
+                            <th><i class="fas fa-envelope me-2"></i>Email</th>
+                            <th><i class="fas fa-user-tag me-2"></i>Role</th>
+                            <th><i class="fas fa-cogs me-2"></i>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Any())
+                        {
+                            @foreach (var user in Model)
+                            {
+                                <tr>
+                                    <td class="align-middle">@user.FullName</td>
+                                    <td class="align-middle">@user.Email</td>
+                                    <td class="align-middle">
+                                        @if (user.Role == "Admin")
+                                        {
+                                            <span class="badge bg-danger p-2">@user.Role</span>
+                                        }
+                                        else if (user.Role == "Teacher")
+                                        {
+                                            <span class="badge bg-primary p-2">@user.Role</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-info text-dark p-2">@user.Role</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <div class="d-flex flex-column gap-2">
+                                            <div class="input-group">
+                                                <form method="post" asp-action="ChangeRole" class="d-flex w-100">
+                                                    <input type="hidden" name="userId" value="@user.Id" />
+                                                    <select name="newRole" class="form-select rounded-start">
+                                                        <option value="Student" selected="@(user.Role == "Student")">Student</option>
+                                                        <option value="Teacher" selected="@(user.Role == "Teacher")">Teacher</option>
+                                                        <option value="Admin" selected="@(user.Role == "Admin")">Admin</option>
+                                                    </select>
+                                                    <button type="submit" class="btn btn-primary d-flex align-items-center">
+                                                        <i class="fas fa-sync-alt me-2"></i> Update
+                                                    </button>
+                                                </form>
+                                            </div>
+                                            <a asp-action="DeleteUser" asp-route-id="@user.Id" class="btn btn-danger d-flex align-items-center justify-content-center"
+                                               onclick="return confirm('Are you sure you want to delete this user?')">
+                                                <i class="fas fa-trash-alt me-2"></i> Delete
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="4" class="text-center py-4">
+                                    <div class="alert alert-info mb-0">
+                                        <i class="fas fa-info-circle fa-lg me-2"></i> No users found matching your criteria.
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-    
-    <!-- Pagination can be added here if needed -->
 </div>
 
 <!-- Thêm Font Awesome để có icon đẹp -->
@@ -154,3 +182,67 @@
 
 <!-- Add Bootstrap 5 JS for alert dismissal -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<style>
+    /* Sidebar styles */
+    .sidebar {
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    }
+
+        .sidebar .nav-link {
+            color: #495057;
+            border-radius: 0.25rem;
+            padding: 0.75rem 1rem;
+        }
+
+            .sidebar .nav-link:hover {
+                background-color: rgba(13, 110, 253, 0.1);
+                color: #0d6efd;
+            }
+
+            .sidebar .nav-link.active {
+                background-color: #0d6efd;
+                color: white;
+            }
+
+    /* Table styles */
+    .table th {
+        font-weight: 600;
+    }
+
+    /* Button styles */
+    .btn i {
+        width: 16px;
+        text-align: center;
+    }
+
+    /* Card and form styles */
+    .card {
+        border-radius: 0.5rem;
+        border: none;
+    }
+
+    .card-header {
+        border-top-left-radius: 0.5rem !important;
+        border-top-right-radius: 0.5rem !important;
+    }
+
+    .form-control, .form-select, .btn {
+        border-radius: 0.25rem;
+    }
+
+    .input-group .form-control:not(:last-child) {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    .input-group .form-select:not(:last-child) {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    /* Badge styles */
+    .badge {
+        font-weight: 500;
+    }
+</style>
