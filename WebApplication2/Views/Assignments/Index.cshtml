@@ -4,10 +4,7 @@
 }
 <div class="assignment-container">
     <div class="assignment-header">
-        <h2><i class="fas fa-tasks"></i> Assignment List</h2>
-        <a asp-action="Create" class="btn-create">
-            <i class="fas fa-plus-circle"></i> Create New
-        </a>
+        <h2><i class="fas fa-tasks"></i> Assignment List</h2>      
     </div>
     <table class="table assignment-table">
         <thead>
@@ -26,15 +23,25 @@
                     <td>@Html.DisplayFor(modelItem => item.Description)</td>
                     <td>@item.DueDate.ToString("dd/MM/yyyy HH:mm")</td>
                     <td class="action-buttons">
-                        <a asp-action="ViewSubmissions" asp-controller="Submissions" asp-route-assignmentId="@item.Id" class="btn btn-sm btn-submissions">
-                            <i class="fas fa-file-alt"></i> Submissions
-                        </a>
+                        @if (User.IsInRole("Student"))
+                        {
+                            <a asp-action="Submit" asp-controller="Submissions" asp-route-assignmentId="@item.Id" class="btn btn-sm btn-edit">
+                                <i class="fas fa-upload"></i> Submit Assignment
+                            </a>
+                        }
+                        else if (User.IsInRole("Teacher"))
+                        {
+                            <a asp-action="ViewSubmissions" asp-controller="Submissions" asp-route-assignmentId="@item.Id" class="btn btn-sm btn-submissions">
+                                <i class="fas fa-file-alt"></i> Submissions
+                            </a>
+                        }
                     </td>
                 </tr>
             }
         </tbody>
     </table>
 </div>
+
 <style>
     .assignment-container {
         background-color: #fffaf6;
@@ -43,16 +50,19 @@
         box-shadow: 0 5px 15px rgba(0,0,0,0.05);
         margin-top: 30px;
     }
+
     .assignment-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
         margin-bottom: 20px;
     }
-    .assignment-header h2 {
-        margin: 0;
-        font-weight: 600;
-    }
+
+        .assignment-header h2 {
+            margin: 0;
+            font-weight: 600;
+        }
+
     .btn-create {
         background-color: #ff6f61;
         color: white;
@@ -61,20 +71,24 @@
         text-decoration: none;
         font-weight: bold;
     }
+
     .assignment-table {
         width: 100%;
         border-collapse: collapse;
     }
-    .assignment-table th,
-    .assignment-table td {
-        padding: 12px 14px;
-        text-align: left;
-        border-bottom: 1px solid #f1f1f1;
-    }
-    .assignment-table th {
-        background-color: #fff3ed;
-        font-weight: 600;
-    }
+
+        .assignment-table th,
+        .assignment-table td {
+            padding: 12px 14px;
+            text-align: left;
+            border-bottom: 1px solid #f1f1f1;
+        }
+
+        .assignment-table th {
+            background-color: #fff3ed;
+            font-weight: 600;
+        }
+
     .action-buttons .btn {
         margin-right: 8px;
         padding: 6px 10px;
@@ -83,21 +97,27 @@
         color: white;
         text-decoration: none;
     }
+
     .btn-edit {
         background-color: #3498db;
     }
+
     .btn-details {
         background-color: #9b59b6;
     }
+
     .btn-delete {
         background-color: #e74c3c;
     }
+
     .btn-submissions {
         background-color: #f39c12;
     }
+
     .btn:hover {
         opacity: 0.9;
     }
 </style>
+
 <!-- FontAwesome CDN if not already included -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />

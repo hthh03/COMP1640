@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using WebApplication2.Data;
 using WebApplication2.Models;
 
-[Authorize]
+
 public class AssignmentsController : Controller
 {
     private readonly AppDbContext _context;
