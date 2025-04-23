@@ -3,18 +3,18 @@
 }
 
 <div class="container mt-5">
-    <h2>Welcome to Admin Dashboard</h2>
-    <p>This is the dashboard for Administrators. You can manage users, roles, or other admin tasks here.</p>
+    <h2 class="dashboard-title">Welcome to Admin Dashboard</h2>
+    <p class="dashboard-intro">This is the dashboard for Administrators. You can manage users, roles, or other admin tasks here.</p>
 
     <!-- Button mở Modal -->
-    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createUserModal">
+    <button class="btn btn-primary create-user-btn" data-bs-toggle="modal" data-bs-target="#createUserModal">
         <i class="fas fa-user-plus"></i> Create New User
     </button>
 </div>
 
 <!-- Modal Nhập Thông Tin User -->
 <div class="modal fade" id="createUserModal" tabindex="-1" aria-labelledby="createUserModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="createUserModalLabel">Create New User</h5>
@@ -51,3 +51,181 @@
         </div>
     </div>
 </div>
+
+<!-- Thêm Font Awesome nếu chưa có -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<!-- Responsive CSS -->
+<style>
+    /* Styles cho tất cả màn hình */
+    .dashboard-title {
+        margin-bottom: 1rem;
+        font-weight: 600;
+    }
+
+    .dashboard-intro {
+        margin-bottom: 2rem;
+    }
+
+    .create-user-btn {
+        padding: 0.5rem 1.5rem;
+        font-weight: 500;
+    }
+
+    /* Desktop (màn hình lớn) > 1200px */
+    @@media (min-width: 1200px) {
+        .container
+
+    {
+        max-width: 1140px;
+    }
+
+    .modal-dialog {
+        max-width: 500px;
+    }
+
+    }
+
+    /* Desktop nhỏ và tablet lớn (992px - 1199.98px) */
+    @@media (max-width: 1199.98px) {
+        .container
+
+    {
+        max-width: 960px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    }
+
+    /* Tablet (768px - 991.98px) */
+    @@media (max-width: 991.98px) {
+        .container
+
+    {
+        max-width: 720px;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .dashboard-title {
+        font-size: 1.75rem;
+    }
+
+    .modal-dialog {
+        max-width: 90%;
+        margin: 1.75rem auto;
+    }
+
+    }
+
+    /* Tablet nhỏ và Mobile lớn (576px - 767.98px) */
+    @@media (max-width: 767.98px) {
+        .container
+
+    {
+        max-width: 540px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .mt-5 {
+        margin-top: 2.5rem !important;
+    }
+
+    .dashboard-title {
+        font-size: 1.5rem;
+    }
+
+    .dashboard-intro {
+        font-size: 0.95rem;
+        margin-bottom: 1.5rem;
+    }
+
+    }
+
+    /* Mobile (< 576px) */
+    @@media (max-width: 575.98px) {
+        .container
+
+    {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .mt-5 {
+        margin-top: 2rem !important;
+    }
+
+    .dashboard-title {
+        font-size: 1.3rem;
+        text-align: center;
+    }
+
+    .dashboard-intro {
+        font-size: 0.9rem;
+        text-align: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .create-user-btn {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+
+    .modal-dialog {
+        margin: 0.5rem;
+    }
+
+    .modal-content {
+        border-radius: 0.5rem;
+    }
+
+    .modal-header {
+        padding: 0.75rem 1rem;
+    }
+
+    .modal-body {
+        padding: 1rem;
+    }
+
+    .modal-footer {
+        padding: 0.75rem 1rem;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+        .modal-footer button {
+            width: 100%;
+            margin: 0 !important;
+        }
+
+    }
+
+    /* Mobile nhỏ (< 400px) */
+    @@media (max-width: 399.98px) {
+        .dashboard-title
+
+    {
+        font-size: 1.2rem;
+    }
+
+    .dashboard-intro {
+        font-size: 0.85rem;
+    }
+
+    .modal-title {
+        font-size: 1.1rem;
+    }
+
+    .form-label {
+        font-size: 0.9rem;
+    }
+
+    .form-control, .form-select, .btn {
+        font-size: 0.9rem;
+    }
+
+    }
+</style>

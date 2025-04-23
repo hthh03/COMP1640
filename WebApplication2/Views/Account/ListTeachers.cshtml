@@ -32,6 +32,170 @@
     .shadow-sm {
         box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
     }
+
+    /* Responsive styles */
+    @@media (max-width: 1199.98px) {
+        .container
+
+    {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    }
+
+    /* Tablet styles (768px - 991.98px) */
+    @@media (max-width: 991.98px) {
+        h2
+
+    {
+        font-size: 1.7rem;
+    }
+
+    .table th, .table td {
+        padding: 0.75rem;
+    }
+
+    }
+
+    /* Small tablet styles (576px - 767.98px) */
+    @@media (max-width: 767.98px) {
+        h2
+
+    {
+        font-size: 1.5rem;
+    }
+
+    .container {
+        max-width: 100%;
+    }
+
+    .mt-4 {
+        margin-top: 1rem !important;
+    }
+
+    .mb-4 {
+        margin-bottom: 1rem !important;
+    }
+
+    .table th, .table td {
+        padding: 0.5rem;
+    }
+
+    }
+
+    /* Mobile styles (< 576px) */
+    @@media (max-width: 575.98px) {
+        h2
+
+    {
+        font-size: 1.3rem;
+    }
+
+    .container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .table-responsive {
+        overflow-x: hidden;
+    }
+
+    .mobile-cards .table {
+        display: block;
+        width: 100%;
+    }
+
+    .mobile-cards thead {
+        display: block;
+    }
+
+        .mobile-cards thead tr {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: #fff7ed;
+            border-radius: 8px 8px 0 0;
+        }
+
+    .mobile-cards th {
+        flex: 1;
+        text-align: center;
+        font-size: 0.9rem;
+        padding: 5px;
+        font-weight: 600;
+    }
+
+    .mobile-cards tbody {
+        display: block;
+    }
+
+    .mobile-cards tr {
+        display: block;
+        margin-bottom: 15px;
+        border-radius: 8px;
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+        padding: 10px;
+        background-color: #fff;
+    }
+
+    .mobile-cards td {
+        display: flex;
+        align-items: center;
+        text-align: left !important;
+        padding: 8px 12px !important;
+        border: none !important;
+        border-bottom: 1px solid #eee !important;
+    }
+
+        .mobile-cards td:last-child {
+            border-bottom: none !important;
+        }
+
+        .mobile-cards td:before {
+            content: attr(data-title);
+            font-weight: 600;
+            display: inline-block;
+            min-width: 100px;
+            margin-right: 10px;
+        }
+
+    .mobile-cards .badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    }
+
+    /* Extra small devices (< 400px) */
+    @@media (max-width: 399.98px) {
+        h2
+
+    {
+        font-size: 1.2rem;
+    }
+
+    .badge {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.75rem;
+    }
+
+    .mobile-cards th {
+        font-size: 0.8rem;
+        padding: 3px;
+    }
+
+    .mobile-cards td:before {
+        min-width: 80px;
+    }
+
+    .mobile-cards td {
+        font-size: 0.85rem;
+    }
+
+    }
 </style>
 
 <div class="container mt-4">
@@ -57,9 +221,9 @@
                     @foreach (var teacher in Model)
                     {
                         <tr class="bg-white border-bottom">
-                            <td><i class="bi bi-person-vcard me-1 text-orange"></i>@teacher.FullName</td>
-                            <td>@teacher.Email</td>
-                            <td>
+                            <td data-title="Full Name"><i class="bi bi-person-vcard me-1 text-orange"></i>@teacher.FullName</td>
+                            <td data-title="Email">@teacher.Email</td>
+                            <td data-title="Username">
                                 <span class="badge bg-light-orange text-orange rounded-pill">
                                     @teacher.UserName
                                 </span>
@@ -71,3 +235,25 @@
         </div>
     </div>
 </div>
+
+<script>
+    // Function to check if screen width is mobile and apply mobile card styling
+    function checkMobileView() {
+        const tableResponsive = document.querySelector('.table-responsive');
+        if (window.innerWidth < 576) {
+            tableResponsive.classList.add('mobile-cards');
+        } else {
+            tableResponsive.classList.remove('mobile-cards');
+        }
+    }
+
+    // Run on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        checkMobileView();
+    });
+
+    // Run when window resizes
+    window.addEventListener('resize', function() {
+        checkMobileView();
+    });
+</script>

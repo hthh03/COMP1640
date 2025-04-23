@@ -1,27 +1,162 @@
 ﻿@model IEnumerable<WebApplication2.Models.Users>
+
 @{
     ViewData["Title"] = "Admin Dashboard";
 }
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+    /* Custom styles for the horizontal sidebar */
+    .sidebar-horizontal {
+        background-color: #f8f9fa;
+        padding: 10px 0;
+        margin-bottom: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        overflow-x: auto;
+        white-space: nowrap;
+        display: flex;
+        align-items: center;
+        -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    }
+
+        .sidebar-horizontal .nav-link {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 15px;
+            margin: 0 5px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #ffffff;
+            text-decoration: none;
+            transition: background-color 0.2s;
+        }
+
+            .sidebar-horizontal .nav-link i {
+                margin-right: 8px;
+            }
+
+        .sidebar-horizontal .approve-courses {
+            background-color: #28a745; /* Green for approval */
+        }
+
+            .sidebar-horizontal .approve-courses:hover {
+                background-color: #218838; /* Darker green */
+            }
+
+        .sidebar-horizontal .add-user {
+            background-color: #007bff; /* Blue for primary action */
+        }
+
+            .sidebar-horizontal .add-user:hover {
+                background-color: #0056b3; /* Darker blue */
+            }
+
+        .sidebar-horizontal .student-dashboard {
+            background-color: #17a2b8; /* Teal for student */
+        }
+
+            .sidebar-horizontal .student-dashboard:hover {
+                background-color: #138496; /* Darker teal */
+            }
+
+        .sidebar-horizontal .teacher-dashboard {
+            background-color: #6f42c1; /* Purple for teacher */
+        }
+
+            .sidebar-horizontal .teacher-dashboard:hover {
+                background-color: #5a32a3; /* Darker purple */
+            }
+
+        /* Hide scrollbar but keep functionality */
+        .sidebar-horizontal::-webkit-scrollbar {
+            display: none;
+        }
+
+    .sidebar-horizontal {
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+    }
+
+    /* Responsive adjustments */
+    @@media (max-width: 575.98px) {
+        .sidebar-horizontal
+
+    {
+        padding: 8px 0;
+    }
+
+    .sidebar-horizontal .nav-link {
+        padding: 6px 12px;
+        font-size: 0.85rem;
+        margin: 0 3px;
+    }
+
+        .sidebar-horizontal .nav-link i {
+            margin-right: 5px;
+        }
+
+    h2 {
+        font-size: 1.3rem;
+    }
+
+    .container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .table-responsive {
+        overflow-x: auto;
+    }
+
+    .table {
+        min-width: 600px; /* Ensure table doesn't collapse too much */
+    }
+
+    }
+
+    /* Extra small devices */
+    @@media (max-width: 399.98px) {
+        .sidebar-horizontal .nav-link
+
+    {
+        font-size: 0.8rem;
+        padding: 5px 10px;
+    }
+
+    h2 {
+        font-size: 1.2rem;
+    }
+
+    }
+</style>
+
 <div class="container mt-4">
+    <!-- Header -->
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h2><i class="fas fa-user-shield"></i> Admin Dashboard</h2>
-        <div>
-            <a asp-controller="Courses" asp-action="pendingapprovals" class="btn btn-primary me-2">
-                <i class="fas fa-check-circle"></i> Approve Courses
-            </a>
-            <a asp-action="CreateUser" class="btn btn-success me-2">
-                <i class="fas fa-user-plus"></i> Add New User
-            </a>
-            <a asp-controller="Student" asp-action="Dashboard" class="btn btn-info me-2">
-                <i class="fas fa-user-graduate"></i> View Student Dashboard
-            </a>
-            <a asp-controller="Teacher" asp-action="Dashboard" class="btn btn-warning">
-                <i class="fas fa-chalkboard-teacher"></i> View Teacher Dashboard
-            </a>
-        </div>
     </div>
 
+    <!-- Horizontal Sidebar -->
+    <nav class="sidebar-horizontal">
+        <a asp-controller="Courses" asp-action="pendingapprovals" class="nav-link approve-courses">
+            <i class="fas fa-check-circle"></i> Approve Courses
+        </a>
+        <a asp-action="CreateUser" class="nav-link add-user">
+            <i class="fas fa-user-plus"></i> Add New User
+        </a>
+        <a asp-controller="Student" asp-action="Dashboard" class="nav-link student-dashboard">
+            <i class="fas fa-user-graduate"></i> View Student Dashboard
+        </a>
+        <a asp-controller="Teacher" asp-action="Dashboard" class="nav-link teacher-dashboard">
+            <i class="fas fa-chalkboard-teacher"></i> View Teacher Dashboard
+        </a>
+    </nav>
 
+    <!-- Alerts -->
     @if (TempData["Success"] != null)
     {
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -38,6 +173,7 @@
         </div>
     }
 
+    <!-- Search & Filter Card -->
     <div class="card shadow-sm mb-4">
         <div class="card-header bg-light">
             <h5 class="mb-0"><i class="fas fa-filter"></i> Search & Filter</h5>
@@ -78,6 +214,7 @@
         </div>
     </div>
 
+    <!-- User Table -->
     <div class="table-responsive">
         <table class="table table-hover table-bordered text-center shadow-sm">
             <thead class="table-dark">
@@ -145,12 +282,6 @@
             </tbody>
         </table>
     </div>
-    
-    <!-- Pagination can be added here if needed -->
 </div>
 
-<!-- Thêm Font Awesome để có icon đẹp -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-
-<!-- Add Bootstrap 5 JS for alert dismissal -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>

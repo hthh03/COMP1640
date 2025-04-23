@@ -4,11 +4,11 @@
 @{
     ViewData["Title"] = "Register";
     Layout = "~/Views/Shared/_AccountLayout.cshtml";
-   
+
 }
 
-<div class="d-flex justify-content-center align-items-center min-vh-100" 
-style="background: linear-gradient(to right, #f6d365, #fda085); position: relative;">
+<div class="d-flex justify-content-center align-items-center min-vh-100"
+     style="background: linear-gradient(to right, #f6d365, #fda085); position: relative;">
 
     <!-- Icon left -->
     <img src="~/image/saly3.png" asp-append-version="true" class="position-absolute start-0 top-50 translate-middle-y d-none d-md-block d-lg-block"
@@ -49,9 +49,9 @@ style="background: linear-gradient(to right, #f6d365, #fda085); position: relati
             <div class="mb-3 text-start">
                 <div class="position-relative">
                     <input asp-for="Password" type="password" id="password" class="form-control rounded-pill shadow-sm"
-                           placeholder="Password" style="font-size: 14px; border: 1px solid #ccc;" required/>
-                    <span class="position-absolute end-0 top-50 translate-middle-y me-3" 
-                    onclick="togglePassword('password', 'toggleIcon1')" style="cursor: pointer;">
+                           placeholder="Password" style="font-size: 14px; border: 1px solid #ccc;" required />
+                    <span class="position-absolute end-0 top-50 translate-middle-y me-3"
+                          onclick="togglePassword('password', 'toggleIcon1')" style="cursor: pointer;">
                         <i id="toggleIcon1" class="bi bi-eye-slash"></i>
                     </span>
                 </div>
@@ -63,8 +63,8 @@ style="background: linear-gradient(to right, #f6d365, #fda085); position: relati
                 <div class="position-relative">
                     <input asp-for="ConfirmPassword" type="password" id="confirmPassword" class="form-control rounded-pill shadow-sm"
                            placeholder="Confirm Password" style="font-size: 14px; border: 1px solid #ccc;" required />
-                    <span class="position-absolute end-0 top-50 translate-middle-y me-3" 
-                    onclick="togglePassword('confirmPassword', 'toggleIcon2')" style="cursor: pointer;">
+                    <span class="position-absolute end-0 top-50 translate-middle-y me-3"
+                          onclick="togglePassword('confirmPassword', 'toggleIcon2')" style="cursor: pointer;">
                         <i id="toggleIcon2" class="bi bi-eye-slash"></i>
                     </span>
                 </div>
@@ -88,10 +88,11 @@ style="background: linear-gradient(to right, #f6d365, #fda085); position: relati
             <!-- Submit Button -->
             <button type="submit" class="btn w-100 p-2 fw-bold rounded-pill shadow-sm" style="background-color: #ff8c00; color: white;">
                 Sign Up
-            </button>          
+            </button>
 
             <!-- Login Link -->
-            <p class="mt-3 text-dark"> Have an account?
+            <p class="mt-3 text-dark">
+                Have an account?
                 <a asp-controller="Account" asp-action="Login" class="text-decoration-none fw-medium" style="color: #ff8c00;"> Sign In</a>
             </p>
 
@@ -105,6 +106,164 @@ style="background: linear-gradient(to right, #f6d365, #fda085); position: relati
 
     </div>
 </div>
+
+<!-- Responsive CSS -->
+<style>
+    /* Large Desktop (>1200px): default layout */
+
+    /* Desktop (992px - 1199.98px) */
+    @@media (max-width: 1199.98px) {
+        /* Adjust side images */
+        img .position-absolute.start-0
+
+    {
+        width: 250px !important;
+        height: 250px !important;
+        left: 5% !important;
+    }
+
+    img.position-absolute.end-0 {
+        width: 300px !important;
+        height: 300px !important;
+        right: 5% !important;
+    }
+
+    }
+
+    /* Tablet (768px - 991.98px) */
+    @@media (max-width: 991.98px) {
+        /* Adjust side images */
+        img .position-absolute.start-0
+
+    {
+        width: 200px !important;
+        height: 200px !important;
+        left: 2% !important;
+    }
+
+    img.position-absolute.end-0 {
+        width: 240px !important;
+        height: 240px !important;
+        right: 2% !important;
+    }
+
+    /* Adjust form box */
+    .account-box {
+        max-width: 380px !important;
+        padding: 20px !important;
+    }
+
+    }
+
+    /* Small tablet (576px - 767.98px) */
+    @@media (max-width: 767.98px) {
+        /* Side images are hidden at this breakpoint by the d-md-block class */
+        /* Center the form better */
+        .account-box
+
+    {
+        max-width: 90% !important;
+        padding: 20px !important;
+    }
+
+    h2.fw-bold.text-dark.fs-4 {
+        font-size: 1.3rem !important;
+    }
+
+    h3.fw-bold.fs-5.mb-3 {
+        font-size: 1.1rem !important;
+    }
+
+    }
+
+    /* Mobile (< 576px) */
+    @@media (max-width: 575.98px) {
+        /* Make background lighter for better readability */
+        div .d-flex.justify-content-center.align-items-center.min-vh-100
+
+    {
+        background: linear-gradient(to right, #f8e6b5, #fec5b5) !important;
+    }
+
+    /* Full width form with less padding */
+    .account-box {
+        max-width: 92% !important;
+        padding: 16px !important;
+        border-radius: 12px !important;
+    }
+
+    /* Reduce text sizes */
+    h2.fw-bold.text-dark.fs-4 {
+        font-size: 1.2rem !important;
+    }
+
+    h3.fw-bold.fs-5.mb-3 {
+        font-size: 1rem !important;
+    }
+
+    /* Adjust form elements */
+    .form-control, .form-select {
+        font-size: 13px !important;
+    }
+
+    .input-group {
+        flex-wrap: nowrap !important;
+    }
+
+    /* Adjust home button */
+    .btn-light.btn-sm {
+        font-size: 0.7rem !important;
+    }
+
+    }
+
+    /* Extra small mobile (< 400px) */
+    @@media (max-width: 399.98px) {
+        .account-box
+
+    {
+        max-width: 95% !important;
+        padding: 12px !important;
+    }
+
+    h2.fw-bold.text-dark.fs-4 {
+        font-size: 1.1rem !important;
+        margin-bottom: 0.25rem !important;
+    }
+
+    h3.fw-bold.fs-5.mb-3 {
+        font-size: 0.9rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+
+    /* Reduce vertical spacing */
+    .mb-3 {
+        margin-bottom: 0.75rem !important;
+    }
+
+    /* Optimize eye icon position */
+    .position-absolute.end-0.top-50.translate-middle-y.me-3 {
+        margin-right: 0.5rem !important;
+    }
+
+    /* Adjust button and spacing */
+    button[type="submit"] {
+        padding: 6px !important;
+        font-size: 0.9rem !important;
+    }
+
+    p.mt-3.text-dark {
+        margin-top: 0.5rem !important;
+        font-size: 0.8rem !important;
+    }
+
+    .text-center.mt-3 {
+        margin-top: 0.5rem !important;
+    }
+
+    }
+</style>
+
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial.cshtml");
@@ -120,8 +279,6 @@ style="background: linear-gradient(to right, #f6d365, #fda085); position: relati
                 input.type = "password";
                 icon.classList.replace("bi-eye", "bi-eye-slash");
             }
-        }       
+        }
     </script>
-
-    
 }
